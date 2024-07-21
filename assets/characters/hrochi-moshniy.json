@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				7,
+				110
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Hordy idle",
+			"indices": []
+		},
+		{
+			"offsets": [
+				109,
+				142
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Hordy swag left"
+		},
+		{
+			"offsets": [
+				-10,
+				114
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Hordy swag right"
+		},
+		{
+			"offsets": [
+				62,
+				140
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Hordy swag down"
+		},
+		{
+			"offsets": [
+				110,
+				102
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Hordy swag up"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/Hordy_dr",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "horchi",
+	"flip_x": false,
+	"healthbar_colors": [
+		0,
+		141,
+		11
+	],
+	"camera_position": [
+		-160,
+		-180
+	],
+	"sing_duration": 4,
+	"scale": 1
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="chars.png" width="1574" height="1557">
+	<SubTexture name="hodry" x="899" y="2" width="673" height="850" frameX="-1" frameY="-4" frameWidth="679" frameHeight="854"/>
+	<SubTexture name="melol" x="899" y="854" width="641" height="546" rotated="true" frameX="-0" frameY="-0" frameWidth="546" frameHeight="641"/>
+	<SubTexture name="nest" x="2" y="2" width="895" height="930" frameX="-1" frameY="-1" frameWidth="896" frameHeight="931"/>
+	<SubTexture name="zovtan" x="2" y="934" width="759" height="621" rotated="true" frameX="-0" frameY="-0" frameWidth="621" frameHeight="759"/>
+</TextureAtlas>

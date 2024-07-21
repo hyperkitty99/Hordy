@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with Funkin Packer v0.1.3 https://neeeoo.github.io/funkin-packer/
+-->
+<TextureAtlas imagePath="Hordet_e_moe_glasses.png" width="3623" height="3433">
+	<SubTexture name="Hordy glass down0000" x="2864" y="2546" width="542" height="885" frameX="-0" frameY="-0" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0001" x="2864" y="2546" width="542" height="885" frameX="-0" frameY="-0" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0002" x="1998" y="1678" width="531" height="853" frameX="-12" frameY="-34" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0003" x="1998" y="1678" width="531" height="853" frameX="-12" frameY="-34" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0004" x="485" y="792" width="529" height="837" frameX="-16" frameY="-50" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0005" x="485" y="792" width="529" height="837" frameX="-16" frameY="-50" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0006" x="3036" y="2" width="529" height="835" frameX="-16" frameY="-52" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0007" x="3036" y="2" width="529" height="835" frameX="-16" frameY="-52" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0008" x="2013" y="837" width="529" height="839" frameX="-16" frameY="-48" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0009" x="2013" y="837" width="529" height="839" frameX="-16" frameY="-48" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0010" x="2013" y="837" width="529" height="839" frameX="-16" frameY="-48" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0011" x="2013" y="837" width="529" height="839" frameX="-16" frameY="-48" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0012" x="2013" y="837" width="529" height="839" frameX="-16" frameY="-48" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0013" x="2013" y="837" width="529" height="839" frameX="-16" frameY="-48" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass down0014" x="2013" y="837" width="529" height="839" frameX="-16" frameY="-48" frameWidth="546" frameHeight="887"/>
+	<SubTexture name="Hordy glass idle0000" x="2" y="2" width="519" height="781" frameX="-0" frameY="-69" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0001" x="2" y="2" width="519" height="781" frameX="-0" frameY="-69" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0002" x="523" y="2" width="521" height="788" frameX="-1" frameY="-62" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0003" x="523" y="2" width="521" height="788" frameX="-1" frameY="-62" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0004" x="1046" y="2" width="510" height="798" frameX="-4" frameY="-52" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0005" x="1046" y="2" width="510" height="798" frameX="-4" frameY="-52" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0006" x="479" y="1631" width="509" height="849" frameX="-6" frameY="-1" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0007" x="479" y="1631" width="509" height="849" frameX="-6" frameY="-1" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0008" x="1016" y="802" width="513" height="837" frameX="-4" frameY="-13" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0009" x="1016" y="802" width="513" height="837" frameX="-4" frameY="-13" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0010" x="1558" y="2" width="512" height="831" frameX="-4" frameY="-19" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0011" x="1558" y="2" width="512" height="831" frameX="-4" frameY="-19" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0012" x="1558" y="2" width="512" height="831" frameX="-4" frameY="-19" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0013" x="1558" y="2" width="512" height="831" frameX="-4" frameY="-19" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass idle0014" x="1558" y="2" width="512" height="831" frameX="-4" frameY="-19" frameWidth="522" frameHeight="850"/>
+	<SubTexture name="Hordy glass left0000" x="2314" y="2544" width="548" height="881" frameX="-0" frameY="-1" frameWidth="582" frameHeight="882"/>
+	<SubTexture name="Hordy glass left0001" x="2314" y="2544" width="548" height="881" frameX="-0" frameY="-1" frameWidth="582" frameHeight="882"/>
+	<SubTexture name="Hordy glass left0002" x="1739" y="2533" width="573" height="875" frameX="-4" frameY="-7" frameWidth="582" frameHeight="882"/>
+	<SubTexture name="Hordy glass left0003" x="1739" y="2533" width="573" height="875" frameX="-4" frameY="-7" frameWidth="582" frameHeight="882"/>
+	<SubTexture name="Hordy glass left0004" x="1160" y="2530" width="577" height="870" frameX="-5" frameY="-12" frameWidth="582" frameHeight="882"/>
+	<SubTexture name="Hordy glass left0005" x="1160" y="2530" width="577" height="870" frameX="-5" frameY="-12" frameWidth="582" frameHeight="882"/>
+	<SubTexture name="Hordy glass left0006" x="2" y="2482" width="577" height="858" frameX="-5" frameY="-24" frameWidth="582" frameHeight="882"/>
+	<SubTexture name="Hordy glass left0007" x="2" y="2482" width="577" height="858" frameX="-5" frameY="-24" frameWidth="582" frameHeight="882"/>
+	<SubTexture name="Hordy glass left0008" x="3044" y="1688" width="577" height="856" frameX="-5" frameY="-26" frameWidth="582" frameHeight="882"/>
+	<SubTexture name="Hordy glass left0009" x="3044" y="1688" width="577" height="856" frameX="-5" frameY="-26" frameWidth="582" frameHeight="882"/>
+	<SubTexture name="Hordy glass left0010" x="581" y="2492" width="577" height="858" frameX="-5" frameY="-24" frameWidth="582" frameHeight="882"/>
+	<SubTexture name="Hordy glass left0011" x="581" y="2492" width="577" height="858" frameX="-5" frameY="-24" frameWidth="582" frameHeight="882"/>
+	<SubTexture name="Hordy glass right0000" x="2531" y="1687" width="511" height="855" frameX="-2" frameY="-0" frameWidth="514" frameHeight="855"/>
+	<SubTexture name="Hordy glass right0001" x="2531" y="1687" width="511" height="855" frameX="-2" frameY="-0" frameWidth="514" frameHeight="855"/>
+	<SubTexture name="Hordy glass right0002" x="1494" y="1674" width="502" height="854" frameX="-0" frameY="-1" frameWidth="514" frameHeight="855"/>
+	<SubTexture name="Hordy glass right0003" x="1494" y="1674" width="502" height="854" frameX="-0" frameY="-1" frameWidth="514" frameHeight="855"/>
+	<SubTexture name="Hordy glass right0004" x="990" y="1641" width="502" height="849" frameX="-0" frameY="-6" frameWidth="514" frameHeight="855"/>
+	<SubTexture name="Hordy glass right0005" x="990" y="1641" width="502" height="849" frameX="-0" frameY="-6" frameWidth="514" frameHeight="855"/>
+	<SubTexture name="Hordy glass right0006" x="2544" y="839" width="502" height="846" frameX="-0" frameY="-9" frameWidth="514" frameHeight="855"/>
+	<SubTexture name="Hordy glass right0007" x="2544" y="839" width="502" height="846" frameX="-0" frameY="-9" frameWidth="514" frameHeight="855"/>
+	<SubTexture name="Hordy glass right0008" x="3048" y="839" width="502" height="847" frameX="-0" frameY="-8" frameWidth="514" frameHeight="855"/>
+	<SubTexture name="Hordy glass right0009" x="3048" y="839" width="502" height="847" frameX="-0" frameY="-8" frameWidth="514" frameHeight="855"/>
+	<SubTexture name="Hordy glass right0010" x="3048" y="839" width="502" height="847" frameX="-0" frameY="-8" frameWidth="514" frameHeight="855"/>
+	<SubTexture name="Hordy glass right0011" x="3048" y="839" width="502" height="847" frameX="-0" frameY="-8" frameWidth="514" frameHeight="855"/>
+	<SubTexture name="Hordy glass up0000" x="2" y="1623" width="475" height="854" frameX="-0" frameY="-0" frameWidth="485" frameHeight="854"/>
+	<SubTexture name="Hordy glass up0001" x="2" y="1623" width="475" height="854" frameX="-0" frameY="-0" frameWidth="485" frameHeight="854"/>
+	<SubTexture name="Hordy glass up0002" x="2" y="785" width="481" height="836" frameX="-4" frameY="-16" frameWidth="485" frameHeight="854"/>
+	<SubTexture name="Hordy glass up0003" x="2" y="785" width="481" height="836" frameX="-4" frameY="-16" frameWidth="485" frameHeight="854"/>
+	<SubTexture name="Hordy glass up0004" x="2072" y="2" width="480" height="833" frameX="-4" frameY="-19" frameWidth="485" frameHeight="854"/>
+	<SubTexture name="Hordy glass up0005" x="2072" y="2" width="480" height="833" frameX="-4" frameY="-19" frameWidth="485" frameHeight="854"/>
+	<SubTexture name="Hordy glass up0006" x="2554" y="2" width="480" height="834" frameX="-4" frameY="-18" frameWidth="485" frameHeight="854"/>
+	<SubTexture name="Hordy glass up0007" x="2554" y="2" width="480" height="834" frameX="-4" frameY="-18" frameWidth="485" frameHeight="854"/>
+	<SubTexture name="Hordy glass up0008" x="1531" y="835" width="480" height="837" frameX="-4" frameY="-15" frameWidth="485" frameHeight="854"/>
+	<SubTexture name="Hordy glass up0009" x="1531" y="835" width="480" height="837" frameX="-4" frameY="-15" frameWidth="485" frameHeight="854"/>
+	<SubTexture name="Hordy glass up0010" x="1531" y="835" width="480" height="837" frameX="-4" frameY="-15" frameWidth="485" frameHeight="854"/>
+	<SubTexture name="Hordy glass up0011" x="1531" y="835" width="480" height="837" frameX="-4" frameY="-15" frameWidth="485" frameHeight="854"/>
+</TextureAtlas>

@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				7,
+				110
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": false,
+			"name": "Hordy glass idle"
+		},
+		{
+			"offsets": [
+				52,
+				142
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT",
+			"loop": false,
+			"name": "Hordy glass left"
+		},
+		{
+			"offsets": [
+				4,
+				112
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "Hordy glass right"
+		},
+		{
+			"offsets": [
+				71,
+				138
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singDOWN",
+			"loop": false,
+			"name": "Hordy glass down"
+		},
+		{
+			"offsets": [
+				-3,
+				103
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singUP",
+			"loop": false,
+			"name": "Hordy glass up"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/Hordet_e_moe_glasses",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "horchi",
+	"flip_x": false,
+	"healthbar_colors": [
+		0,
+		141,
+		11
+	],
+	"camera_position": [
+		-160,
+		-180
+	],
+	"sing_duration": 4,
+	"scale": 1
+}

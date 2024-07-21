@@ -1,0 +1,50 @@
+{
+	"storyName": "happy birthday hordy and nestepasha!!1!",
+	"difficulties": "normal, hard",
+	"hideFreeplay": false,
+	"weekBackground": "",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"weekBefore": "tutorial",
+	"startUnlocked": true,
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"songs": [
+		[
+			"Ungrowing",
+			"horchi",
+			[
+				0,
+				146,
+				11
+			]
+		],
+		[
+			"Mind-Blown",
+			"bombguy",
+			[
+				111,
+				0,
+				189
+			]
+		],
+		[
+			"Completed",
+			"dvoe",
+			[
+				255,
+				255,
+				255
+			]
+		]
+	],
+	"hideStoryMode": false,
+	"weekName": "bday",
+	"hiddenUntilUnlocked": false
+}

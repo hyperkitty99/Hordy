@@ -1,0 +1,80 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				110
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "Lisa idle"
+		},
+		{
+			"offsets": [
+				107,
+				82
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Lisa left"
+		},
+		{
+			"offsets": [
+				-9,
+				108
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Lisa right"
+		},
+		{
+			"offsets": [
+				25,
+				36
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Lisa down"
+		},
+		{
+			"offsets": [
+				20,
+				117
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Lisa up"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/Lisa",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "ready4sex",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		219,
+		77
+	],
+	"camera_position": [
+		-140,
+		0
+	],
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": false
+}

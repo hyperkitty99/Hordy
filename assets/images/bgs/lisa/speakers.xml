@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="speakers.png" width="3323" height="4392">
+	<SubTexture name="speakers0000" x="2" y="2890" width="3319" height="1500" rotated="true" frameX="-0" frameY="-9" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0001" x="2" y="2890" width="3319" height="1500" rotated="true" frameX="-0" frameY="-9" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0002" x="2" y="2" width="3319" height="1431" rotated="true" frameX="-96" frameY="-0" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0003" x="2" y="2" width="3319" height="1431" rotated="true" frameX="-96" frameY="-0" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0004" x="2" y="1435" width="3319" height="1453" rotated="true" frameX="-74" frameY="-0" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0005" x="2" y="1435" width="3319" height="1453" rotated="true" frameX="-74" frameY="-0" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0006" x="2" y="1435" width="3319" height="1453" rotated="true" frameX="-74" frameY="-0" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0007" x="2" y="1435" width="3319" height="1453" rotated="true" frameX="-74" frameY="-0" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0008" x="2" y="1435" width="3319" height="1453" rotated="true" frameX="-74" frameY="-0" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0009" x="2" y="1435" width="3319" height="1453" rotated="true" frameX="-74" frameY="-0" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0010" x="2" y="1435" width="3319" height="1453" rotated="true" frameX="-74" frameY="-0" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0011" x="2" y="1435" width="3319" height="1453" rotated="true" frameX="-74" frameY="-0" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0012" x="2" y="1435" width="3319" height="1453" rotated="true" frameX="-74" frameY="-0" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0013" x="2" y="1435" width="3319" height="1453" rotated="true" frameX="-74" frameY="-0" frameWidth="1528" frameHeight="3328"/>
+	<SubTexture name="speakers0014" x="2" y="1435" width="3319" height="1453" rotated="true" frameX="-74" frameY="-0" frameWidth="1528" frameHeight="3328"/>
+</TextureAtlas>

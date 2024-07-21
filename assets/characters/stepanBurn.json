@@ -1,0 +1,89 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				140,
+				150
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "Nest idle"
+		},
+		{
+			"offsets": [
+				227,
+				176
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Nest left"
+		},
+		{
+			"offsets": [
+				50,
+				123
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Nest right"
+		},
+		{
+			"offsets": [
+				89,
+				84
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Nest down"
+		},
+		{
+			"offsets": [
+				162,
+				153
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Nest up"
+		},
+		{
+			"offsets": [
+				245,
+				180
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "alt",
+			"indices": [],
+			"name": "Nest explode nahui"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/Nest_burn",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "bombguy",
+	"flip_x": false,
+	"healthbar_colors": [
+		111,
+		0,
+		189
+	],
+	"camera_position": [
+		-180,
+		-160
+	],
+	"sing_duration": 4,
+	"scale": 1
+}

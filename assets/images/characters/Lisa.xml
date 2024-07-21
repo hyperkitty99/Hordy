@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with Funkin Packer v0.1.3 https://neeeoo.github.io/funkin-packer/
+-->
+<TextureAtlas imagePath="Lisa.png" width="3712" height="2502">
+	<SubTexture name="Lisa down0000" x="1397" y="2" width="458" height="781" frameX="-20" frameY="-0" frameWidth="478" frameHeight="781"/>
+	<SubTexture name="Lisa down0001" x="1397" y="2" width="458" height="781" frameX="-20" frameY="-0" frameWidth="478" frameHeight="781"/>
+	<SubTexture name="Lisa down0002" x="937" y="2" width="458" height="765" frameX="-12" frameY="-6" frameWidth="478" frameHeight="781"/>
+	<SubTexture name="Lisa down0003" x="937" y="2" width="458" height="765" frameX="-12" frameY="-6" frameWidth="478" frameHeight="781"/>
+	<SubTexture name="Lisa down0004" x="2" y="2" width="464" height="730" frameX="-4" frameY="-41" frameWidth="478" frameHeight="781"/>
+	<SubTexture name="Lisa down0005" x="2" y="2" width="464" height="730" frameX="-4" frameY="-41" frameWidth="478" frameHeight="781"/>
+	<SubTexture name="Lisa down0006" x="468" y="2" width="467" height="733" frameX="-0" frameY="-38" frameWidth="478" frameHeight="781"/>
+	<SubTexture name="Lisa down0007" x="468" y="2" width="467" height="733" frameX="-0" frameY="-38" frameWidth="478" frameHeight="781"/>
+	<SubTexture name="Lisa down0008" x="468" y="2" width="467" height="733" frameX="-0" frameY="-38" frameWidth="478" frameHeight="781"/>
+	<SubTexture name="Lisa down0009" x="468" y="2" width="467" height="733" frameX="-0" frameY="-38" frameWidth="478" frameHeight="781"/>
+	<SubTexture name="Lisa idle0000" x="2" y="737" width="521" height="816" frameX="-9" frameY="-28" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0001" x="2" y="737" width="521" height="816" frameX="-9" frameY="-28" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0002" x="1034" y="785" width="527" height="826" frameX="-7" frameY="-18" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0003" x="1034" y="785" width="527" height="826" frameX="-7" frameY="-18" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0004" x="2" y="1555" width="510" height="844" frameX="-10" frameY="-0" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0005" x="2" y="1555" width="510" height="844" frameX="-10" frameY="-0" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0006" x="2071" y="796" width="502" height="831" frameX="-10" frameY="-13" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0007" x="2071" y="796" width="502" height="831" frameX="-10" frameY="-13" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0008" x="525" y="769" width="507" height="824" frameX="-2" frameY="-20" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0009" x="525" y="769" width="507" height="824" frameX="-2" frameY="-20" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0010" x="1563" y="793" width="506" height="826" frameX="-0" frameY="-18" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0011" x="1563" y="793" width="506" height="826" frameX="-0" frameY="-18" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0012" x="1563" y="793" width="506" height="826" frameX="-0" frameY="-18" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0013" x="1563" y="793" width="506" height="826" frameX="-0" frameY="-18" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa idle0014" x="1563" y="793" width="506" height="826" frameX="-0" frameY="-18" frameWidth="534" frameHeight="844"/>
+	<SubTexture name="Lisa left0000" x="1857" y="2" width="450" height="789" frameX="-0" frameY="-12" frameWidth="466" frameHeight="801"/>
+	<SubTexture name="Lisa left0001" x="1857" y="2" width="450" height="789" frameX="-0" frameY="-12" frameWidth="466" frameHeight="801"/>
+	<SubTexture name="Lisa left0002" x="2309" y="2" width="447" height="792" frameX="-10" frameY="-9" frameWidth="466" frameHeight="801"/>
+	<SubTexture name="Lisa left0003" x="2309" y="2" width="447" height="792" frameX="-10" frameY="-9" frameWidth="466" frameHeight="801"/>
+	<SubTexture name="Lisa left0004" x="2758" y="2" width="443" height="801" frameX="-21" frameY="-0" frameWidth="466" frameHeight="801"/>
+	<SubTexture name="Lisa left0005" x="2758" y="2" width="443" height="801" frameX="-21" frameY="-0" frameWidth="466" frameHeight="801"/>
+	<SubTexture name="Lisa left0006" x="3203" y="2" width="445" height="801" frameX="-21" frameY="-0" frameWidth="466" frameHeight="801"/>
+	<SubTexture name="Lisa left0007" x="3203" y="2" width="445" height="801" frameX="-21" frameY="-0" frameWidth="466" frameHeight="801"/>
+	<SubTexture name="Lisa left0008" x="3203" y="2" width="445" height="801" frameX="-21" frameY="-0" frameWidth="466" frameHeight="801"/>
+	<SubTexture name="Lisa left0009" x="3203" y="2" width="445" height="801" frameX="-21" frameY="-0" frameWidth="466" frameHeight="801"/>
+	<SubTexture name="Lisa right0000" x="1572" y="1629" width="569" height="840" frameX="-4" frameY="-2" frameWidth="574" frameHeight="842"/>
+	<SubTexture name="Lisa right0001" x="1572" y="1629" width="569" height="840" frameX="-4" frameY="-2" frameWidth="574" frameHeight="842"/>
+	<SubTexture name="Lisa right0002" x="2143" y="1644" width="556" height="842" frameX="-2" frameY="-0" frameWidth="574" frameHeight="842"/>
+	<SubTexture name="Lisa right0003" x="2143" y="1644" width="556" height="842" frameX="-2" frameY="-0" frameWidth="574" frameHeight="842"/>
+	<SubTexture name="Lisa right0004" x="3087" y="805" width="543" height="839" frameX="-1" frameY="-3" frameWidth="574" frameHeight="842"/>
+	<SubTexture name="Lisa right0005" x="3087" y="805" width="543" height="839" frameX="-1" frameY="-3" frameWidth="574" frameHeight="842"/>
+	<SubTexture name="Lisa right0006" x="1033" y="1621" width="537" height="839" frameX="-0" frameY="-3" frameWidth="574" frameHeight="842"/>
+	<SubTexture name="Lisa right0007" x="1033" y="1621" width="537" height="839" frameX="-0" frameY="-3" frameWidth="574" frameHeight="842"/>
+	<SubTexture name="Lisa right0008" x="1033" y="1621" width="537" height="839" frameX="-0" frameY="-3" frameWidth="574" frameHeight="842"/>
+	<SubTexture name="Lisa right0009" x="1033" y="1621" width="537" height="839" frameX="-0" frameY="-3" frameWidth="574" frameHeight="842"/>
+	<SubTexture name="Lisa up0000" x="514" y="1595" width="517" height="845" frameX="-0" frameY="-12" frameWidth="517" frameHeight="858"/>
+	<SubTexture name="Lisa up0001" x="514" y="1595" width="517" height="845" frameX="-0" frameY="-12" frameWidth="517" frameHeight="858"/>
+	<SubTexture name="Lisa up0002" x="2575" y="805" width="510" height="837" frameX="-5" frameY="-17" frameWidth="517" frameHeight="858"/>
+	<SubTexture name="Lisa up0003" x="2575" y="805" width="510" height="837" frameX="-5" frameY="-17" frameWidth="517" frameHeight="858"/>
+	<SubTexture name="Lisa up0004" x="2701" y="1646" width="504" height="852" frameX="-11" frameY="-2" frameWidth="517" frameHeight="858"/>
+	<SubTexture name="Lisa up0005" x="2701" y="1646" width="504" height="852" frameX="-11" frameY="-2" frameWidth="517" frameHeight="858"/>
+	<SubTexture name="Lisa up0006" x="3207" y="1646" width="503" height="854" frameX="-11" frameY="-0" frameWidth="517" frameHeight="858"/>
+	<SubTexture name="Lisa up0007" x="3207" y="1646" width="503" height="854" frameX="-11" frameY="-0" frameWidth="517" frameHeight="858"/>
+	<SubTexture name="Lisa up0008" x="3207" y="1646" width="503" height="854" frameX="-11" frameY="-0" frameWidth="517" frameHeight="858"/>
+	<SubTexture name="Lisa up0009" x="3207" y="1646" width="503" height="854" frameX="-11" frameY="-0" frameWidth="517" frameHeight="858"/>
+</TextureAtlas>

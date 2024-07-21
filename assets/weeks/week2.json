@@ -1,0 +1,59 @@
+{
+	"storyName": "frukti",
+	"difficulties": "hard",
+	"hideFreeplay": false,
+	"weekBackground": "",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"hideStoryMode": true,
+	"songs": [
+		[
+			"Magic-Soul",
+			"magdushfnf",
+			[
+				255,
+				219,
+				77
+			]
+		],
+		[
+			"Bury-The-Light",
+			"vergil",
+			[
+				111,
+				0,
+				169
+			]
+		],
+		[
+			"Vegetables",
+			"greenboy",
+			[
+				0,
+				126,
+				0
+			]
+		],
+		[
+			"Test-Song",
+			"watahel",
+			[
+				135,
+				95,
+				75
+			]
+		]
+	],
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"hiddenUntilUnlocked": false,
+	"weekName": "fruktoza omagaaaad"
+}
