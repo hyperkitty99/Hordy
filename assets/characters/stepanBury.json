@@ -1,0 +1,80 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				221,
+				58
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Nestbury idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				221,
+				58
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "Nestbury left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				221,
+				54
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Nestbury right",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				221,
+				12
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Nestbury down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				221,
+				61
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Nestbury up",
+			"indices": []
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/Nestbury",
+	"position": [
+		0,
+		-110
+	],
+	"healthicon": "bombguy",
+	"flip_x": false,
+	"healthbar_colors": [
+		111,
+		0,
+		189
+	],
+	"camera_position": [
+		-180,
+		-160
+	],
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": false
+}

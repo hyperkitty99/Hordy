@@ -167,11 +167,7 @@ class Note extends FlxSprite
 			switch(value) {
 				case 'Hurt Note':
 					ignoreNote = mustPress;
-					//reloadNote('HURTNOTE_assets');
-					//this used to change the note texture to HURTNOTE_assets.png,
-					//but i've changed it to something more optimized with the implementation of RGBPalette:
 
-					// note colors
 					rgbShader.r = 0xFF101010;
 					rgbShader.g = 0xFFFF0000;
 					rgbShader.b = 0xFF990022;
@@ -196,6 +192,20 @@ class Note extends FlxSprite
 					gfNote = true;
 				case 'Miss Note':
 					ignoreNote = true;
+				case 'Dynamite Note':
+					set_texture('noteSkins/DYNAMITE_assets');
+
+					rgbShader.r = 0xFFE41919;
+					rgbShader.g = 0xFFFFD974;
+					rgbShader.b = 0xFFFF2400;
+
+					noAnimation = false;
+					noMissAnimation = true;
+
+					lowPriority = true;
+					ratingDisabled = true;
+					hitHealth = 0;
+					missHealth = 0.65;
 			}
 			if (value != null && value.length > 1) NoteTypesConfig.applyNoteTypeData(this, value);
 			noteType = value;

@@ -1,11 +1,11 @@
 package substates;
 
+import states.MainMenuState;
 import flixel.addons.transition.FlxTransitionableState;
 
 import flixel.util.FlxStringUtil;
 
 import states.StoryMenuState;
-import states.FreeplayState;
 import options.OptionsState;
 
 class PauseSubState extends MusicBeatSubstate {
@@ -164,7 +164,9 @@ class PauseSubState extends MusicBeatSubstate {
 					states.PlayState.deathCounter = 0;
 					states.PlayState.seenCutscene = false;
 
-					states.PlayState.isStoryMode ? MusicBeatState.switchState(new StoryMenuState()) : MusicBeatState.switchState(new FreeplayState());
+					openSubState(new CustomFadeTransition(0.6, false));
+					states.PlayState.isStoryMode ? CustomFadeTransition.finishCallback = function() FlxG.switchState(new states.StoryMenuState()) : CustomFadeTransition.finishCallback = function() FlxG.switchState(new states.MainMenuState());
+					if (!states.PlayState.isStoryMode) states.PlayState.isFreeplay = true;
 
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					states.PlayState.chartingMode = false;

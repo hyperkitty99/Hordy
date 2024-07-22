@@ -53,7 +53,7 @@ class ChartingState extends MusicBeatState
 		'',
 		'Alt Animation',
 		'Hey!',
-		'Hurt Note',
+		'Dynamite Note',
 		'GF Sing',
 		'No Animation',
 		'Miss Note'
@@ -481,16 +481,19 @@ class ChartingState extends MusicBeatState
 		stepperSpeed.value = _song.speed;
 		stepperSpeed.name = 'song_speed';
 		blockPressWhileTypingOnStepper.push(stepperSpeed);
-		var directories:Array<String> = [Paths.getPreloadPath('characters/')];
 
-		var tempArray:Array<String> = [];
 		var characters:Array<String> = Mods.mergeAllTextsNamed('data/characterList.txt', Paths.getPreloadPath());
-		for (character in characters)
-		{
-			if(character.trim().length > 0)
-				tempArray.push(character);
+		var foldersToCheck:Array<String> = Mods.directoriesWithFile(Paths.getPreloadPath(), 'characters/');
+		for (folder in foldersToCheck) {
+			for (file in FileSystem.readDirectory(folder)) {
+				if(file.toLowerCase().endsWith('.json')) {
+					var charToCheck:String = file.substr(0, file.length - 5);
+					if(!characters.contains(charToCheck)) characters.push(charToCheck);
+				}
+			}
 		}
-		tempArray = [];
+
+		if(characters.length < 1) characters.push('');
 
 		var player1DropDown = new FlxUIDropDownMenu(10, stepperSpeed.y + 45, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String)
 		{
@@ -519,15 +522,15 @@ class ChartingState extends MusicBeatState
 		player2DropDown.selectedLabel = _song.player2;
 		blockPressWhileScrolling.push(player2DropDown);
 
-		var directories:Array<String> = [Paths.getPreloadPath('stages/')];
-
-		var stageFile:Array<String> = Mods.mergeAllTextsNamed('data/stageList.txt', Paths.getPreloadPath());
-		var stages:Array<String> = [];
-		for (stage in stageFile) {
-			if(stage.trim().length > 0) {
-				stages.push(stage);
+		var stages:Array<String> = Mods.mergeAllTextsNamed('data/stageList.txt', Paths.getPreloadPath());
+		var foldersToCheck:Array<String> = Mods.directoriesWithFile(Paths.getPreloadPath(), 'stages/');
+		for (folder in foldersToCheck) {
+			for (file in FileSystem.readDirectory(folder)) {
+				if(file.toLowerCase().endsWith('.json')) {
+					var charToCheck:String = file.substr(0, file.length - 5);
+					if(!stages.contains(charToCheck)) stages.push(charToCheck);
+				}
 			}
-			tempArray.push(stage);
 		}
 
 		if(stages.length < 1) stages.push('stage');

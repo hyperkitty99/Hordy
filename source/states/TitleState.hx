@@ -66,15 +66,10 @@ class TitleState extends MusicBeatState {
 		if (!initialized) if(FlxG.sound.music == null) FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 
 		FlxSprite.defaultAntialiasing = ClientPrefs.data.antialiasing;
-		Conductor.bpm = 90.187;
+		Conductor.bpm = 102;
 		persistentUpdate = true;
 
 		add(new FlxSprite(0, 110, Paths.image("ui/title/bg")));
-
-		var checker:FlxBackdrop = new FlxBackdrop(Paths.image('ui/title/checker'));
-		checker.velocity.set(30, -30);
-		checker.alpha = 0.4;
-		add(checker);
 
 		logoBl = new FlxSprite(280, 90);
 		logoBl.frames = Paths.getSparrowAtlas('ui/title/logo_bumpin');
@@ -261,9 +256,11 @@ class TitleState extends MusicBeatState {
 					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
-					createCoolText(['sway', 'leebert', 'nickngc', 'justJack', 'rofos']);
+					createCoolText(['Psych engine by']);
 				case 4:
-					addMoreText('and others present');
+					addMoreText('shadow mario');
+					addMoreText('riveroaken');
+					addMoreText('shubs');
 				case 5:
 					deleteCoolText();
 				case 6:
@@ -286,11 +283,7 @@ class TitleState extends MusicBeatState {
 					addMoreText('Night');
 				case 16:
 					addMoreText('Funkin');
-			    case 17:
-					addMoreText('MT');
-				case 18:
-					addMoreText('Funkin');
-				case 19:
+				case 17:
 					skipIntro();
 			}
 		}

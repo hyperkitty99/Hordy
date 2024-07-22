@@ -4,7 +4,6 @@ import objects.Character;
 import flixel.FlxObject;
 
 import states.StoryMenuState;
-import states.FreeplayState;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
@@ -82,10 +81,9 @@ class GameOverSubstate extends MusicBeatSubstate
 			states.PlayState.seenCutscene = false;
 			states.PlayState.chartingMode = false;
 
-			if (states.PlayState.isStoryMode)
-				MusicBeatState.switchState(new StoryMenuState());
-			else
-				MusicBeatState.switchState(new FreeplayState());
+			openSubState(new CustomFadeTransition(0.6, false));
+			states.PlayState.isStoryMode ? CustomFadeTransition.finishCallback = function() FlxG.switchState(new states.StoryMenuState()) : CustomFadeTransition.finishCallback = function() FlxG.switchState(new states.MainMenuState());
+			if (!states.PlayState.isStoryMode) states.PlayState.isFreeplay = true;
 
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		}

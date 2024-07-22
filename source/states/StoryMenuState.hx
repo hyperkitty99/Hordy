@@ -1,26 +1,17 @@
 package states;
 
 import backend.WeekData;
-import backend.Highscore;
-import backend.Song;
-
-import flixel.group.FlxGroup;
-import flixel.graphics.FlxGraphic;
-
 import objects.MenuItem;
 
 class StoryMenuState extends MusicBeatState {
 	public static var weekCompleted:Map<String, Bool> = new Map<String, Bool>();
 
 	var scoreText:FlxText;
-
 	var txtWeekTitle:FlxText;
 
 	private static var curWeek:Int = 0;
 
 	var grpWeekText:FlxTypedGroup<MenuItem>;
-	// var grpLocks:FlxTypedGroup<FlxSprite>;
-
 	var loadedWeeks:Array<WeekData> = [];
 
 	override function create() {
@@ -28,34 +19,17 @@ class StoryMenuState extends MusicBeatState {
 		Paths.clearUnusedMemory();
 
 		states.PlayState.isStoryMode = true;
+		states.PlayState.isFreeplay = false;
+
 		WeekData.reloadWeekFiles(true);
 		if(curWeek >= WeekData.weeksList.length) curWeek = 0;
+
 		persistentUpdate = persistentDraw = true;
-
-		scoreText = new FlxText(10, 10, 0, "SCORE: 49324858", 36);
-		scoreText.setFormat("VCR OSD Mono", 32);
-
-		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32);
-		txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
-		txtWeekTitle.alpha = 0.7;
-
-		var rankText:FlxText = new FlxText(0, 10);
-		rankText.text = 'RANK: GREAT';
-		rankText.setFormat(Paths.font("vcr.ttf"), 32);
-		rankText.size = scoreText.size;
-		rankText.screenCenter(X);
-
-		var bgYellow:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 386, 0xFFF9CF51);
-
 
 		grpWeekText = new FlxTypedGroup<MenuItem>();
 		add(grpWeekText);
 
-		var blackBarThingie:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 56, FlxColor.BLACK);
-		add(blackBarThingie);
-
-		// grpLocks = new FlxTypedGroup<FlxSprite>();
-		// add(grpLocks);
+		add(new FlxSprite().makeGraphic(FlxG.width, 56, FlxColor.BLACK));
 
 		#if DISCORD_ALLOWED
 		DiscordClient.changePresence("In the Menus", null);
@@ -64,35 +38,23 @@ class StoryMenuState extends MusicBeatState {
 		var num:Int = 0;
 		for (i in 0...WeekData.weeksList.length) {
 			var weekFile:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
-			var isLocked:Bool = weekIsLocked(WeekData.weeksList[i]);
-			if(!isLocked || !weekFile.hiddenUntilUnlocked) {
+
+			if(!weekIsLocked(WeekData.weeksList[i]) || !weekFile.hiddenUntilUnlocked) {
 				loadedWeeks.push(weekFile);
+
 				var weekThing:MenuItem = new MenuItem(0, 452, WeekData.weeksList[i]);
 				weekThing.y += ((weekThing.height + 20) * num);
 				weekThing.targetY = num;
 				grpWeekText.add(weekThing);
-
 				weekThing.screenCenter(X);
-				// weekThing.updateHitbox();
-
-				// Needs an offset thingie
-				// if (isLocked)
-				// {
-				// 	var lock:FlxSprite = new FlxSprite(weekThing.width + 10 + weekThing.x);
-				// 	lock.antialiasing = ClientPrefs.data.antialiasing;
-				// 	lock.frames = ui_tex;
-				// 	lock.animation.addByPrefix('lock', 'lock');
-				// 	lock.animation.play('lock');
-				// 	lock.ID = i;
-				// 	grpLocks.add(lock);
-				// }
 				num++;
 			}
 		}
 
-		add(bgYellow);
-		add(scoreText);
-		add(txtWeekTitle);
+		add(new FlxSprite(0, 56).makeGraphic(FlxG.width, 386, 0xFFF9CF51));
+		add(scoreText = new FlxText(10, 10, 0, "SCORE: 49324858", 36).setFormat("VCR OSD Mono", 32));
+		add(txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32).setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT));
+		txtWeekTitle.alpha = 0.7;
 
 		changeWeek();
 
@@ -132,12 +94,6 @@ class StoryMenuState extends MusicBeatState {
 		}
 
 		super.update(elapsed);
-
-		// grpLocks.forEach(function(lock:FlxSprite)
-		// {
-		// 	lock.y = grpWeekText.members[lock.ID].y;
-		// 	lock.visible = (lock.y > FlxG.height / 2);
-		// });
 	}
 
 	var movedBack:Bool = false;
@@ -153,9 +109,10 @@ class StoryMenuState extends MusicBeatState {
 			try {
 				states.PlayState.storyPlaylist = songArray;
 				states.PlayState.isStoryMode = true;
+				states.PlayState.isFreeplay = false;
 				selectedWeek = true;
 	
-				states.PlayState.SONG = Song.loadFromJson(states.PlayState.storyPlaylist[0].toLowerCase(), states.PlayState.storyPlaylist[0].toLowerCase());
+				states.PlayState.SONG = backend.Song.loadFromJson(states.PlayState.storyPlaylist[0].toLowerCase(), states.PlayState.storyPlaylist[0].toLowerCase());
 				states.PlayState.campaignScore = 0;
 				states.PlayState.campaignMisses = 0;
 			}
@@ -216,6 +173,6 @@ class StoryMenuState extends MusicBeatState {
 		var stringThing:Array<String> = [];
 		for (i in 0...leWeek.songs.length) stringThing.push(leWeek.songs[i][0]);
 
-		intendedScore = Highscore.getWeekScore(loadedWeeks[curWeek].fileName);
+		intendedScore = backend.Highscore.getWeekScore(loadedWeeks[curWeek].fileName);
 	}
 }
