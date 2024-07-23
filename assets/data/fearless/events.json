@@ -422,28 +422,13 @@
 				]
 			],
 			[
-				54810.989010989,
-				[
-					[
-						"Change Character",
-						"1",
-						"json"
-					]
-				]
-			],
-			[
-				57125.2747252747,
+				57121.7032967033,
 				[
 					[
 						"Play Animation",
-						"alt",
-						"Dad"
-					]
-				]
-			],
-			[
-				57125.2747252747,
-				[
+						"transformation",
+						"dad"
+					],
 					[
 						"Set Camera Zoom Source",
 						"0.75",
@@ -453,16 +438,6 @@
 			],
 			[
 				57725.2747252747,
-				[
-					[
-						"Change Character",
-						"1",
-						"name-mykola"
-					]
-				]
-			],
-			[
-				58239.5604395604,
 				[
 					[
 						"Change Character",

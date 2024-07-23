@@ -45,6 +45,7 @@ import states.TitleState;
 	public var safeFrames:Float = 10;
 	public var guitarHeroSustains:Bool = false;
 	public var discordRPC:Bool = false;
+	public var completedFearless:Bool = false;
 }
 
 class ClientPrefs {

@@ -26,6 +26,7 @@ class FreeplaySubstate extends MusicBeatSubstate
 
 	private var targetYOffset:Float = 0;
 	private var currentYOffset:Float = 0;
+	var thekeys:Array<String> = ['TWO', 'EIGHT'];
 
 	override function create() {
 		persistentUpdate = true;
@@ -51,10 +52,10 @@ class FreeplaySubstate extends MusicBeatSubstate
 				leChars.push(leWeek.songs[j][1]);
 			}
 
-			for (song in leWeek.songs) {
-				addSong(song[0], i, song[1]);
-			}
+			for (song in leWeek.songs) addSong(song[0], i, song[1]);
 		}
+
+		if (ClientPrefs.data.completedFearless) addSong('fearless', 3, 'icon-sexmusichordymale');
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
@@ -99,13 +100,9 @@ class FreeplaySubstate extends MusicBeatSubstate
 		super.create();
 	}
 
-	public function addSong(songName:String, weekNum:Int, songCharacter:String)
-		songs.push(new SongMetadata(songName, weekNum, songCharacter));
+	public function addSong(songName:String, weekNum:Int, songCharacter:String) songs.push(new SongMetadata(songName, weekNum, songCharacter));
 	
-	function weekIsLocked(name:String):Bool {
-		var leWeek:WeekData = WeekData.weeksLoaded.get(name);
-		return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!states.StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !states.StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
-	}
+	function weekIsLocked(name:String):Bool return (!WeekData.weeksLoaded.get(name).startUnlocked && WeekData.weeksLoaded.get(name).weekBefore.length > 0 && (!states.StoryMenuState.weekCompleted.exists(WeekData.weeksLoaded.get(name).weekBefore) || !states.StoryMenuState.weekCompleted.get(WeekData.weeksLoaded.get(name).weekBefore)));
 
 	var holdTime:Float = 0;
 	var cantUnpause:Float = 0.1;
@@ -140,6 +137,20 @@ class FreeplaySubstate extends MusicBeatSubstate
 				changeSelection(-1 * FlxG.mouse.wheel, false);
 			}
 		}
+
+		if (!ClientPrefs.data.completedFearless) {
+			if (FlxG.keys.anyPressed([thekeys[0]])) thekeys.remove(thekeys[0]);
+
+			if (thekeys[0] == 'EIGHT') {
+				persistentUpdate = false;
+				states.PlayState.SONG = Song.loadFromJson('fearless', 'fearless');
+				states.PlayState.isStoryMode = false;
+	
+				openSubState(new CustomFadeTransition(0.6, false));
+				CustomFadeTransition.finishCallback = function() FlxG.switchState(new states.PlayState());
+			}
+		}
+
 		if (controls.BACK && (cantUnpause <= 0)) {
 			persistentUpdate = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -198,17 +209,8 @@ class FreeplaySubstate extends MusicBeatSubstate
 		if (curSelected < 0) curSelected = songs.length - 1;
 		if (curSelected >= songs.length) curSelected = 0;
 
-		var bullShit:Int = 0;
-
 		for (i in 0...iconArray.length) iconArray[i].alpha = 0.6;
-
 		iconArray[curSelected].alpha = 1;
-
-		for (item in grpSongs.members) {
-			bullShit++;
-			item.alpha = 0.6;
-			if (item.targetY == curSelected) item.alpha = 1;
-		}
 
 		states.PlayState.storyWeek = songs[curSelected].week;
 	}

@@ -218,6 +218,7 @@ class PlayState extends MusicBeatState
 	var lowerBar:FlxSprite;
 	var upperBar:FlxSprite;
 	var blackout:FlxSprite;
+	var singSuffix:String = null;
 
 	override public function create()
 	{
@@ -340,20 +341,24 @@ class PlayState extends MusicBeatState
 		add(dadGroup);
 		add(boyfriendGroup);
 
-		if(SONG.gfVersion == null || SONG.gfVersion.length < 1) SONG.gfVersion = 'gf'; //Fix for the Chart Editor
-		gf = new Character(0, 0, SONG.gfVersion);
-		startCharacterPos(gf);
-		gf.scrollFactor.set(0.95, 0.95);
-		if (stageData.hide_girlfriend) gf.visible = false;
-		gfGroup.add(gf);
+		if (!stageData.hide_girlfriend) {
+			if(SONG.gfVersion == null || SONG.gfVersion.length < 1) SONG.gfVersion = 'gf'; //Fix for the Chart Editor
+			gf = new Character(0, 0, SONG.gfVersion);
+			startCharacterPos(gf);
+			gf.scrollFactor.set(0.95, 0.95);
+			gfGroup.add(gf);
+		}
 
-		dad = new Character(0, 0, SONG.player2);
-		startCharacterPos(dad, true);
-		dadGroup.add(dad);
+		if (!stageData.hide_opponent) {
+			dad = new Character(0, 0, SONG.player2);
+			startCharacterPos(dad, true);
+			dadGroup.add(dad);
+		}
 
 		boyfriend = new Character(0, 0, SONG.player1, true);
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
+		if (stageData.hide_boyfriend) boyfriend.visible = false;
 
 		var camPos:FlxPoint = FlxPoint.get(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 		if(gf != null)
@@ -364,8 +369,7 @@ class PlayState extends MusicBeatState
 
 		if(dad.curCharacter.startsWith('gf')) {
 			dad.setPosition(GF_X, GF_Y);
-			if(gf != null)
-				gf.visible = false;
+			if(gf != null) gf.visible = false;
 		}
 		stagesFunc(function(stage:BaseStage) stage.createPost());
 
@@ -581,7 +585,7 @@ class PlayState extends MusicBeatState
 				}
 
 			case 2:
-				if(gf != null && !gfMap.exists(newCharacter)) {
+				if(!gfMap.exists(newCharacter)) {
 					var newGf:Character = new Character(0, 0, newCharacter);
 					newGf.scrollFactor.set(0.95, 0.95);
 					gfMap.set(newCharacter, newGf);
@@ -1704,7 +1708,8 @@ class PlayState extends MusicBeatState
 					char.idleSuffix = value2;
 					char.recalculateDanceIdle();
 				}
-
+			case 'Alt Sing Animation': 
+				singSuffix = value1;
 			case 'Screen Shake':
 				var valuesArray:Array<String> = [value1, value2];
 				var targetsArray:Array<FlxCamera> = [camGame, camHUD];
@@ -1931,12 +1936,38 @@ class PlayState extends MusicBeatState
 		} else {
 			trace('WENT BACK TO FREEPLAY??');
 			#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
-			isFreeplay = true;
 
-			openSubState(new CustomFadeTransition(0.6, false));
-			CustomFadeTransition.finishCallback = function() FlxG.switchState(new states.MainMenuState());
+			if (SONG.song.toLowerCase() == 'fearless' && !seenCutscene) {
+				seenCutscene = true;
+				var video:VideoSprite;
 
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				Thread.create(()-> {
+					video = new VideoSprite();
+					video.setGraphicSize(1280, 720);
+					video.updateHitbox();
+					video.bitmap.onEndReached.add(Thread.create.bind(() -> {
+						video.destroy();
+						ClientPrefs.data.completedFearless = true;
+						ClientPrefs.saveSettings();
+						isFreeplay = true;
+		
+						openSubState(new CustomFadeTransition(0.6, false));
+						CustomFadeTransition.finishCallback = function() FlxG.switchState(new states.MainMenuState());
+			
+						FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					}));
+					video.load(Paths.video('fearless'));
+					video.play();
+					add(video);
+				});
+			} else {
+				isFreeplay = true;
+
+				openSubState(new CustomFadeTransition(0.6, false));
+				CustomFadeTransition.finishCallback = function() FlxG.switchState(new states.MainMenuState());
+	
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			}
 		}
 		return true;
 	}
@@ -2274,9 +2305,7 @@ class PlayState extends MusicBeatState
 		} else if(!note.noAnimation) {
 			var altAnim:String = note.animSuffix;
 
-			if (SONG.notes[curSection] != null)
-				if (SONG.notes[curSection].altAnim && !SONG.notes[curSection].gfSection)
-					altAnim = '-alt';
+			if (SONG.notes[curSection] != null) if (SONG.notes[curSection].altAnim && !SONG.notes[curSection].gfSection) singSuffix == null ? altAnim = '-alt' : altAnim = singSuffix;
 
 			var char:Character = dad;
 			var animToPlay:String = singAnimations[Std.int(Math.abs(Math.min(singAnimations.length-1, note.noteData)))] + altAnim;

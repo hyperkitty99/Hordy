@@ -3,8 +3,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				-20,
-				-135
+				-95,
+				-133
 			],
 			"anim": "idle",
 			"fps": 24,
@@ -14,8 +14,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				116,
-				-156
+				42,
+				-155
 			],
 			"anim": "singLEFT",
 			"fps": 24,
@@ -25,8 +25,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				-40,
-				-150
+				-113,
+				-149
 			],
 			"anim": "singRIGHT",
 			"fps": 24,
@@ -36,8 +36,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				49,
-				-192
+				-14,
+				-190
 			],
 			"anim": "singDOWN",
 			"fps": 24,
@@ -47,8 +47,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				26,
-				-116
+				-49,
+				-114
 			],
 			"anim": "singUP",
 			"fps": 24,
@@ -60,7 +60,7 @@
 	"no_antialiasing": false,
 	"image": "characters/raveme",
 	"position": [
-		210,
+		140,
 		-160
 	],
 	"healthicon": "sexmusichordymale",
@@ -71,8 +71,8 @@
 		165
 	],
 	"camera_position": [
-		-140,
-		330
+		-130,
+		159
 	],
 	"sing_duration": 4,
 	"scale": 1,

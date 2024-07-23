@@ -10,6 +10,8 @@ typedef StageFile = {
 	var girlfriend:Array<Dynamic>;
 	var opponent:Array<Dynamic>;
 	var hide_girlfriend:Bool;
+	var hide_boyfriend:Null<Bool>;
+	var hide_opponent:Null<Bool>;
 
 	var camera_boyfriend:Array<Float>;
 	var camera_opponent:Array<Float>;
@@ -29,6 +31,8 @@ class StageData {
 			girlfriend: [400, 130],
 			opponent: [100, 100],
 			hide_girlfriend: false,
+			hide_boyfriend: false,
+			hide_opponent: false,
 
 			camera_boyfriend: [0, 0],
 			camera_opponent: [0, 0],
