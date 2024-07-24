@@ -1,6 +1,5 @@
 package states;
 
-import flixel.FlxSubState;
 import flixel.addons.transition.FlxTransitionableState;
 
 typedef CharacterStuff = {
@@ -11,17 +10,17 @@ typedef CharacterStuff = {
 }
 
 class MainMenuState extends MusicBeatState {
-	static var curSelected:Int = 0;
+	public static var curSelected:Int = 0;
 
 	var optionShit:Array<String> = ['story_mode', 'freeplay', 'credits', 'options'];
 
 	var characterShit:Array<CharacterStuff> = [
-		{x: 35,  y: 35, name: 'hodry', color: 0xFF71DD88}, {x: 35,  y: 65, name: 'melol', color: 0xFF8B5632},
+		{x: 35,  y: 35, name: 'hodry', color: 0xFF51B867}, {x: 35,  y: 65, name: 'melol', color: 0xFF8B5632},
 		{x: -130,  y: 5, name: 'nest', color: 0xFF7B48DA}, {x: 35,  y: 35, name: 'zovtan', color: 0xFF537DCE}
 	];
 
 	var barU:flixel.addons.display.FlxBackdrop;
-	var barD:flixel.addons.display.FlxBackdrop;
+	public static var barD:flixel.addons.display.FlxBackdrop;
 	var checker:flixel.addons.display.FlxBackdrop;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -145,7 +144,19 @@ class MainMenuState extends MusicBeatState {
 							character.updateHitbox();
 						});
 					case 'credits':
-						MusicBeatState.switchState(new CreditsState());
+						openSubState(new substates.CreditsSubstate());
+						flixel.effects.FlxFlicker.stopFlickering(menuItems.members[curSelected]);
+
+						subStateClosed.add((substateThing) -> if (substateThing is substates.CreditsSubstate) {
+							selectedSomethin = false;
+
+							while (num == prevNum) num = FlxG.random.int(0, 3);
+
+							character.animation.addByPrefix('idle', characterShit[num].name, 0, false);
+							character.animation.play('idle');
+							character.y = characterShit[num].y;
+							character.updateHitbox();
+						});
 					case 'options':
 						MusicBeatState.switchState(new options.OptionsState());
 						options.OptionsState.onPlayState = false;
@@ -164,7 +175,7 @@ class MainMenuState extends MusicBeatState {
 		}
 
 		if (!selectedSomethin) {
-			for (i in 0...menuItems.members.length) menuItems.members[i].x = FlxMath.lerp(menuItems.members[curSelected].x, 600, 0.1);
+			for (i in 0...menuItems.members.length) menuItems.members[i].x = FlxMath.lerp(menuItems.members[i].x, 600, 0.1);
 			character.x = FlxMath.lerp(character.x, characterShit[num].x, 0.1);
 		}
 
@@ -173,11 +184,7 @@ class MainMenuState extends MusicBeatState {
 			if(colorTween != null) colorTween.cancel();
 
 			intendedColor = newColor;
-			colorTween = FlxTween.color(checker, 1, checker.color, intendedColor, {
-				onComplete: function(twn:FlxTween) {
-					colorTween = null;
-				}
-			});
+			colorTween = FlxTween.color(checker, 1, checker.color, intendedColor, {onComplete: function(twn:FlxTween) {colorTween = null;}});
 		}
 
 		super.update(elapsed);
@@ -199,7 +206,7 @@ class MainMenuState extends MusicBeatState {
 
 		for (i in 0...menuItems.members.length) {
 			if (menuItems.members[i].x > 600) {
-				if (barD != null) barD.draw();
+				if (barD != null && curSelected != 2) barD.draw();
 				if (barU != null) barU.draw();
 				if (menuItems != null) menuItems.draw();
 			}

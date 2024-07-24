@@ -26,7 +26,7 @@ class FreeplaySubstate extends MusicBeatSubstate
 
 	private var targetYOffset:Float = 0;
 	private var currentYOffset:Float = 0;
-	var thekeys:Array<String> = ['TWO', 'EIGHT'];
+	var thekeys:Array<String> = ['EIGHT', 'TWO', 'TWO'];
 
 	override function create() {
 		persistentUpdate = true;
@@ -141,7 +141,7 @@ class FreeplaySubstate extends MusicBeatSubstate
 		if (!ClientPrefs.data.completedFearless) {
 			if (FlxG.keys.anyPressed([thekeys[0]])) thekeys.remove(thekeys[0]);
 
-			if (thekeys[0] == 'EIGHT') {
+			if (thekeys[0] == 'TWO') {
 				persistentUpdate = false;
 				states.PlayState.SONG = Song.loadFromJson('fearless', 'fearless');
 				states.PlayState.isStoryMode = false;
@@ -208,9 +208,6 @@ class FreeplaySubstate extends MusicBeatSubstate
 
 		if (curSelected < 0) curSelected = songs.length - 1;
 		if (curSelected >= songs.length) curSelected = 0;
-
-		for (i in 0...iconArray.length) iconArray[i].alpha = 0.6;
-		iconArray[curSelected].alpha = 1;
 
 		states.PlayState.storyWeek = songs[curSelected].week;
 	}

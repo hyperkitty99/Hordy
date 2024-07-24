@@ -63,7 +63,7 @@ class Main extends Sprite
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end Math.ceil(stage.window.displayMode.refreshRate), Math.ceil(stage.window.displayMode.refreshRate), game.skipSplash, game.startFullscreen));
 
-		fpsVar = new FPSCounter(10, 10, 0xFFFFFF);
+		fpsVar = new FPSCounter(0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;

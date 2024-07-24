@@ -220,6 +220,8 @@ class PlayState extends MusicBeatState
 	var blackout:FlxSprite;
 	var singSuffix:String = null;
 
+	var lerpedHealth:Float = 1;
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -444,7 +446,7 @@ class PlayState extends MusicBeatState
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
 		moveCameraSection();
 
-		healthBar = new Bar(0, FlxG.height * (!ClientPrefs.data.downScroll ? 0.84 : 0.16), 'healthBar', function() return health, 0, 2);
+		healthBar = new Bar(0, FlxG.height * (!ClientPrefs.data.downScroll ? 0.84 : 0.16), 'healthBar', function() return lerpedHealth, 0, 2);
 		healthBar.screenCenter(X);
 		healthBar.leftToRight = false;
 		healthBar.scrollFactor.set();
@@ -513,6 +515,8 @@ class PlayState extends MusicBeatState
 		cacheCountdown();
 
 		super.create();
+
+		if (FlxG.camera.bgColor == FlxColor.WHITE) Main.fpsVar.tColor = FlxColor.BLACK;
 		Paths.clearUnusedMemory();
 
 		if(eventNotes.length < 1) checkEventNote();
@@ -1419,6 +1423,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 		#end
+		lerpedHealth = FlxMath.lerp(lerpedHealth, health, ((health / lerpedHealth) * (elapsed * 5)) * playbackRate);
 	}
 
 	var iconsAnimations:Bool = true;
@@ -1939,27 +1944,7 @@ class PlayState extends MusicBeatState
 
 			if (SONG.song.toLowerCase() == 'fearless' && !seenCutscene) {
 				seenCutscene = true;
-				var video:VideoSprite;
-
-				Thread.create(()-> {
-					video = new VideoSprite();
-					video.setGraphicSize(1280, 720);
-					video.updateHitbox();
-					video.bitmap.onEndReached.add(Thread.create.bind(() -> {
-						video.destroy();
-						ClientPrefs.data.completedFearless = true;
-						ClientPrefs.saveSettings();
-						isFreeplay = true;
-		
-						openSubState(new CustomFadeTransition(0.6, false));
-						CustomFadeTransition.finishCallback = function() FlxG.switchState(new states.MainMenuState());
-			
-						FlxG.sound.playMusic(Paths.music('freakyMenu'));
-					}));
-					video.load(Paths.video('fearless'));
-					video.play();
-					add(video);
-				});
+				FlxG.switchState(new states.CutsceneState());
 			} else {
 				isFreeplay = true;
 
@@ -2430,8 +2415,12 @@ class PlayState extends MusicBeatState
 		#if FLX_PITCH FlxG.sound.music.pitch = 1; #end
 		Note.globalRgbShaders = [];
 		backend.NoteTypesConfig.clearNoteTypesData();
+		if (FlxG.camera.bgColor == FlxColor.WHITE) Main.fpsVar.tColor = FlxColor.WHITE;
 		FlxG.camera.bgColor = 0xFF000000;
 		instance = null;
+
+		Paths.clearUnusedMemory();
+		
 		super.destroy();
 	}
 
