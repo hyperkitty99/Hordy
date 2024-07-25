@@ -82,7 +82,7 @@ class EditorPlayState extends MusicBeatSubstate
 		this.playbackRate = playbackRate;
 		this.startPos = Conductor.songPosition;
 
-		Conductor.safeZoneOffset = (ClientPrefs.data.safeFrames / 60) * 1000 * playbackRate;
+		Conductor.safeZoneOffset = (/*ClientPrefs.data.safeFrames*/5 / 60) * 1000 * playbackRate;
 		Conductor.songPosition -= startOffset;
 		startOffset = Conductor.crochet;
 		timerToStart = startOffset;
@@ -123,7 +123,6 @@ class EditorPlayState extends MusicBeatSubstate
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
-		scoreTxt.visible = !ClientPrefs.data.hideHud;
 		add(scoreTxt);
 		
 		dataTxt = new FlxText(10, 580, FlxG.width - 20, "Section: 0", 20);

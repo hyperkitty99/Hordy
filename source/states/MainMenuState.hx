@@ -131,7 +131,6 @@ class MainMenuState extends MusicBeatState {
 						MusicBeatState.switchState(new StoryMenuState());
 					case 'freeplay':
 						openSubState(new substates.FreeplaySubstate());
-						flixel.effects.FlxFlicker.stopFlickering(menuItems.members[curSelected]);
 
 						subStateClosed.add((substateThing) -> if (substateThing is substates.FreeplaySubstate) {
 							selectedSomethin = false;
@@ -145,7 +144,6 @@ class MainMenuState extends MusicBeatState {
 						});
 					case 'credits':
 						openSubState(new substates.CreditsSubstate());
-						flixel.effects.FlxFlicker.stopFlickering(menuItems.members[curSelected]);
 
 						subStateClosed.add((substateThing) -> if (substateThing is substates.CreditsSubstate) {
 							selectedSomethin = false;
@@ -158,13 +156,24 @@ class MainMenuState extends MusicBeatState {
 							character.updateHitbox();
 						});
 					case 'options':
-						MusicBeatState.switchState(new options.OptionsState());
-						options.OptionsState.onPlayState = false;
+						openSubState(new options.OptionsSubstate());
+						options.OptionsSubstate.onPlayState = false;
 						if (states.PlayState.SONG != null) {
 							states.PlayState.SONG.arrowSkin = null;
 							states.PlayState.SONG.splashSkin = null;
 							states.PlayState.stageUI = 'normal';
 						}
+
+						subStateClosed.add((substateThing) -> if (substateThing is options.OptionsSubstate) {
+							selectedSomethin = false;
+
+							while (num == prevNum) num = FlxG.random.int(0, 3);
+
+							character.animation.addByPrefix('idle', characterShit[num].name, 0, false);
+							character.animation.play('idle');
+							character.y = characterShit[num].y;
+							character.updateHitbox();
+						});
 				}
 			}
 

@@ -47,15 +47,12 @@ class ControlsSubState extends MusicBeatSubstate
 	var curOptionsValid:Array<Int>;
 	static var defaultKey:String = 'Reset to Default Keys';
 
-	var bg:FlxSprite;
 	var grpDisplay:FlxTypedGroup<Alphabet>;
 	var grpBlacks:FlxTypedGroup<AttachedSprite>;
 	var grpOptions:FlxTypedGroup<Alphabet>;
 	var grpBinds:FlxTypedGroup<Alphabet>;
 	var selectSpr:AttachedSprite;
 
-	var gamepadColor:FlxColor = 0xfffd7194;
-	var keyboardColor:FlxColor = 0xff7192fd;
 	var onKeyboardMode:Bool = true;
 	
 	var controllerSpr:FlxSprite;
@@ -71,18 +68,6 @@ class ControlsSubState extends MusicBeatSubstate
 		options.push([true]);
 		options.push([true]);
 		options.push([true, defaultKey]);
-
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = keyboardColor;
-		bg.antialiasing = ClientPrefs.data.antialiasing;
-		bg.screenCenter();
-		add(bg);
-
-		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-		grid.velocity.set(40, 40);
-		grid.alpha = 0;
-		FlxTween.tween(grid, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
-		add(grid);
 
 		grpDisplay = new FlxTypedGroup<Alphabet>();
 		add(grpDisplay);
@@ -498,11 +483,8 @@ class ControlsSubState extends MusicBeatSubstate
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
 
-	var colorTween:FlxTween;
 	function swapMode()
 	{
-		if(colorTween != null) colorTween.destroy();
-		colorTween = FlxTween.color(bg, 0.5, bg.color, onKeyboardMode ? gamepadColor : keyboardColor, {ease: FlxEase.linear});
 		onKeyboardMode = !onKeyboardMode;
 
 		curSelected = 0;

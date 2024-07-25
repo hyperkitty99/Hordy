@@ -450,17 +450,14 @@ class PlayState extends MusicBeatState
 		healthBar.screenCenter(X);
 		healthBar.leftToRight = false;
 		healthBar.scrollFactor.set();
-		healthBar.visible = !ClientPrefs.data.hideHud;
 		reloadHealthBarColors();
 		uiGroup.add(healthBar);
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
-		iconP1.visible = !ClientPrefs.data.hideHud;
 		uiGroup.add(iconP1);
 		iconP1.setPosition(healthBar.width + iconP1.width * 1.85, healthBar.y - 75);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
-		iconP2.visible = !ClientPrefs.data.hideHud;
 		uiGroup.add(iconP2);
 		iconP2.setPosition(healthBar.x - iconP2.width / 2, healthBar.y - 75);
 
@@ -468,7 +465,6 @@ class PlayState extends MusicBeatState
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
-		scoreTxt.visible = !ClientPrefs.data.hideHud;
 		updateScore(false);
 		uiGroup.add(scoreTxt);
 
@@ -556,7 +552,7 @@ class PlayState extends MusicBeatState
 		}
 		playbackRate = value;
 		FlxG.animationTimeScale = value;
-		Conductor.safeZoneOffset = (ClientPrefs.data.safeFrames / 60) * 1000 * value;
+		Conductor.safeZoneOffset = (/*ClientPrefs.data.safeFrames*/5 / 60) * 1000 * value;
 		#else
 		playbackRate = 1.0; // ensuring -Crow
 		#end
@@ -1647,7 +1643,7 @@ class PlayState extends MusicBeatState
 				gfSpeed = Math.round(flValue1);
 
 			case 'Add Camera Zoom':
-				if(ClientPrefs.data.camZooms && FlxG.camera.zoom < 1.35) {
+				if(FlxG.camera.zoom < 1.35) {
 					if(flValue1 == null) flValue1 = 0.015;
 					if(flValue2 == null) flValue2 = 0.03;
 
@@ -2201,7 +2197,6 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.data.ghostTapping) return; //fuck it
 
 		noteMissCommon(direction);
-		FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 	}
 
 	function noteMissCommon(direction:Int, note:Note = null)
@@ -2269,6 +2264,8 @@ class PlayState extends MusicBeatState
 				gf.specialAnim = true;
 			}
 		}
+
+		FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 
 		if (char != null && note != null && note.noteType == 'Dynamite Note') {
 			char.playAnim('hurt', true);
@@ -2488,7 +2485,7 @@ class PlayState extends MusicBeatState
 			if (generatedMusic && !endingSong && !isCameraOnForcedPos)
 				moveCameraSection();
 
-			if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.data.camZooms)
+			if (camZooming && FlxG.camera.zoom < 1.35)
 			{
 				FlxG.camera.zoom += 0.015 * camZoomingMult;
 				camHUD.zoom += 0.03 * camZoomingMult;

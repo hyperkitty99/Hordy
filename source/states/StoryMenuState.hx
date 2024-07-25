@@ -80,7 +80,7 @@ class StoryMenuState extends MusicBeatState {
 			}
 
 			if(FlxG.mouse.wheel != 0) {
-				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeWeek(-FlxG.mouse.wheel);
 			}
 

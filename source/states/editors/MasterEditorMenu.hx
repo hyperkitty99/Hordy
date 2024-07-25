@@ -72,7 +72,7 @@ class MasterEditorMenu extends MusicBeatState {
 	}
 
 	function changeSelection(change:Int = 0) {
-		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		FlxG.sound.play(Paths.sound('scrollMenu'));
 
 		curSelected += change;
 		if (curSelected < 0) curSelected = options.length - 1;

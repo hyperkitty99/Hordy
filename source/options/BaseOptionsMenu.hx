@@ -16,36 +16,18 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	private var curSelected:Int = 0;
 	private var optionsArray:Array<Option>;
 
-	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var grpOptions:FlxTypedGroup<FlxText>;
 	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
 	private var grpTexts:FlxTypedGroup<AttachedText>;
 
 	private var descBox:FlxSprite;
 	private var descText:FlxText;
 
-	public var title:String;
-	public var rpcTitle:String;
-
-	public var bg:FlxSprite;
 	public function new()
 	{
 		super();
-
-		if(title == null) title = 'Options';
-		if(rpcTitle == null) rpcTitle = 'Options Menu';
-		
-		#if DISCORD_ALLOWED
-		DiscordClient.changePresence(rpcTitle, null);
-		#end
-		
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFea71fd;
-		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.data.antialiasing;
-		add(bg);
-
 		// avoids lagspikes while scrolling through menus!
-		grpOptions = new FlxTypedGroup<Alphabet>();
+		grpOptions = new FlxTypedGroup<FlxText>();
 		add(grpOptions);
 
 		grpTexts = new FlxTypedGroup<AttachedText>();
@@ -58,11 +40,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		descBox.alpha = 0.6;
 		add(descBox);
 
-		var titleText:Alphabet = new Alphabet(75, 45, title, true);
-		titleText.setScale(0.6);
-		titleText.alpha = 0.4;
-		add(titleText);
-
 		descText = new FlxText(50, 600, 1180, "", 32);
 		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
@@ -71,25 +48,22 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		for (i in 0...optionsArray.length)
 		{
-			var optionText:Alphabet = new Alphabet(290, 260, optionsArray[i].name, false);
-			optionText.isMenuItem = true;
-			/*optionText.forceX = 300;
-			optionText.yMult = 90;*/
-			optionText.targetY = i;
+			var optionText = new FlxText(170, 170 + (i * 80), optionsArray[i].name, 50);
+			optionText.font = Paths.font('alphabet.ttf');
+			optionText.ID = i;
 			grpOptions.add(optionText);
 
 			if(optionsArray[i].type == 'bool')
 			{
-				var checkbox:CheckboxThingie = new CheckboxThingie(optionText.x - 105, optionText.y, Std.string(optionsArray[i].getValue()) == 'true');
+				var checkbox:CheckboxThingie = new CheckboxThingie(optionText.x - 105, optionText.y + (i * 10), Std.string(optionsArray[i].getValue()) == 'true');
 				checkbox.sprTracker = optionText;
+				checkbox.offsetY = -50;
 				checkbox.ID = i;
 				checkboxGroup.add(checkbox);
 			}
 			else
 			{
 				optionText.x -= 80;
-				optionText.startPosition.x -= 80;
-				//optionText.xAdd -= 80;
 				var valueText:AttachedText = new AttachedText('' + optionsArray[i].getValue(), optionText.width + 60);
 				valueText.sprTracker = optionText;
 				valueText.copyAlpha = true;
@@ -97,7 +71,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				grpTexts.add(valueText);
 				optionsArray[i].child = valueText;
 			}
-			//optionText.snapToPosition(); //Don't ignore me when i ask for not making a fucking pull request to uncomment this line ok
 			updateTextFrom(optionsArray[i]);
 		}
 
@@ -415,6 +388,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		attach.y = bind.y;
 
 		option.child = attach;
+		option.child.colorTransform.redOffset = option.child.colorTransform.greenOffset = option.child.colorTransform.blueOffset = 255;
+		@:privateAccess option.child.updateColorTransform();
 		grpTexts.insert(grpTexts.members.indexOf(bind), attach);
 		grpTexts.remove(bind);
 		bind.destroy();
@@ -483,14 +458,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		var bullShit:Int = 0;
 
-		for (item in grpOptions.members)
-		{
-			item.targetY = bullShit - curSelected;
-			bullShit++;
+		for (item in grpOptions) item.alpha = item.ID == curSelected ? 1 : 0.6;
 
-			item.alpha = 0.6;
-			if (item.targetY == 0) item.alpha = 1;
-		}
 		for (text in grpTexts)
 		{
 			text.alpha = 0.6;

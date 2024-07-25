@@ -18,8 +18,6 @@ import states.TitleState;
 	public var splashSkin:String = 'Psych';
 	public var shaders:Bool = true;
 	public var cacheOnGPU:Bool = true;
-	public var camZooms:Bool = true;
-	public var hideHud:Bool = false;
 	public var noteOffset:Int = 0;
 	public var arrowRGB:Array<Array<FlxColor>> = [
 		[0xFFC24B99, 0xFFFFFFFF, 0xFF3C1F56],
@@ -42,7 +40,7 @@ import states.TitleState;
 	public var sickWindow:Int = 45;
 	public var goodWindow:Int = 90;
 	public var badWindow:Int = 135;
-	public var safeFrames:Float = 10;
+	// public var safeFrames:Float = 5;
 	public var guitarHeroSustains:Bool = false;
 	public var discordRPC:Bool = false;
 	public var completedFearless:Bool = false;

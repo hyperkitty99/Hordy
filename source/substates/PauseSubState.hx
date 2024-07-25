@@ -54,13 +54,7 @@ class PauseSubState extends MusicBeatSubstate {
 		levelInfo.updateHitbox();
 		add(levelInfo);
 
-		var blueballedTxt:FlxText = new FlxText(20, 15 + 64, 0, "Blueballed: " + states.PlayState.deathCounter, 32);
-		blueballedTxt.scrollFactor.set();
-		blueballedTxt.setFormat(Paths.font('vcr.ttf'), 32);
-		blueballedTxt.updateHitbox();
-		add(blueballedTxt);
-
-		var chartingText:FlxText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
+		var chartingText:FlxText = new FlxText(20, 15 + 32, 0, "CHARTING MODE", 32);
 		chartingText.scrollFactor.set();
 		chartingText.setFormat(Paths.font('vcr.ttf'), 32);
 		chartingText.x = FlxG.width - (chartingText.width + 20);
@@ -69,15 +63,12 @@ class PauseSubState extends MusicBeatSubstate {
 		chartingText.visible = states.PlayState.chartingMode;
 		add(chartingText);
 
-		blueballedTxt.alpha = 0;
 		levelInfo.alpha = 0;
 
 		levelInfo.x = FlxG.width - (levelInfo.width + 20);
-		blueballedTxt.x = FlxG.width - (blueballedTxt.width + 20);
 
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
-		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 
 		grpMenuShit = new FlxTypedGroup<Alphabet>();
 		add(grpMenuShit);
@@ -108,7 +99,7 @@ class PauseSubState extends MusicBeatSubstate {
 		switch (daSelected) {
 			case 'Skip Time':
 				if (controls.UI_LEFT_P || controls.UI_RIGHT_P) {
-					FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+					FlxG.sound.play(Paths.sound('scrollMenu'));
 					controls.UI_LEFT_P ? curTime -= 1000 : curTime += 1000;
 					holdTime = 0;
 				}
@@ -208,7 +199,7 @@ class PauseSubState extends MusicBeatSubstate {
 	{
 		curSelected += change;
 
-		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		FlxG.sound.play(Paths.sound('scrollMenu'));
 
 		if (curSelected < 0)
 			curSelected = menuItems.length - 1;

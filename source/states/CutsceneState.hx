@@ -15,6 +15,7 @@ class CutsceneState extends MusicBeatState {
                 ClientPrefs.data.completedFearless = true;
                 ClientPrefs.saveSettings();
                 states.PlayState.isFreeplay = true;
+                states.PlayState.seenCutscene = false;
 
                 openSubState(new CustomFadeTransition(0.6, false));
                 CustomFadeTransition.finishCallback = function() FlxG.switchState(new states.MainMenuState());

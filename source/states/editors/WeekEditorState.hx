@@ -648,7 +648,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 	}
 
 	function changeSelection(change:Int = 0) {
-		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		FlxG.sound.play(Paths.sound('scrollMenu'));
 
 		curSelected += change;
 
