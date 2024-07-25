@@ -157,7 +157,6 @@ class MainMenuState extends MusicBeatState {
 						});
 					case 'options':
 						openSubState(new options.OptionsSubstate());
-						options.OptionsSubstate.onPlayState = false;
 						if (states.PlayState.SONG != null) {
 							states.PlayState.SONG.arrowSkin = null;
 							states.PlayState.SONG.splashSkin = null;

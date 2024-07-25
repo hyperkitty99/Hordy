@@ -128,6 +128,7 @@ class ControlsSubState extends MusicBeatSubstate
 					text.changeX = false;
 					text.distancePerItem.y = 60;
 					text.targetY = myID;
+					@:privateAccess text.forEach(char -> {char.colorTransform.redOffset = char.colorTransform.greenOffset = char.colorTransform.blueOffset = 255; char.updateColorTransform();});
 					if(isDisplayKey)
 						grpDisplay.add(text);
 					else {
@@ -155,6 +156,7 @@ class ControlsSubState extends MusicBeatSubstate
 		text.screenCenter(X);
 		text.y -= 55;
 		text.startPosition.y -= 55;
+		@:privateAccess text.forEach(char -> {char.colorTransform.redOffset = char.colorTransform.greenOffset = char.colorTransform.blueOffset = 255; char.updateColorTransform();});
 	}
 	function addKeyText(text:Alphabet, option:Array<Dynamic>, id:Int)
 	{
@@ -183,6 +185,8 @@ class ControlsSubState extends MusicBeatSubstate
 			attach.snapToPosition();
 			attach.y += FlxG.height * 2;
 			grpBinds.add(attach);
+
+			@:privateAccess attach.forEach(char -> {char.colorTransform.redOffset = char.colorTransform.greenOffset = char.colorTransform.blueOffset = 255; char.updateColorTransform();});
 
 			playstationCheck(attach);
 			attach.scaleX = Math.min(1, 230 / attach.width);
@@ -231,6 +235,7 @@ class ControlsSubState extends MusicBeatSubstate
 		attach.ID = bind.ID;
 		attach.x = bind.x;
 		attach.y = bind.y;
+		@:privateAccess attach.forEach(char -> {char.colorTransform.redOffset = char.colorTransform.greenOffset = char.colorTransform.blueOffset = 255; char.updateColorTransform();});
 		
 		playstationCheck(attach);
 		attach.scaleX = Math.min(1, 230 / attach.width);

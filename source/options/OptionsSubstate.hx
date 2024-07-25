@@ -4,7 +4,6 @@ class OptionsSubstate extends MusicBeatSubstate {
 	var options:Array<String> = ['Controls', 'Graphics', 'Gameplay', 'Adjust Delay'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
-	public static var onPlayState:Bool = false;
 
 	function openSelectedSubstate(label:String) {
 		switch(label) {
@@ -19,9 +18,10 @@ class OptionsSubstate extends MusicBeatSubstate {
 	var selectorRight:Alphabet;
 
 	var isLerping:Bool = true;
-	var bullShit:Int = 0;
 	override function create() {
 		add(grpOptions = new FlxTypedGroup<Alphabet>());
+		add(selectorLeft = new Alphabet(0, 720, '>', true));
+		add(selectorRight = new Alphabet(0, 720, '<', true));
 
 		for (i in 0...options.length) {
 			var optionText:Alphabet = new Alphabet(FlxG.width / 2, 720, options[i], true);
@@ -29,8 +29,6 @@ class OptionsSubstate extends MusicBeatSubstate {
 			optionText.snapToPosition();
 			grpOptions.add(optionText);
 		}
-		add(selectorLeft = new Alphabet(0, 720, '>', true));
-		add(selectorRight = new Alphabet(0, 720, '<', true));
 
 		changeSelection();
 
@@ -45,22 +43,19 @@ class OptionsSubstate extends MusicBeatSubstate {
 		if (controls.UI_UP_P || controls.UI_DOWN_P) changeSelection(controls.UI_UP_P ? -1 : 1);
 
 		if (isLerping) {
-            selectorLeft.y = FlxMath.lerp(selectorLeft.y, grpOptions.members[curSelected].y, 0.1);
-            selectorRight.y = FlxMath.lerp(selectorRight.y, grpOptions.members[curSelected].y, 0.1);
+			for (thing in [selectorLeft, selectorRight]) thing.y = FlxMath.lerp(thing.y, grpOptions.members[curSelected].y, 0.1);
 
             if (Math.abs(selectorLeft.y - grpOptions.members[curSelected].y) < 1) {
                 isLerping = false;
-                selectorLeft.y = grpOptions.members[curSelected].y;
-                selectorRight.y = grpOptions.members[curSelected].y;
+				for (thing in [selectorLeft, selectorRight]) thing.y = grpOptions.members[curSelected].y;
             }
         }
 
 		for (item in grpOptions.members) {
-			item.y = FlxMath.lerp(item.y, (grpOptions.members.indexOf(item) * 100) + 150, 0.1);
+			item.y = FlxMath.lerp(item.y, (grpOptions.members.indexOf(item) * 100) + 175, 0.1);
 
 			if (item.targetY == 0) {
-				selectorRight.y = FlxMath.lerp(selectorRight.y, item.y, 0.1);
-				selectorLeft.y = FlxMath.lerp(selectorLeft.y, item.y, 0.1);
+				for (thing in [selectorLeft, selectorRight]) thing.y = FlxMath.lerp(thing.y, item.y, 0.1);
 				selectorRight.x = FlxMath.lerp(selectorRight.x, item.x + (item.width / 2) + 10, 0.1);
 				selectorLeft.x = FlxMath.lerp(selectorLeft.x, item.x - (item.width / 2) - 55, 0.1);
 			}
@@ -69,18 +64,10 @@ class OptionsSubstate extends MusicBeatSubstate {
 		if (controls.BACK && (cantUnpause <= 0)) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			for (item in grpOptions.members) FlxTween.tween(item, {y: 720}, 0.1, {ease: FlxEase.expoIn});
-			if(onPlayState) {
-				backend.StageData.loadDirectory(states.PlayState.SONG);
-				MusicBeatState.switchState(new states.PlayState());
-				FlxG.sound.music.volume = 0;
-			} else new FlxTimer().start(0.1, function(tmr:FlxTimer) {close();});
+			new FlxTimer().start(0.1, function(tmr:FlxTimer) {close();});
 		} else if (controls.ACCEPT && (cantUnpause <= 0)) openSelectedSubstate(options[curSelected]);
 	
-		for (item in grpOptions.members) {
-			controls.ACCEPT ? item.visible = false : item.visible = true;
-			controls.ACCEPT ? selectorLeft.visible = false : selectorLeft.visible = true;
-			controls.ACCEPT ? selectorRight.visible = false :  selectorRight.visible = true;
-		}
+		for (item in grpOptions.members) for (thing in [item, selectorLeft, selectorRight]) controls.ACCEPT ? curSelected == 3 ? thing.visible = true : thing.visible = false : thing.visible = true;
 	}
 	
     function changeSelection(change:Int = 0) {
@@ -96,8 +83,7 @@ class OptionsSubstate extends MusicBeatSubstate {
 
             if (item.targetY == 0) {
                 if (!isLerping) {
-                    selectorLeft.y = item.y;
-                    selectorRight.y = item.y;
+					for (thing in [selectorLeft, selectorRight]) thing.y = item.y;
 					selectorLeft.x = item.x - (item.width / 2) - 65;
 					selectorRight.x = item.x + (item.width / 2) + 20;
                 }

@@ -1,6 +1,7 @@
 package options;
 
 import objects.Bar;
+import sys.thread.Thread;
 
 class NoteOffsetSubState extends MusicBeatSubstate {
 	var barPercent:Float = 0;
@@ -24,7 +25,7 @@ class NoteOffsetSubState extends MusicBeatSubstate {
 		beatText.acceleration.y = 250;
 		add(beatText);
 
-		timeTxt = new FlxText(0, 600, FlxG.width, "", 32);
+		timeTxt = new FlxText(0, 575	, FlxG.width, "", 32);
 		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		timeTxt.antialiasing = ClientPrefs.data.antialiasing;
 		timeTxt.borderSize = 2;
@@ -39,8 +40,10 @@ class NoteOffsetSubState extends MusicBeatSubstate {
 		add(timeBar);
 		add(timeTxt);
 
+		Thread.create(()-> {
+			FlxG.sound.playMusic(Paths.music('offsetSong'), 0.6, true);
+        });
 		Conductor.bpm = 128;
-		FlxG.sound.playMusic(Paths.music('offsetSong'), 0.6, true);
 		super.create();
 	}
 
@@ -92,7 +95,7 @@ class NoteOffsetSubState extends MusicBeatSubstate {
 		super.beatHit();
 
 		if(curBeat % 2 == 0) {
-			FlxG.camera.zoom = 1.05;
+			FlxG.camera.zoom = 1.025;
 			if(zoomTween != null) zoomTween.cancel();
 			zoomTween = FlxTween.tween(FlxG.camera, {zoom: 1}, 1, {ease: FlxEase.circOut, onComplete: function(twn:FlxTween){zoomTween = null;}});
 		}
@@ -103,6 +106,9 @@ class NoteOffsetSubState extends MusicBeatSubstate {
 			beatText.velocity.y = -150;
 			if(beatTween != null) beatTween.cancel();
 			beatTween = FlxTween.tween(beatText, {alpha: 0}, 1, {ease: FlxEase.sineIn, onComplete: function(twn:FlxTween){beatTween = null;}});
+			FlxG.camera.zoom = 1.04;
+			if(zoomTween != null) zoomTween.cancel();
+			zoomTween = FlxTween.tween(FlxG.camera, {zoom: 1}, 1, {ease: FlxEase.circOut, onComplete: function(twn:FlxTween){zoomTween = null;}});
 		}
 	}
 

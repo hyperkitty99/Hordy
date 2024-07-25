@@ -48,7 +48,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		for (i in 0...optionsArray.length)
 		{
-			var optionText = new FlxText(170, 170 + (i * 80), optionsArray[i].name, 50);
+			var optionText = new FlxText(300, 170 + (i * 80), optionsArray[i].name, 50);
 			optionText.font = Paths.font('alphabet.ttf');
 			optionText.ID = i;
 			grpOptions.add(optionText);
