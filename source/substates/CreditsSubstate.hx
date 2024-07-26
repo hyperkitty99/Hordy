@@ -14,14 +14,7 @@ class CreditsSubstate extends MusicBeatSubstate {
 
 	var offsetThing:Float = -75;
 
-	var bar:flixel.addons.display.FlxBackdrop;
-
 	override function create() {
-		#if DISCORD_ALLOWED
-		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
-		#end
-
 		persistentUpdate = true;
 		
 		grpOptions = new FlxTypedGroup<Alphabet>();
@@ -66,6 +59,7 @@ class CreditsSubstate extends MusicBeatSubstate {
 			} else optionText.alignment = CENTERED;
 		}
 
+		var bar:flixel.addons.display.FlxBackdrop;
 		add(bar = new flixel.addons.display.FlxBackdrop(Paths.image('ui/mainmenu/eventThing'), X));
 		bar.velocity.x = 30;
 		bar.x = states.MainMenuState.barD.x;

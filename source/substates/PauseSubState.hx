@@ -1,17 +1,9 @@
 package substates;
 
-import states.MainMenuState;
-import flixel.addons.transition.FlxTransitionableState;
-
-import flixel.util.FlxStringUtil;
-
-import states.StoryMenuState;
-import options.OptionsState;
-
 class PauseSubState extends MusicBeatSubstate {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['Resume', 'Restart Song', 'Options', 'Exit to menu'];
+	var menuItems:Array<String> = ['Resume', 'Restart Song', /*'Options',*/ 'Exit to menu'];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
@@ -53,6 +45,8 @@ class PauseSubState extends MusicBeatSubstate {
 		levelInfo.setFormat(Paths.font("vcr.ttf"), 32);
 		levelInfo.updateHitbox();
 		add(levelInfo);
+		levelInfo.alpha = 0;
+		levelInfo.x = FlxG.width - (levelInfo.width + 20);
 
 		var chartingText:FlxText = new FlxText(20, 15 + 32, 0, "CHARTING MODE", 32);
 		chartingText.scrollFactor.set();
@@ -63,15 +57,10 @@ class PauseSubState extends MusicBeatSubstate {
 		chartingText.visible = states.PlayState.chartingMode;
 		add(chartingText);
 
-		levelInfo.alpha = 0;
-
-		levelInfo.x = FlxG.width - (levelInfo.width + 20);
-
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 
-		grpMenuShit = new FlxTypedGroup<Alphabet>();
-		add(grpMenuShit);
+		add(grpMenuShit = new FlxTypedGroup<Alphabet>());
 
 		regenMenu();
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
@@ -139,19 +128,18 @@ class PauseSubState extends MusicBeatSubstate {
 					states.PlayState.instance.notes.clear();
 					states.PlayState.instance.unspawnNotes = [];
 					states.PlayState.instance.finishSong(true);
-				case 'Options':
+				/*case 'Options':
 					states.PlayState.instance.paused = true;
 					states.PlayState.instance.vocals.volume = 0;
 
-					MusicBeatState.switchState(new OptionsState());
+					MusicBeatState.switchState(new options.OptionsState());
 
 					FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath('Breakfast')), pauseMusic.volume);
 					FlxTween.tween(FlxG.sound.music, {volume: 1}, 0.8);
 					FlxG.sound.music.time = pauseMusic.time;
 
-					OptionsState.onPlayState = true;
+					OptionsState.onPlayState = true;*/
 				case "Exit to menu":
-					#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
 					states.PlayState.deathCounter = 0;
 					states.PlayState.seenCutscene = false;
 
@@ -184,8 +172,8 @@ class PauseSubState extends MusicBeatSubstate {
 		states.PlayState.instance.vocals.volume = 0;
 
 		if(noTrans) {
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
+			flixel.addons.transition.FlxTransitionableState.skipNextTransIn = true;
+			flixel.addons.transition.FlxTransitionableState.skipNextTransOut = true;
 		}
 		MusicBeatState.resetState();
 	}
@@ -264,6 +252,6 @@ class PauseSubState extends MusicBeatSubstate {
 	}
 
 	function updateSkipTimeText() {
-		skipTimeText.text = FlxStringUtil.formatTime(Math.max(0, Math.floor(curTime / 1000)), false) + ' / ' + FlxStringUtil.formatTime(Math.max(0, Math.floor(FlxG.sound.music.length / 1000)), false);
+		skipTimeText.text = flixel.util.FlxStringUtil.formatTime(Math.max(0, Math.floor(curTime / 1000)), false) + ' / ' + flixel.util.FlxStringUtil.formatTime(Math.max(0, Math.floor(FlxG.sound.music.length / 1000)), false);
 	}
 }

@@ -214,7 +214,7 @@ class MainMenuState extends MusicBeatState {
 
 		for (i in 0...menuItems.members.length) {
 			if (menuItems.members[i].x > 600) {
-				if (barD != null && curSelected != 2) barD.draw();
+				if (barD != null && curSelected != 2 && curSelected != 3) barD.draw();
 				if (barU != null) barU.draw();
 				if (menuItems != null) menuItems.draw();
 			}

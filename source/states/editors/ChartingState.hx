@@ -215,11 +215,6 @@ class ChartingState extends MusicBeatState
 
 		// Paths.clearMemory();
 
-		#if DISCORD_ALLOWED
-		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Chart Editor", StringTools.replace(_song.song, '-', ' '));
-		#end
-
 		vortex = FlxG.save.data.chart_vortex;
 		ignoreWarnings = FlxG.save.data.ignoreWarnings;
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
@@ -1413,11 +1408,6 @@ class ChartingState extends MusicBeatState
 				if (voicesOppVolume != null) opponentVocals.volume = voicesOppVolume.value;
 				if (check_mute_vocals_opponent != null && check_mute_vocals_opponent.checked) opponentVocals.volume = 0;
 			}
-
-			#if DISCORD_ALLOWED
-			// Updating Discord Rich Presence
-			DiscordClient.changePresence("Chart Editor", StringTools.replace(_song.song, '-', ' '));
-			#end
 		}
 		super.closeSubState();
 	}

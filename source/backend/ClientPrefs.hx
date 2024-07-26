@@ -42,7 +42,6 @@ import states.TitleState;
 	public var badWindow:Int = 135;
 	// public var safeFrames:Float = 5;
 	public var guitarHeroSustains:Bool = false;
-	public var discordRPC:Bool = false;
 	public var completedFearless:Bool = false;
 }
 
@@ -151,14 +150,8 @@ class ClientPrefs {
 		}
 		
 		// flixel automatically saves your volume!
-		if(FlxG.save.data.volume != null)
-			FlxG.sound.volume = FlxG.save.data.volume;
-		if (FlxG.save.data.mute != null)
-			FlxG.sound.muted = FlxG.save.data.mute;
-
-		#if DISCORD_ALLOWED
-		DiscordClient.check();
-		#end
+		if(FlxG.save.data.volume != null) FlxG.sound.volume = FlxG.save.data.volume;
+		if (FlxG.save.data.mute != null) FlxG.sound.muted = FlxG.save.data.mute;
 
 		// controls on a separate save file
 		var save:FlxSave = new FlxSave();

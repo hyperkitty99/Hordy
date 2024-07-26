@@ -36,10 +36,6 @@ class FreeplaySubstate extends MusicBeatSubstate
 		states.PlayState.isFreeplay = false;
 		WeekData.reloadWeekFiles(false);
 
-		#if DISCORD_ALLOWED
-		DiscordClient.changePresence("In the Menus", null);
-		#end
-
 		for (i in 0...WeekData.weeksList.length) {
 			if(weekIsLocked(WeekData.weeksList[i])) continue;
 

@@ -10,8 +10,5 @@ class HordyFire extends BaseStage {
 		add(new BGSprite("bgs/hordy/fire", 1900, -400, ['fire'], true));
 	}
 
-	override function beatHit() {
-		super.beatHit();
-		for (sprite in [speaker2, speaker]) sprite.dance();
-	}
+	override function beatHit() for (sprite in [speaker2, speaker]) sprite.dance();
 }

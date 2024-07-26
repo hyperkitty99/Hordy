@@ -203,7 +203,6 @@ class Note extends FlxSprite
 					noMissAnimation = true;
 
 					lowPriority = true;
-					ratingDisabled = true;
 					hitHealth = 0;
 					missHealth = 0.65;
 			}

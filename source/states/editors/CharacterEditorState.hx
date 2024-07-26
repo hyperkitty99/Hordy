@@ -718,7 +718,6 @@ class CharacterEditorState extends MusicBeatState
 				var lastIcon = healthIcon.getCharacter();
 				healthIcon.changeIcon(healthIconInputText.text, false);
 				character.healthIcon = healthIconInputText.text;
-				if(lastIcon != healthIcon.getCharacter()) updatePresence();
 			}
 			else if(sender == vocalsInputText)
 				character.vocalsFile = vocalsInputText.text;
@@ -1114,14 +1113,6 @@ class CharacterEditorState extends MusicBeatState
 		healthColorStepperB.value = character.healthColorArray[2];
 		healthBar.leftBar.color = healthBar.rightBar.color = FlxColor.fromRGB(character.healthColorArray[0], character.healthColorArray[1], character.healthColorArray[2]);
 		healthIcon.changeIcon(character.healthIcon, false);
-		updatePresence();
-	}
-
-	inline function updatePresence() {
-		#if DISCORD_ALLOWED
-		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Character Editor", "Character: " + _char, healthIcon.getCharacter());
-		#end
 	}
 
 	inline function reloadAnimList()

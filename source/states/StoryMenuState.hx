@@ -31,10 +31,6 @@ class StoryMenuState extends MusicBeatState {
 
 		add(new FlxSprite().makeGraphic(FlxG.width, 56, FlxColor.BLACK));
 
-		#if DISCORD_ALLOWED
-		DiscordClient.changePresence("In the Menus", null);
-		#end
-
 		var num:Int = 0;
 		for (i in 0...WeekData.weeksList.length) {
 			var weekFile:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);

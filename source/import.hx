@@ -1,9 +1,4 @@
 #if !macro
-//Discord API
-#if DISCORD_ALLOWED
-import backend.Discord;
-#end
-
 #if sys
 import sys.*;
 import sys.io.*;

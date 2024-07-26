@@ -278,11 +278,6 @@ class WeekEditorState extends MusicBeatState
 			missingFileText.text = 'MISSING FILE: images/storymenu/' + assetName + '.png';
 		}
 		recalculateStuffPosition();
-
-		#if DISCORD_ALLOWED
-		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Week Editor", "Editting: " + weekFileName);
-		#end
 	}
 	
 	override function getEvent(id:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>) {

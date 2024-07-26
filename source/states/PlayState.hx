@@ -189,12 +189,6 @@ class PlayState extends MusicBeatState
 	public var opponentCameraOffset:Array<Float> = null;
 	public var girlfriendCameraOffset:Array<Float> = null;
 
-	#if DISCORD_ALLOWED
-	// Discord RPC variables
-	var detailsText:String = "";
-	var detailsPausedText:String = "";
-	#end
-
 	//Achievement shit
 	var keysPressed:Array<Int> = [];
 	var boyfriendIdleTime:Float = 0.0;
@@ -268,19 +262,6 @@ class PlayState extends MusicBeatState
 
 		Conductor.mapBPMChanges(SONG);
 		Conductor.bpm = SONG.bpm;
-
-
-		#if DISCORD_ALLOWED
-		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
-
-		if (isStoryMode)
-			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName;
-		else
-			detailsText = "Freeplay";
-
-		// String for when the game is paused
-		detailsPausedText = "Paused - " + detailsText;
-		#end
 
 		GameOverSubstate.resetVariables();
 		songName = Paths.formatToSongPath(SONG.song);
@@ -505,8 +486,6 @@ class PlayState extends MusicBeatState
 		Paths.image('alphabet');
 
 		Paths.music(Paths.formatToSongPath('Breakfast'));
-
-		resetRPC();
 
 		cacheCountdown();
 
@@ -870,11 +849,6 @@ class PlayState extends MusicBeatState
 		songLength = FlxG.sound.music.length;
 		// FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		// FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-
-		#if DISCORD_ALLOWED
-		// Updating Discord Rich Presence (with Time Left)
-		if(autoUpdateRPC) DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter(), true, songLength);
-		#end
 	}
 
 	var debugNum:Int = 0;
@@ -1180,37 +1154,7 @@ class PlayState extends MusicBeatState
 			FlxTween.globalManager.forEach(function(twn:FlxTween) if(!twn.finished) twn.active = true);
 
 			paused = false;
-			resetRPC(startTimer != null && startTimer.finished);
 		}
-	}
-
-	override public function onFocus():Void
-	{
-		if (health > 0 && !paused) resetRPC(Conductor.songPosition > 0.0);
-		super.onFocus();
-	}
-
-	override public function onFocusLost():Void
-	{
-		#if DISCORD_ALLOWED
-		if (health > 0 && !paused && autoUpdateRPC) DiscordClient.changePresence(detailsPausedText, SONG.song, iconP2.getCharacter());
-		#end
-
-		super.onFocusLost();
-	}
-
-	// Updating Discord Rich Presence.
-	public var autoUpdateRPC:Bool = true; //performance setting for custom RPC things
-	function resetRPC(?showTime:Bool = false)
-	{
-		#if DISCORD_ALLOWED
-		if(!autoUpdateRPC) return;
-
-		if (showTime)
-			DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.data.noteOffset);
-		else
-			DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter());
-		#end
 	}
 
 	function resyncVocals():Void
@@ -1461,10 +1405,6 @@ class PlayState extends MusicBeatState
 			}
 
 		openSubState(new PauseSubState());
-
-		#if DISCORD_ALLOWED
-		if(autoUpdateRPC) DiscordClient.changePresence(detailsPausedText, SONG.song, iconP2.getCharacter());
-		#end
 	}
 
 	function openChartEditor()
@@ -1476,11 +1416,6 @@ class PlayState extends MusicBeatState
 			FlxG.sound.music.stop();
 		chartingMode = true;
 
-		#if DISCORD_ALLOWED
-		DiscordClient.changePresence("Chart Editor", null, null, true);
-		DiscordClient.resetClientID();
-		#end
-
 		MusicBeatState.switchState(new ChartingState());
 	}
 
@@ -1489,9 +1424,7 @@ class PlayState extends MusicBeatState
 		FlxG.camera.followLerp = 0;
 		persistentUpdate = false;
 		paused = true;
-		if(FlxG.sound.music != null)
-			FlxG.sound.music.stop();
-		#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
+		if(FlxG.sound.music != null) FlxG.sound.music.stop();
 		MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 	}
 
@@ -1515,10 +1448,6 @@ class PlayState extends MusicBeatState
 
 			openSubState(new GameOverSubstate());
 
-			#if DISCORD_ALLOWED
-			// Game Over doesn't get his its variable because it's only used here
-			if(autoUpdateRPC) DiscordClient.changePresence("Game Over - " + detailsText, SONG.song, iconP2.getCharacter());
-			#end
 			isDead = true;
 			return true;
 		}
@@ -1911,7 +1840,6 @@ class PlayState extends MusicBeatState
 
 			if (storyPlaylist.length <= 0) {
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
-				#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
 
 				MusicBeatState.switchState(new StoryMenuState());
 
@@ -1936,7 +1864,6 @@ class PlayState extends MusicBeatState
 			}
 		} else {
 			trace('WENT BACK TO FREEPLAY??');
-			#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
 
 			if (SONG.song.toLowerCase() == 'fearless' && !seenCutscene) {
 				seenCutscene = true;

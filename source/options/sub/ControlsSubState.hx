@@ -1,4 +1,4 @@
-package options;
+package options.sub;
 
 import backend.InputFormatter;
 import flixel.addons.display.FlxBackdrop;
@@ -87,13 +87,6 @@ class ControlsSubState extends MusicBeatSubstate
 		@:privateAccess text.forEach(char -> {char.colorTransform.redOffset = char.colorTransform.greenOffset = char.colorTransform.blueOffset = 255; char.updateColorTransform();});
 
 		createTexts();
-
-		var bar:flixel.addons.display.FlxBackdrop;
-		add(bar = new flixel.addons.display.FlxBackdrop(Paths.image('ui/mainmenu/eventThing'), X));
-		bar.velocity.x = 30;
-		bar.x = states.MainMenuState.barD.x;
-		bar.y = 615;
-		bar.flipY = true;
 	}
 
 	var lastID:Int = 0;
