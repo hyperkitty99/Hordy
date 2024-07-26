@@ -1,4 +1,4 @@
-package options;
+package options.sub;
 
 class GraphicsSettingsSubState extends BaseOptionsMenu {
 	public function new() {

@@ -17,6 +17,10 @@ class OptionsSubstate extends MusicBeatSubstate {
 	var selectorLeft:Alphabet;
 	var selectorRight:Alphabet;
 	override function create() {
+		camera = FlxG.cameras.list[FlxG.cameras.list.length - 1];
+
+		add(new FlxSprite().makeGraphic(FlxG.width, FlxG.height, 0x99000000));
+
 		add(grpOptions = new FlxTypedGroup<Alphabet>());
 		add(selectorLeft = new Alphabet(0, 720, '>', true));
 		add(selectorRight = new Alphabet(0, 720, '<', true));

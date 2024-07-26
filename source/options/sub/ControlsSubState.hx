@@ -89,6 +89,11 @@ class ControlsSubState extends MusicBeatSubstate
 		createTexts();
 	}
 
+	override function create() {
+		camera = FlxG.cameras.list[FlxG.cameras.list.length - 1];
+		super.create();
+	}
+
 	var lastID:Int = 0;
 	function createTexts()
 	{

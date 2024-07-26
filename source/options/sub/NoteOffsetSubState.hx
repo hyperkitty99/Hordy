@@ -1,4 +1,4 @@
-package options;
+package options.sub;
 
 import objects.Bar;
 import sys.thread.Thread;

@@ -156,8 +156,6 @@ class PlayState extends MusicBeatState
 	public var healthGain:Float = 1;
 	public var healthLoss:Float = 1;
 
-	public var guitarHeroSustains:Bool = false;
-
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
 	public var camHUD:FlxCamera;
@@ -215,6 +213,7 @@ class PlayState extends MusicBeatState
 	var singSuffix:String = null;
 
 	var lerpedHealth:Float = 1;
+	public static var onPauseSubStateClosed:flixel.util.FlxSignal = new flixel.util.FlxSignal();
 
 	override public function create()
 	{
@@ -239,9 +238,6 @@ class PlayState extends MusicBeatState
 
 		if(FlxG.sound.music != null)
 			FlxG.sound.music.stop();
-
-		// Gameplay settings
-		guitarHeroSustains = ClientPrefs.data.guitarHeroSustains;
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = initPsychCamera();
@@ -981,9 +977,18 @@ class PlayState extends MusicBeatState
 						else if(ClientPrefs.data.middleScroll)
 						{
 							sustainNote.x += 310;
-							if(daNoteData > 1) //Up and Right
-								sustainNote.x += FlxG.width / 2 + 25;
+							if(daNoteData > 1) sustainNote.x += FlxG.width / 2 + 25;
 						}
+
+						onPauseSubStateClosed.add(function() {
+							if(ClientPrefs.data.downScroll) sustainNote.correctionOffset = 0;
+
+							if (sustainNote.mustPress) sustainNote.x += FlxG.width / 2;
+							else if(ClientPrefs.data.middleScroll) {
+								sustainNote.x += 310;
+								if(daNoteData > 1) sustainNote.x += FlxG.width / 2 + 25;
+							}
+						});
 					}
 				}
 
@@ -999,6 +1004,20 @@ class PlayState extends MusicBeatState
 						swagNote.x += FlxG.width / 2 + 25;
 					}
 				}
+
+				onPauseSubStateClosed.add(function() {
+					if (swagNote.mustPress) {
+						swagNote.x += FlxG.width / 2;
+					}
+					else if(ClientPrefs.data.middleScroll)
+					{
+						swagNote.x += 310;
+						if(daNoteData > 1) //Up and Right
+						{
+							swagNote.x += FlxG.width / 2 + 25;
+						}
+					}
+				});
 
 				if(!noteTypes.contains(swagNote.noteType)) {
 					noteTypes.push(swagNote.noteType);
@@ -1089,6 +1108,10 @@ class PlayState extends MusicBeatState
 			{
 				if(!ClientPrefs.data.opponentStrums) targetAlpha = 0;
 				else if(ClientPrefs.data.middleScroll) targetAlpha = 0.35;
+				onPauseSubStateClosed.add(function() {
+					if(!ClientPrefs.data.opponentStrums) targetAlpha = 0;
+					else if(ClientPrefs.data.middleScroll) targetAlpha = 0.35;
+				});
 			}
 
 			var babyArrow:StrumNote = new StrumNote(strumLineX, strumLineY, i, player);
@@ -1109,15 +1132,26 @@ class PlayState extends MusicBeatState
 				if(ClientPrefs.data.middleScroll)
 				{
 					babyArrow.x += 310;
-					if(i > 1) { //Up and Right
-						babyArrow.x += FlxG.width / 2 + 25;
-					}
+					if(i > 1) babyArrow.x += FlxG.width / 2 + 25;
 				}
 				opponentStrums.add(babyArrow);
 			}
 
 			strumLineNotes.add(babyArrow);
 			babyArrow.postAddedToGroup();
+
+			onPauseSubStateClosed.add(function() {
+				if (player != 1) {
+					if(ClientPrefs.data.middleScroll)
+					{
+						babyArrow.x += 310;
+						if(i > 1) babyArrow.x += FlxG.width / 2 + 25;
+					}
+				}
+
+				strumLineX = ClientPrefs.data.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X;
+				babyArrow.downScroll = ClientPrefs.data.downScroll;
+			});
 		}
 	}
 
@@ -2077,7 +2111,7 @@ class PlayState extends MusicBeatState
 					var canHit:Bool = (n != null && !strumsBlocked[n.noteData] && n.canBeHit
 						&& n.mustPress && !n.tooLate && !n.wasGoodHit && !n.blockHit);
 
-					if (guitarHeroSustains)
+					if (ClientPrefs.data.guitarHeroSustains)
 						canHit = canHit && n.parent != null && n.parent.wasGoodHit;
 
 					if (canHit && n.isSustainNote) {
@@ -2133,7 +2167,7 @@ class PlayState extends MusicBeatState
 		if(note != null) subtract = note.missHealth;
 
 		// GUITAR HERO SUSTAIN CHECK LOL!!!!
-		if (note != null && guitarHeroSustains && note.parent == null) {
+		if (note != null && ClientPrefs.data.guitarHeroSustains && note.parent == null) {
 			if(note.tail.length > 0) {
 				for(childNote in note.tail) {
 					childNote.missed = true;
@@ -2150,7 +2184,7 @@ class PlayState extends MusicBeatState
 			if (note.missed)
 				return;
 		}
-		if (note != null && guitarHeroSustains && note.parent != null && note.isSustainNote) {
+		if (note != null && ClientPrefs.data.guitarHeroSustains && note.parent != null && note.isSustainNote) {
 			if (note.missed)
 				return;
 
@@ -2306,7 +2340,7 @@ class PlayState extends MusicBeatState
 			popUpScore(note);
 		}
 		var gainHealth:Bool = true; // prevent health gain, *if* sustains are treated as a singular note
-		if (guitarHeroSustains && note.isSustainNote) gainHealth = false;
+		if (ClientPrefs.data.guitarHeroSustains && note.isSustainNote) gainHealth = false;
 		if (gainHealth) health += note.hitHealth * healthGain;
 
 		if(!note.isSustainNote) invalidateNote(note);

@@ -61,6 +61,11 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 		reloadCheckboxes();
 	}
 
+	override function create() {
+		camera = FlxG.cameras.list[FlxG.cameras.list.length - 1];
+		super.create();
+	}
+
 	public function addOption(option:Option) {
 		if(optionsArray == null || optionsArray.length < 1) optionsArray = [];
 		optionsArray.push(option);

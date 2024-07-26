@@ -1,4 +1,4 @@
-package options;
+package options.sub;
 
 class GameplaySettingsSubState extends BaseOptionsMenu {
 	public function new() {

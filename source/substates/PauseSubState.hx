@@ -3,7 +3,7 @@ package substates;
 class PauseSubState extends MusicBeatSubstate {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['Resume', 'Restart Song', /*'Options',*/ 'Exit to menu'];
+	var menuItems:Array<String> = ['Resume', 'Restart Song', 'Options', 'Exit to menu'];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
@@ -33,11 +33,8 @@ class PauseSubState extends MusicBeatSubstate {
 
 		FlxG.sound.list.add(pauseMusic);
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
-		bg.scale.set(FlxG.width, FlxG.height);
-		bg.updateHitbox();
+		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0;
-		bg.scrollFactor.set();
 		add(bg);
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, states.PlayState.SONG.song, 32);
@@ -107,6 +104,7 @@ class PauseSubState extends MusicBeatSubstate {
 			switch (daSelected) {
 				case "Resume":
 					close();
+					states.PlayState.onPauseSubStateClosed.dispatch();
 				case "Restart Song":
 					restartSong();
 				case "Leave Charting Mode":
@@ -128,17 +126,12 @@ class PauseSubState extends MusicBeatSubstate {
 					states.PlayState.instance.notes.clear();
 					states.PlayState.instance.unspawnNotes = [];
 					states.PlayState.instance.finishSong(true);
-				/*case 'Options':
+				case 'Options':
 					states.PlayState.instance.paused = true;
 					states.PlayState.instance.vocals.volume = 0;
 
-					MusicBeatState.switchState(new options.OptionsState());
+					openSubState(new options.sub.OptionsSubstate());
 
-					FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath('Breakfast')), pauseMusic.volume);
-					FlxTween.tween(FlxG.sound.music, {volume: 1}, 0.8);
-					FlxG.sound.music.time = pauseMusic.time;
-
-					OptionsState.onPlayState = true;*/
 				case "Exit to menu":
 					states.PlayState.deathCounter = 0;
 					states.PlayState.seenCutscene = false;
