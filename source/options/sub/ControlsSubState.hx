@@ -79,12 +79,13 @@ class ControlsSubState extends MusicBeatSubstate
 		controllerSpr.animation.add('keyboard', [0], 1, false);
 		controllerSpr.animation.add('gamepad', [1], 1, false);
 		add(controllerSpr);
+		controllerSpr.colorTransform.redOffset = controllerSpr.colorTransform.greenOffset = controllerSpr.colorTransform.blueOffset = 255;
+		@:privateAccess controllerSpr.updateColorTransform();
 
 		var text:Alphabet = new Alphabet(60, 170, 'CTRL', false);
 		text.alignment = CENTERED;
 		text.setScale(0.4);
 		add(text);
-		@:privateAccess text.forEach(char -> {char.colorTransform.redOffset = char.colorTransform.greenOffset = char.colorTransform.blueOffset = 255; char.updateColorTransform();});
 
 		createTexts();
 	}
@@ -151,7 +152,6 @@ class ControlsSubState extends MusicBeatSubstate
 		text.screenCenter(X);
 		text.y -= 55;
 		text.startPosition.y -= 55;
-		@:privateAccess if((option[1] != defaultKey)) text.forEach(char -> {char.colorTransform.redOffset = char.colorTransform.greenOffset = char.colorTransform.blueOffset = 255; char.updateColorTransform();});
 	}
 	function addKeyText(text:Alphabet, option:Array<Dynamic>, id:Int)
 	{
@@ -179,8 +179,6 @@ class ControlsSubState extends MusicBeatSubstate
 			attach.ID = Math.floor(grpBinds.length / 2);
 			attach.snapToPosition();
 			grpBinds.add(attach);
-
-			@:privateAccess attach.forEach(char -> {char.colorTransform.redOffset = char.colorTransform.greenOffset = char.colorTransform.blueOffset = 255; char.updateColorTransform();});
 
 			playstationCheck(attach);
 			attach.scaleX = Math.min(1, 230 / attach.width);
@@ -238,15 +236,6 @@ class ControlsSubState extends MusicBeatSubstate
 		grpBinds.remove(bind);
 		grpBinds.insert(num, attach);
 		bind.destroy();
-
-		var isSelected = (Math.floor(num / 2) == curSelected && num % 2 == (curAlt ? 1 : 0));
-		updateBindColor(attach, isSelected);
-		
-		if (num % 2 == 0) {
-			var altBind = grpBinds.members[num + 1];
-			var altIsSelected = (Math.floor((num + 1) / 2) == curSelected && curAlt);
-			updateBindColor(altBind, altIsSelected);
-		}
 	}
 
 	var binding:Bool = false;
@@ -510,21 +499,5 @@ class ControlsSubState extends MusicBeatSubstate
 		}
 		selectSpr.sprTracker = grpBlacks.members[Math.floor(curSelected * 2) + (curAlt ? 1 : 0)];
 		selectSpr.visible = (selectSpr.sprTracker != null);
-
-		grpBinds.forEachAlive(function(item:Alphabet) {
-			var isSelected = (Math.floor(item.ID) == curSelected && item.ID * 2 + (grpBinds.members.indexOf(item) % 2) ==  Math.floor(curSelected * 2) + (curAlt ? 1 : 0));
-			
-			updateBindColor(item, isSelected);
-		});
-	}
-
-	function updateBindColor(bind:Alphabet, isSelected:Bool)
-	{
-		@:privateAccess bind.forEach(char -> {
-			char.colorTransform.redOffset = 
-			char.colorTransform.greenOffset = 
-			char.colorTransform.blueOffset = isSelected ? 0 : 255;
-			char.updateColorTransform();
-		});
 	}
 }

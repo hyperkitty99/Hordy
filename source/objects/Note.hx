@@ -229,8 +229,7 @@ class Note extends FlxSprite
 		this.inEditor = inEditor;
 		this.moves = false;
 
-		states.PlayState.onPauseSubStateClosed.add(onPauseSubStateClosed);
-		// MAKE SURE ITS DEFINITELY OFF SCREEN?
+		x += (ClientPrefs.data.middleScroll ? states.PlayState.STRUM_X_MIDDLESCROLL : states.PlayState.STRUM_X) + 50;
 		y -= 2000;
 		this.strumTime = strumTime;
 		if(!inEditor) this.strumTime += ClientPrefs.data.noteOffset;
@@ -287,11 +286,6 @@ class Note extends FlxSprite
 			centerOrigin();
 		}
 		x += offsetX;
-	}
-
-	private function onPauseSubStateClosed():Void
-	{
-		x += (ClientPrefs.data.middleScroll ? states.PlayState.STRUM_X_MIDDLESCROLL : states.PlayState.STRUM_X) + 50;
 	}
 
 	public static function initializeGlobalRGBShader(noteData:Int)
@@ -423,7 +417,6 @@ class Note extends FlxSprite
 	override public function destroy()
 	{
 		super.destroy();
-		states.PlayState.onPauseSubStateClosed.remove(onPauseSubStateClosed);
 		_lastValidChecked = '';
 	}
 

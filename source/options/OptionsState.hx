@@ -5,7 +5,7 @@ import backend.StageData;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Controls', 'Adjust Delay', 'Graphics', 'Gameplay'];
+	var options:Array<String> = ['Controls', 'Graphics', 'Gameplay', 'Adjust Delay'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
@@ -14,19 +14,18 @@ class OptionsState extends MusicBeatState
 	function openSelectedSubstate(label:String) {
 		switch(label) {
 			case 'Controls':
-				openSubState(new options.ControlsSubState());
+				openSubState(new options.sub.ControlsSubState());
 			case 'Graphics':
-				openSubState(new options.GraphicsSettingsSubState());
+				openSubState(new options.sub.GraphicsSettingsSubState());
 			case 'Gameplay':
-				openSubState(new options.GameplaySettingsSubState());
+				openSubState(new options.sub.GameplaySettingsSubState());
 			case 'Adjust Delay':
-				openSubState(new options.NoteOffsetSubState());
+				openSubState(new options.sub.NoteOffsetSubState());
 		}
 	}
 
 	var selectorLeft:Alphabet;
 	var selectorRight:Alphabet;
-
 	override function create() {
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.antialiasing = ClientPrefs.data.antialiasing;
@@ -75,15 +74,13 @@ class OptionsState extends MusicBeatState
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if(onPlayState)
-			{
-				StageData.loadDirectory(states.PlayState.SONG);
-				MusicBeatState.switchState(new states.PlayState());
-				FlxG.sound.music.volume = 0;
-			}
-			else MusicBeatState.switchState(new MainMenuState());
+			StageData.loadDirectory(states.PlayState.SONG);
+			MusicBeatState.switchState(new states.PlayState());
+			FlxG.sound.music.volume = 0;
 		}
 		else if (controls.ACCEPT) openSelectedSubstate(options[curSelected]);
+
+		for (item in grpOptions.members) for (thing in [item, selectorLeft, selectorRight]) controls.ACCEPT ? curSelected == 3 ? thing.visible = true : thing.visible = false : thing.visible = true;
 	}
 	
 	function changeSelection(change:Int = 0) {

@@ -12,12 +12,17 @@ class OptionsSubstate extends MusicBeatSubstate {
 			case 'Gameplay': openSubState(new options.GameplaySettingsSubState());
 			case 'Adjust Delay': openSubState(new options.NoteOffsetSubState());
 		}
+
+		subStateClosed.add((substateThing) -> if (substateThing is options.GraphicsSettingsSubState || substateThing is options.ControlsSubState || substateThing is options.GameplaySettingsSubState || substateThing is options.NoteOffsetSubState) {
+			bar.x = states.MainMenuState.barD.x;
+		});
 	}
 
 	var selectorLeft:Alphabet;
 	var selectorRight:Alphabet;
 
 	var isLerping:Bool = true;
+	var bar:flixel.addons.display.FlxBackdrop;
 	override function create() {
 		add(grpOptions = new FlxTypedGroup<Alphabet>());
 		add(selectorLeft = new Alphabet(0, 720, '>', true));
@@ -29,6 +34,12 @@ class OptionsSubstate extends MusicBeatSubstate {
 			optionText.snapToPosition();
 			grpOptions.add(optionText);
 		}
+
+		add(bar = new flixel.addons.display.FlxBackdrop(Paths.image('ui/mainmenu/eventThing'), X));
+		bar.velocity.x = 30;
+		bar.x = states.MainMenuState.barD.x;
+		bar.y = 615;
+		bar.flipY = true;
 
 		changeSelection();
 
@@ -65,7 +76,10 @@ class OptionsSubstate extends MusicBeatSubstate {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			for (item in grpOptions.members) FlxTween.tween(item, {y: 720}, 0.1, {ease: FlxEase.expoIn});
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) {close();});
-		} else if (controls.ACCEPT && (cantUnpause <= 0)) openSelectedSubstate(options[curSelected]);
+		} else if (controls.ACCEPT && (cantUnpause <= 0)) {
+			openSelectedSubstate(options[curSelected]);
+			bar.visible = false;
+		} else bar.visible = true;
 	
 		for (item in grpOptions.members) for (thing in [item, selectorLeft, selectorRight]) controls.ACCEPT ? curSelected == 3 ? thing.visible = true : thing.visible = false : thing.visible = true;
 	}

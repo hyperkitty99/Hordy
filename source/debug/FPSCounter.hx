@@ -42,7 +42,7 @@ class FPSCounter extends TextField {
 	}
 	
 	function updateText():Void {
-		text = '${currentFPS}  :FPS'+ '\n${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}  :Memory';
+		text = '${currentFPS}  FPS'+ '\n${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}';
 		width = openfl.Lib.application.window.width - x * 2;
 
 		textColor = tColor;

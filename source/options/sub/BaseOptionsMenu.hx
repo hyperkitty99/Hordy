@@ -37,6 +37,7 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 			var optionText = new FlxText(300, 170 + (i * 80), optionsArray[i].name, 50);
 			optionText.font = Paths.font('alphabet.ttf');
 			optionText.ID = i;
+			optionText.color = FlxColor.BLACK;
 			grpOptions.add(optionText);
 
 			if(optionsArray[i].type == 'bool') {
@@ -59,11 +60,6 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 
 		changeSelection();
 		reloadCheckboxes();
-	}
-
-	override function create() {
-		camera = FlxG.cameras.list[FlxG.cameras.list.length - 1];
-		super.create();
 	}
 
 	public function addOption(option:Option) {
@@ -294,8 +290,6 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 		attach.y = bind.y;
 
 		option.child = attach;
-		option.child.colorTransform.redOffset = option.child.colorTransform.greenOffset = option.child.colorTransform.blueOffset = 255;
-		@:privateAccess option.child.updateColorTransform();
 		grpTexts.insert(grpTexts.members.indexOf(bind), attach);
 		grpTexts.remove(bind);
 		bind.destroy();

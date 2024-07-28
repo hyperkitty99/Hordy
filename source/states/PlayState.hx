@@ -213,7 +213,6 @@ class PlayState extends MusicBeatState
 	var singSuffix:String = null;
 
 	var lerpedHealth:Float = 1;
-	public static var onPauseSubStateClosed:flixel.util.FlxSignal = new flixel.util.FlxSignal();
 
 	override public function create()
 	{
@@ -314,6 +313,7 @@ class PlayState extends MusicBeatState
 			case 'horny': new states.stages.Hordy();
 			case 'rooftop': new states.stages.Rooftop();
 			case 'burybg': new states.stages.BuryBG();
+			case 'prism': new states.stages.Prism();
 		}
 
 		add(gfGroup);
@@ -979,16 +979,6 @@ class PlayState extends MusicBeatState
 							sustainNote.x += 310;
 							if(daNoteData > 1) sustainNote.x += FlxG.width / 2 + 25;
 						}
-
-						onPauseSubStateClosed.add(function() {
-							if(ClientPrefs.data.downScroll) sustainNote.correctionOffset = 0;
-
-							if (sustainNote.mustPress) sustainNote.x += FlxG.width / 2;
-							else if(ClientPrefs.data.middleScroll) {
-								sustainNote.x += 310;
-								if(daNoteData > 1) sustainNote.x += FlxG.width / 2 + 25;
-							}
-						});
 					}
 				}
 
@@ -1004,20 +994,6 @@ class PlayState extends MusicBeatState
 						swagNote.x += FlxG.width / 2 + 25;
 					}
 				}
-
-				onPauseSubStateClosed.add(function() {
-					if (swagNote.mustPress) {
-						swagNote.x += FlxG.width / 2;
-					}
-					else if(ClientPrefs.data.middleScroll)
-					{
-						swagNote.x += 310;
-						if(daNoteData > 1) //Up and Right
-						{
-							swagNote.x += FlxG.width / 2 + 25;
-						}
-					}
-				});
 
 				if(!noteTypes.contains(swagNote.noteType)) {
 					noteTypes.push(swagNote.noteType);
@@ -1108,10 +1084,6 @@ class PlayState extends MusicBeatState
 			{
 				if(!ClientPrefs.data.opponentStrums) targetAlpha = 0;
 				else if(ClientPrefs.data.middleScroll) targetAlpha = 0.35;
-				onPauseSubStateClosed.add(function() {
-					if(!ClientPrefs.data.opponentStrums) targetAlpha = 0;
-					else if(ClientPrefs.data.middleScroll) targetAlpha = 0.35;
-				});
 			}
 
 			var babyArrow:StrumNote = new StrumNote(strumLineX, strumLineY, i, player);
@@ -1139,19 +1111,6 @@ class PlayState extends MusicBeatState
 
 			strumLineNotes.add(babyArrow);
 			babyArrow.postAddedToGroup();
-
-			onPauseSubStateClosed.add(function() {
-				if (player != 1) {
-					if(ClientPrefs.data.middleScroll)
-					{
-						babyArrow.x += 310;
-						if(i > 1) babyArrow.x += FlxG.width / 2 + 25;
-					}
-				}
-
-				strumLineX = ClientPrefs.data.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X;
-				babyArrow.downScroll = ClientPrefs.data.downScroll;
-			});
 		}
 	}
 
@@ -1479,7 +1438,6 @@ class PlayState extends MusicBeatState
 			persistentDraw = false;
 			FlxTimer.globalManager.clear();
 			FlxTween.globalManager.clear();
-
 			openSubState(new GameOverSubstate());
 
 			isDead = true;
@@ -1674,6 +1632,7 @@ class PlayState extends MusicBeatState
 				}
 			case 'Alt Sing Animation': 
 				singSuffix = value1;
+
 			case 'Screen Shake':
 				var valuesArray:Array<String> = [value1, value2];
 				var targetsArray:Array<FlxCamera> = [camGame, camHUD];

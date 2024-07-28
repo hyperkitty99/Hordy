@@ -104,7 +104,6 @@ class PauseSubState extends MusicBeatSubstate {
 			switch (daSelected) {
 				case "Resume":
 					close();
-					states.PlayState.onPauseSubStateClosed.dispatch();
 				case "Restart Song":
 					restartSong();
 				case "Leave Charting Mode":
@@ -130,7 +129,11 @@ class PauseSubState extends MusicBeatSubstate {
 					states.PlayState.instance.paused = true;
 					states.PlayState.instance.vocals.volume = 0;
 
-					openSubState(new options.sub.OptionsSubstate());
+					FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath('Breakfast')), pauseMusic.volume);
+					FlxTween.tween(FlxG.sound.music, {volume: 1}, 0.8);
+					FlxG.sound.music.time = pauseMusic.time;
+
+					MusicBeatState.switchState(new options.OptionsState());
 
 				case "Exit to menu":
 					states.PlayState.deathCounter = 0;

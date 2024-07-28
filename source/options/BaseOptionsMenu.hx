@@ -26,15 +26,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	public function new()
 	{
 		super();
-		// avoids lagspikes while scrolling through menus!
-		grpOptions = new FlxTypedGroup<FlxText>();
-		add(grpOptions);
-
-		grpTexts = new FlxTypedGroup<AttachedText>();
-		add(grpTexts);
-
-		checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
-		add(checkboxGroup);
+		add(grpOptions = new FlxTypedGroup<FlxText>());
+		add(grpTexts = new FlxTypedGroup<AttachedText>());
+		add(checkboxGroup = new FlxTypedGroup<CheckboxThingie>());
 
 		var bar:flixel.addons.display.FlxBackdrop;
 		add(bar = new flixel.addons.display.FlxBackdrop(Paths.image('ui/mainmenu/eventThing'), X));
@@ -43,20 +37,17 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		bar.y = 615;
 		bar.flipY = true;
 
-		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
-		descBox.alpha = 0.6;
-		add(descBox);
+		add(descBox = new FlxSprite().makeGraphic(1, 1, 0x99000000));
 
-		descText = new FlxText(50, 600, 1180, "", 32);
-		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(descText = new FlxText(50, 600, 1180, "").setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK));
 		descText.scrollFactor.set();
+		descText.active = false;
 		descText.borderSize = 2.4;
-		add(descText);
 
 		for (i in 0...optionsArray.length)
 		{
-			var optionText = new FlxText(300, 170 + (i * 80), optionsArray[i].name, 50);
-			optionText.font = Paths.font('alphabet.ttf');
+			var optionText = new FlxText(300, 170 + (i * 80), optionsArray[i].name).setFormat(Paths.font("alphabet.ttf"), 50, FlxColor.WHITE);
+			optionText.active = false;
 			optionText.ID = i;
 			grpOptions.add(optionText);
 
