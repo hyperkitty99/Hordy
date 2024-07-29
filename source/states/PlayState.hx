@@ -213,6 +213,7 @@ class PlayState extends MusicBeatState
 	var singSuffix:String = null;
 
 	var lerpedHealth:Float = 1;
+	public var valuething:Float;
 
 	override public function create()
 	{
@@ -1223,6 +1224,8 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
+		valuething = curDecBeat;
+
 		if (controls.PAUSE && startedCountdown && canPause)
 		{
 			openPauseMenu();
@@ -1741,6 +1744,7 @@ class PlayState extends MusicBeatState
 
 		if (gf != null && SONG.notes[sec].gfSection)
 		{
+			focusedCharacter = gf;
 			camFollow.setPosition(gf.getMidpoint().x, gf.getMidpoint().y);
 			camFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0];
 			camFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
@@ -2381,14 +2385,10 @@ class PlayState extends MusicBeatState
 		lastBeatHit = curBeat;
 	}
 
-	public function characterBopper(beat:Int):Void
-	{
-		if (gf != null && beat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && !gf.getAnimationName().startsWith('sing') && !gf.stunned)
-			gf.dance();
-		if (boyfriend != null && beat % boyfriend.danceEveryNumBeats == 0 && !boyfriend.getAnimationName().startsWith('sing') && !boyfriend.stunned)
-			boyfriend.dance();
-		if (dad != null && beat % dad.danceEveryNumBeats == 0 && !dad.getAnimationName().startsWith('sing') && !dad.stunned)
-			dad.dance();
+	public function characterBopper(beat:Int):Void {
+		if (gf != null && beat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && !gf.getAnimationName().startsWith('sing') && !gf.stunned) gf.dance();
+		if (boyfriend != null && beat % boyfriend.danceEveryNumBeats == 0 && !boyfriend.getAnimationName().startsWith('sing') && !boyfriend.stunned) boyfriend.dance();
+		if (dad != null && beat % dad.danceEveryNumBeats == 0 && !dad.getAnimationName().startsWith('sing') && !dad.stunned) dad.dance();
 	}
 
 	public function playerDance():Void

@@ -3,18 +3,24 @@ package states.stages;
 class Prism extends BaseStage {
 	var platform:BGSprite;
 	override function create() {
-		add(platform = new BGSprite("bgs/platform", -1305, 335));
+		add(platform = new BGSprite("bgs/bg", -1350 * 0.5, -1000 * 0.5, 0.5, 0.5));
+		add(platform = new BGSprite("bgs/platform", -1300, 405));
 	}
-	override function createPost() gf.origin.set(platform.x + gf.origin.x - platform.x, platform.y + gf.origin.y - platform.y);
+
+	override function createPost() {
+		boyfriendGroup.scrollFactor.set(0.7, 0.7);
+	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+		dadGroup.x = dadGroup.x - 5 * Math.sin((game.valuething / 2)) * elapsed * 60;
+		dadGroup.y = dadGroup.y - 4 * Math.cos((game.valuething / 2) * 2) * elapsed * 60;
+		platform.y = platform.y - Math.cos(game.valuething / 8 * Math.PI) * elapsed * 60;
+		gfGroup.y = gfGroup.y - Math.cos(game.valuething / 8 * Math.PI) * elapsed * 60;
 
-		platform.angle += 0.1;
-		gf.angle = platform.angle;
-		boyfriend.angle = platform.angle;
+		if (!game.mustHitSection) game.moveCameraSection();
 	}
-
-	// override function createPost() for (thing in [crowd, boyfriendGroup]) PlayState.instance.insert(members.indexOf(game.dadGroup) + 1, PlayState.instance.remove(thing));
-	// override function beatHit() for (sprite in [crowd, speakerL, speakerR]) sprite.dance();
+	// override function beatHit() {
+	// 	super.beatHit();
+	// }
 }
