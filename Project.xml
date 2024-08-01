@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Hordy and Nestepasha birthday mod" file="bday" packageName="com.nick.bday" package="com.nick.bday" main="Main" version="0.2.8" company="hordybday"/>
+	<app title="Hordy and Nestepasha birthday mod" file="bday" packageName="com.nickngc.bday" package="com.nickngc.bday" main="Main" version="0.2.8" company="nickn"/>
 
 	<set name="APP_ID" value="0x0100f6c013bbc000"/>
 	<app preloader="flixel.system.FlxPreloader"/>

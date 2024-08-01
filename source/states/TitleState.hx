@@ -69,18 +69,16 @@ class TitleState extends MusicBeatState {
 		Conductor.bpm = 102;
 		persistentUpdate = true;
 
-		add(new FlxSprite(0, 110, Paths.image("ui/title/bg")));
+		// add(new FlxSprite(0, 110, Paths.image("ui/title/bg")));
 
-		logoBl = new FlxSprite(280, 90);
-		logoBl.frames = Paths.getSparrowAtlas('ui/title/logo_bumpin');
-		logoBl.antialiasing = ClientPrefs.data.antialiasing;
-		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
-		logoBl.animation.play('bump');
-		logoBl.setGraphicSize(Std.int(700));
-		logoBl.updateHitbox();
-		add(logoBl);
-
-		add(new FlxSprite(0, 0, Paths.image("ui/title/barStuff")));
+		// logoBl = new FlxSprite(280, 90);
+		// logoBl.frames = Paths.getSparrowAtlas('ui/title/logo_bumpin');
+		// logoBl.antialiasing = ClientPrefs.data.antialiasing;
+		// logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
+		// logoBl.animation.play('bump');
+		// logoBl.setGraphicSize(Std.int(700));
+		// logoBl.updateHitbox();
+		// add(logoBl);
 
 		titleText = new FlxSprite(289, 650);
 		titleText.frames = Paths.getSparrowAtlas('ui/title/titleEnter');

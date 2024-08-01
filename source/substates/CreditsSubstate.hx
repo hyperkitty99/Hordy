@@ -17,25 +17,23 @@ class CreditsSubstate extends MusicBeatSubstate {
 	override function create() {
 		persistentUpdate = true;
 		
-		grpOptions = new FlxTypedGroup<Alphabet>();
-		add(grpOptions);
+		add(grpOptions = new FlxTypedGroup<Alphabet>());
 
-		var defaultList:Array<Array<String>> = [ //Name - Description - Link
+		var defaultList:Array<Array<String>> = [ //Name - Description
 			["b"],
-			['deasodiakk', "all instrumentals, almost all charts and voices for fearless and completed", 'https://fuckyou/'],
-			['FlyingFeltBott', "all sprites (real)", 'https://fuckyou/'],
-			['Nick', "all code stuff", 'https://fuckyou/'],
-			['Iccer', "all backgrounds", 'https://fuckyou/'],
-			['DenikTFA', "chart for magic soul lmao", 'https://fuckyou/'],
-			['EFkli', "voices for ungrowing, shaldun", 'https://fuckyou/'],
-			['tix45', "voices for mind blown", 'https://fuckyou/'],
-			['Ddsad', "voices for magic soul", 'https://fuckyou/']
+			['deasodiakk', "all instrumentals, almost all charts and voices for fearless and completed"],
+			['FlyingFeltBott', "all sprites (real)"],
+			['Nick', "all code stuff"],
+			['Iccer', "all backgrounds"],
+			['DenikTFA', "chart for magic soul lmao"],
+			['EFkli', "voices for ungrowing, shaldun"],
+			['tix45', "voices for mind blown"],
+			['Ddsad', "voices for magic soul"]
 		];
 		
 		for(i in defaultList) creditsStuff.push(i);
 	
-		for (i in 0...creditsStuff.length)
-		{
+		for (i in 0...creditsStuff.length) {
 			var isSelectable:Bool = !unselectableCheck(i);
 			var optionText:Alphabet = new Alphabet(FlxG.width / 2, 300, creditsStuff[i][0], !isSelectable);
 			optionText.isMenuItem = true;
@@ -66,18 +64,13 @@ class CreditsSubstate extends MusicBeatSubstate {
 		bar.y = 615;
 		bar.flipY = true;
 		
-		descBox = new AttachedSprite();
+		add(descBox = new AttachedSprite());
 		descBox.makeGraphic(1, 1, FlxColor.BLACK);
-		descBox.xAdd = -10;
-		descBox.yAdd = -10;
-		descBox.alphaMult = 0.6;
-		descBox.alpha = 0.6;
-		add(descBox);
+		descBox.xAdd = descBox.yAdd = -10;
+		descBox.alphaMult = descBox.alpha = 0.6;
 
-		descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
-		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
+		add(descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32).setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER));
 		descBox.sprTracker = descText;
-		add(descText);
 
 		changeSelection();
 		super.create();
@@ -111,8 +104,6 @@ class CreditsSubstate extends MusicBeatSubstate {
 				}
 			}
 
-			if(controls.ACCEPT && (creditsStuff[curSelected][2] == null || creditsStuff[curSelected][2].length > 4) && (cantUnpause <= 0)) FlxG.openURL(creditsStuff[curSelected][2]);
-
 			if (controls.BACK && (cantUnpause <= 0)) {
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				for (item in grpOptions.members) FlxTween.tween(item, {targetY: 1000 + (curSelected * 100)}, 0.25, {ease: FlxEase.expoIn});
@@ -141,10 +132,8 @@ class CreditsSubstate extends MusicBeatSubstate {
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 		do {
 			curSelected += change;
-			if (curSelected < 0)
-				curSelected = creditsStuff.length - 1;
-			if (curSelected >= creditsStuff.length)
-				curSelected = 0;
+			if (curSelected < 0) curSelected = creditsStuff.length - 1;
+			if (curSelected >= creditsStuff.length) curSelected = 0;
 		} while (unselectableCheck(curSelected));
 
 		var bullShit:Int = 0;

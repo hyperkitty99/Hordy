@@ -27,7 +27,7 @@ class FreeplaySubstate extends MusicBeatSubstate
 	private var targetYOffset:Float = 0;
 	private var currentYOffset:Float = 0;
 	var thekeys:Array<String> = ['EIGHT', 'TWO', 'TWO'];
-
+	var textTween:FlxTween;
 	override function create() {
 		persistentUpdate = true;
 		if (states.PlayState.isFreeplay) openSubState(new CustomFadeTransition(0.6, true));
@@ -37,8 +37,6 @@ class FreeplaySubstate extends MusicBeatSubstate
 		WeekData.reloadWeekFiles(false);
 
 		for (i in 0...WeekData.weeksList.length) {
-			if(weekIsLocked(WeekData.weeksList[i])) continue;
-
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
 			var leSongs:Array<String> = [];
 			var leChars:Array<String> = [];
@@ -71,6 +69,13 @@ class FreeplaySubstate extends MusicBeatSubstate
 			icon.visible = icon.active = false;
 			iconArray.push(icon);
 			add(icon);
+
+			for (i in 0...WeekData.weeksList.length) {
+					if(weekIsLocked(WeekData.weeksList[1])) {
+						songText.text = '??????';
+						icon.color = FlxColor.BLACK;
+					}
+			}
 		}
 
 		missingTextBG = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -157,35 +162,22 @@ class FreeplaySubstate extends MusicBeatSubstate
 		}
 
 		if (controls.ACCEPT && (cantUnpause <= 0)) {
-			persistentUpdate = false;
-			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
-			var poop:String = Highscore.formatSong(songLowercase);
-			trace(poop);
+			for (i in 0...WeekData.weeksList.length) {
+				if(weekIsLocked(WeekData.weeksList[1])) {
+					FlxG.sound.play(Paths.sound('cancelMenu'), 0.7);
+	
+					if(textTween != null) textTween.cancel();
+					textTween = FlxTween.color(grpSongs.members[curSelected], 0.5, 0xFFFF4444, 0xFFFFFFFF, {ease: FlxEase.sineOut, onComplete: function(twn:FlxTween) {textTween = null;}});
+				} else if(!weekIsLocked(WeekData.weeksList[1])) {
+					persistentUpdate = false;
 
-			try {
-				states.PlayState.SONG = Song.loadFromJson(poop, songLowercase);
-				states.PlayState.isStoryMode = false;
+					states.PlayState.SONG = Song.loadFromJson(Highscore.formatSong(Paths.formatToSongPath(songs[curSelected].songName)), Paths.formatToSongPath(songs[curSelected].songName));
+					states.PlayState.isStoryMode = false;
 
-				trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
-			} 
-			catch(e:Dynamic) {
-				trace('ERROR! $e');
-
-				var errorStr:String = e.toString();
-				if(errorStr.startsWith('[lime.utils.Assets] ERROR:')) errorStr = 'Missing file: ' + errorStr.substring(errorStr.indexOf(songLowercase), errorStr.length-1); //Missing chart
-
-				missingText.text = 'ERROR WHILE LOADING CHART:\n$errorStr';
-				missingText.screenCenter(Y);
-				missingText.visible = true;
-				missingTextBG.visible = true;
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-
-				updateTexts(elapsed);
-				super.update(elapsed);
-				return;
+					openSubState(new CustomFadeTransition(0.6, false));
+					CustomFadeTransition.finishCallback = function() FlxG.switchState(new states.PlayState());
+				}
 			}
-			openSubState(new CustomFadeTransition(0.6, false));
-			CustomFadeTransition.finishCallback = function() FlxG.switchState(new states.PlayState());
 		}
 
 		if (currentYOffset != targetYOffset) {
@@ -204,6 +196,17 @@ class FreeplaySubstate extends MusicBeatSubstate
 
 		if (curSelected < 0) curSelected = songs.length - 1;
 		if (curSelected >= songs.length) curSelected = 0;
+
+		for (i in 0...iconArray.length) iconArray[i].alpha = 0.6;
+
+		var bullShit:Int = 0;
+		for (item in grpSongs.members) {
+			bullShit++;
+			item.alpha = 0.6;
+			if (item.targetY == curSelected) item.alpha = 1;
+		}
+
+		iconArray[curSelected].alpha = 1;
 
 		states.PlayState.storyWeek = songs[curSelected].week;
 	}

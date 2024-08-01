@@ -117,14 +117,23 @@ class PlayState extends MusicBeatState
 	public var gf:Character = null;
 	public var boyfriend:Character = null;
 
+	//ghost
+	public var dadGhost:Character;
+	public var gfGhost:Character;
+	public var boyfriendGhost:Character;
+
+	public var dadGhostTween:FlxTween;
+	public var gfGhostTween:FlxTween;
+	public var boyfriendGhostTween:FlxTween;
+
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
 	public var eventNotes:Array<EventNote> = [];
 
 	public var camFollow:FlxObject;
 	private static var prevCamFollow:FlxObject;
-	private var camFollowPos:FlxObject;
-	private var prevCamFollowPos:FlxObject;
+	public var camFollowPos:FlxObject;
+	public var prevCamFollowPos:FlxObject;
 
 	public var strumLineNotes:FlxTypedGroup<StrumNote>;
 	public var opponentStrums:FlxTypedGroup<StrumNote>;
@@ -214,6 +223,7 @@ class PlayState extends MusicBeatState
 
 	var lerpedHealth:Float = 1;
 	public var valuething:Float;
+	public var useGhost:Bool = true;
 
 	override public function create()
 	{
@@ -260,6 +270,7 @@ class PlayState extends MusicBeatState
 		Conductor.bpm = SONG.bpm;
 
 		GameOverSubstate.resetVariables();
+		substates.LazyGameOverSubstate.resetVariables();
 		songName = Paths.formatToSongPath(SONG.song);
 		curStage = SONG.stage;
 
@@ -492,6 +503,34 @@ class PlayState extends MusicBeatState
 		Paths.clearUnusedMemory();
 
 		if(eventNotes.length < 1) checkEventNote();
+
+		loadGhost();
+	}
+
+	function loadGhost() {
+		if (useGhost) {
+			for (chars in [boyfriendGhost, gfGhost, dadGhost]) if (chars != null) remove(chars);
+
+			addBehindBF(boyfriendGhost = new Character(boyfriend.x, boyfriend.y, boyfriend.curCharacter, true));
+			StageData.getStageFile(curStage).hide_boyfriend ? boyfriendGhost.visible = false : boyfriendGhost.color = FlxColor.fromRGB(boyfriend.healthColorArray[0] + 50, boyfriend.healthColorArray[1] + 50, boyfriend.healthColorArray[2] + 50);
+	
+			if (!StageData.getStageFile(curStage).hide_girlfriend) {
+				addBehindGF(gfGhost = new Character(gf.x, gf.y, gf.curCharacter));
+				gfGhost.color = FlxColor.fromRGB(gf.healthColorArray[0] + 50, gf.healthColorArray[1] + 50, gf.healthColorArray[2] + 50);
+			}
+	
+			if (!StageData.getStageFile(curStage).hide_opponent) {
+				addBehindDad(dadGhost = new Character(dad.x, dad.y, dad.curCharacter));
+				dadGhost.color = FlxColor.fromRGB(dad.healthColorArray[0] + 50, dad.healthColorArray[1] + 50, dad.healthColorArray[2] + 50);
+			}
+	
+			for (charSetups in [boyfriendGhost, gfGhost, dadGhost]) {
+				if (charSetups != null) {
+					charSetups.blend = HARDLIGHT;
+					charSetups.alpha = 0.01;
+				}
+			}
+		}
 	}
 
 	function set_songSpeed(value:Float):Float
@@ -536,8 +575,7 @@ class PlayState extends MusicBeatState
 	}
 
 	public function reloadHealthBarColors() {
-		healthBar.setColors(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
-			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+		healthBar.setColors(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]), FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
 	}
 
 	public function addCharacterToList(newCharacter:String, type:Int) {
@@ -1224,6 +1262,8 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
+		for (thing in [boyfriendGhost, gfGhost, dadGhost]) if (thing != null) thing.holdTimer = 0;
+
 		valuething = curDecBeat;
 
 		if (controls.PAUSE && startedCountdown && canPause)
@@ -1441,7 +1481,7 @@ class PlayState extends MusicBeatState
 			persistentDraw = false;
 			FlxTimer.globalManager.clear();
 			FlxTween.globalManager.clear();
-			openSubState(new GameOverSubstate());
+			SONG.song.toLowerCase() != 'vegetables' ? openSubState(new GameOverSubstate()) : openSubState(new substates.LazyGameOverSubstate());
 
 			isDead = true;
 			return true;
@@ -1717,6 +1757,7 @@ class PlayState extends MusicBeatState
 							}
 						}
 				}
+				loadGhost();
 				reloadHealthBarColors();
 
 			case 'Change Scroll Speed':
@@ -2199,6 +2240,8 @@ class PlayState extends MusicBeatState
 		vocals.volume = 0;
 	}
 
+	var noteLSTAlt:Float = 0;
+	var notePNAlt = 0;
 	function opponentNoteHit(note:Note):Void
 	{
 		if (songName != 'tutorial')
@@ -2229,8 +2272,24 @@ class PlayState extends MusicBeatState
 		note.hitByOpponent = true;
 
 		if (!note.isSustainNote) invalidateNote(note);
+
+		if (useGhost) {
+			if (!note.isSustainNote) {
+				if (noteLSTAlt == note.strumTime) {
+					notePNAlt += 1;
+					dadGhost.alpha = 0.8;
+					dadGhost.playAnim(singAnimations[note.noteData], true);
+					dadGhostTween = FlxTween.tween(dadGhost, {alpha: 0}, 0.75, {ease: FlxEase.linear, onComplete: function(twn:FlxTween) {dadGhostTween = null;}});
+				} else {
+					noteLSTAlt = note.strumTime;
+					notePNAlt = 1;
+				}
+			}
+		}
 	}
 
+	var noteLST:Float = 0;
+	var notePN = 0;
 	public function goodNoteHit(note:Note):Void
 	{
 		if(note.wasGoodHit) return;
@@ -2307,6 +2366,20 @@ class PlayState extends MusicBeatState
 		if (gainHealth) health += note.hitHealth * healthGain;
 
 		if(!note.isSustainNote) invalidateNote(note);
+
+		if (useGhost) {
+			if (!note.isSustainNote) {
+				if (noteLST == note.strumTime) {
+					notePN += 1;
+					boyfriendGhost.alpha = 0.8;
+					boyfriendGhost.playAnim(singAnimations[note.noteData], true);
+					boyfriendGhostTween = FlxTween.tween(boyfriendGhost, {alpha: 0}, 0.75, {ease: FlxEase.linear, onComplete: function(twn:FlxTween) {boyfriendGhostTween = null;}});
+				} else {
+					noteLST = note.strumTime;
+					notePN = 1;
+				}
+			}
+		}
 	}
 
 	public function invalidateNote(note:Note):Void {

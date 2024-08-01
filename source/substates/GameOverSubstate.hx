@@ -3,10 +3,7 @@ package substates;
 import objects.Character;
 import flixel.FlxObject;
 
-import states.StoryMenuState;
-
-class GameOverSubstate extends MusicBeatSubstate
-{
+class GameOverSubstate extends MusicBeatSubstate {
 	public var boyfriend:Character;
 	var camFollow:FlxObject;
 	var moveCamera:Bool = false;
@@ -14,7 +11,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	var stageSuffix:String = "";
 
-	public static var characterName:String = 'bf-dead';
+	public static var characterName:String = '';
 	public static var deathSoundName:String = 'fnf_loss_sfx';
 	public static var loopSoundName:String = 'gameOver';
 	public static var endSoundName:String = 'gameOverEnd';
@@ -22,13 +19,13 @@ class GameOverSubstate extends MusicBeatSubstate
 	public static var instance:GameOverSubstate;
 
 	public static function resetVariables() {
-		characterName = 'bf-dead';
 		deathSoundName = 'fnf_loss_sfx';
 		loopSoundName = 'gameOver';
 		endSoundName = 'gameOverEnd';
 
 		var _song = states.PlayState.SONG;
 		if(_song != null) {
+			characterName = _song.player1;
 			if(_song.gameOverChar != null && _song.gameOverChar.trim().length > 0) characterName = _song.gameOverChar;
 			if(_song.gameOverSound != null && _song.gameOverSound.trim().length > 0) deathSoundName = _song.gameOverSound;
 			if(_song.gameOverLoop != null && _song.gameOverLoop.trim().length > 0) loopSoundName = _song.gameOverLoop;
@@ -38,8 +35,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	var charX:Float = 0;
 	var charY:Float = 0;
-	override function create()
-	{
+	override function create() {
 		instance = this;
 
 		Conductor.songPosition = 0;
@@ -64,17 +60,20 @@ class GameOverSubstate extends MusicBeatSubstate
 	}
 
 	public var startedDeath:Bool = false;
-	override function update(elapsed:Float)
-	{
+	var isEnding:Bool = false;
+	var isSpecial:Bool = false;
+	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (controls.ACCEPT)
-		{
-			endBullshit();
+		if (controls.ACCEPT && !isEnding) {
+			isEnding = true;
+			boyfriend.playAnim('deathConfirm', true);
+			FlxG.sound.music.stop();
+			FlxG.sound.play(Paths.music(endSoundName));
+			new FlxTimer().start(0.7, function(tmr:FlxTimer) {FlxG.camera.fade(FlxColor.BLACK, 2, false, function() {MusicBeatState.resetState();});});
 		}
 
-		if (controls.BACK)
-		{
+		if (controls.BACK) {
 			FlxG.sound.music.stop();
 			states.PlayState.deathCounter = 0;
 			states.PlayState.seenCutscene = false;
@@ -87,60 +86,29 @@ class GameOverSubstate extends MusicBeatSubstate
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		}
 		
-		if (boyfriend.animation.curAnim != null)
-		{
-			if (boyfriend.animation.curAnim.name == 'firstDeath' && boyfriend.animation.curAnim.finished && startedDeath)
-				boyfriend.playAnim('deathLoop');
+		if (boyfriend.animation.curAnim != null) {
+			if (boyfriend.animation.curAnim.name == 'firstDeath' && boyfriend.animation.curAnim.finished && startedDeath) boyfriend.playAnim('deathLoop');
 
-			if(boyfriend.animation.curAnim.name == 'firstDeath')
-			{
-				if(boyfriend.animation.curAnim.curFrame >= 12 && !moveCamera)
-				{
+			if(boyfriend.animation.curAnim.name == 'firstDeath') {
+				if(boyfriend.animation.curAnim.curFrame >= 12 && !moveCamera) {
 					FlxG.camera.follow(camFollow, LOCKON, 0.6);
 					moveCamera = true;
 				}
 
-				if (boyfriend.animation.curAnim.finished && !playingDeathSound)
-				{
+				if (boyfriend.animation.curAnim.finished && !playingDeathSound) {
 					startedDeath = true;
-					coolStartDeath();
+					new FlxTimer().start(0.7, function(tmr:FlxTimer) {
+						FlxG.sound.playMusic(Paths.music(loopSoundName), 1);
+					});
 				}
 			}
 		}
 		
-		if (FlxG.sound.music.playing)
-		{
-			Conductor.songPosition = FlxG.sound.music.time;
-		}
+		if (FlxG.sound.music.playing) Conductor.songPosition = FlxG.sound.music.time;
+
 	}
 
-	var isEnding:Bool = false;
-
-	function coolStartDeath(?volume:Float = 1):Void
-	{
-		FlxG.sound.playMusic(Paths.music(loopSoundName), volume);
-	}
-
-	function endBullshit():Void
-	{
-		if (!isEnding)
-		{
-			isEnding = true;
-			boyfriend.playAnim('deathConfirm', true);
-			FlxG.sound.music.stop();
-			FlxG.sound.play(Paths.music(endSoundName));
-			new FlxTimer().start(0.7, function(tmr:FlxTimer)
-			{
-				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
-				{
-					MusicBeatState.resetState();
-				});
-			});
-		}
-	}
-
-	override function destroy()
-	{
+	override function destroy() {
 		instance = null;
 		super.destroy();
 	}

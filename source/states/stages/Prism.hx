@@ -2,13 +2,15 @@ package states.stages;
 
 class Prism extends BaseStage {
 	var platform:BGSprite;
+	var floor:objects.FlxPenis;
 	override function create() {
-		add(platform = new BGSprite("bgs/bg", -1350 * 0.5, -1000 * 0.5, 0.5, 0.5));
+		add(floor = new objects.FlxPenis('bgs/pol', -2450, 1300, 0.5, 0.5));
 		add(platform = new BGSprite("bgs/platform", -1300, 405));
 	}
 
 	override function createPost() {
 		boyfriendGroup.scrollFactor.set(0.7, 0.7);
+		game.useGhost = false;
 	}
 
 	override function update(elapsed:Float) {

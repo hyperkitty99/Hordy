@@ -2,13 +2,13 @@ package objects;
 
 class BGSprite extends FlxSprite {
 	private var idleAnim:String;
-	public function new(image:String, x:Float = 0, y:Float = 0, ?scrollX:Float = 1, ?scrollY:Float = 1, ?animArray:Array<String> = null, ?loop:Bool = false, ?scaleX:Float = 1, ?scaleY:Float = null, ?flipx:Bool = false, ?flipy:Bool = false) {
+	public function new(image:String, x:Float = 0, y:Float = 0, ?scrollX:Float = null, ?scrollY:Float = null, ?animArray:Array<String> = null, ?loop:Bool = false, ?scaleX:Float = null, ?scaleY:Float = null, ?flipx:Bool = false, ?flipy:Bool = false, ?fps:Int = 24) {
 		super(x, y);
 
 		if (animArray != null) {
 			frames = Paths.getSparrowAtlas(image);
 			for (i in 0...animArray.length) {
-				animation.addByPrefix(animArray[i], animArray[i], 24, loop);
+				animation.addByPrefix(animArray[i], animArray[i], fps, loop);
 				if(idleAnim == null) {
 					idleAnim = animArray[i];
 					animation.play(animArray[i]);
@@ -19,10 +19,11 @@ class BGSprite extends FlxSprite {
 			active = false;
 		}
 
-		scrollFactor.set(scrollX, scrollY);
-		scale.set(scaleX, scaleY == null ? scaleX : scaleY);
-		flipX = flipx;
-		flipY = flipy;
+		if (scrollX != null || scrollY != null) scrollFactor.set(scrollX, scrollY);
+		if (scaleX != null || scaleY != null) scale.set(scaleX, scaleY == null ? scaleX : scaleY);
+		if (flipx != null) flipX = flipx;
+		if (flipy != null) flipY = flipy;
+		updateHitbox();
 	}
 
 	public function dance(?forceplay:Bool = false):Void if (idleAnim != null) animation.play(idleAnim, forceplay);
