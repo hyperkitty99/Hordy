@@ -1,0 +1,148 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				214,
+				-45
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "left0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				46,
+				-144
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "down0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				46,
+				263
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "up0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-75,
+				-16
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "right0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				17,
+				-8
+			],
+			"anim": "hit",
+			"fps": 24,
+			"name": "hit",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				156,
+				15
+			],
+			"anim": "attack",
+			"fps": 24,
+			"name": "attack",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				214,
+				-45
+			],
+			"anim": "singLEFTmiss",
+			"fps": 24,
+			"name": "left miss",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				54,
+				-140
+			],
+			"anim": "singDOWNmiss",
+			"fps": 24,
+			"name": "down miss",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				59,
+				263
+			],
+			"anim": "singUPmiss",
+			"fps": 24,
+			"name": "up miss",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-73,
+				-36
+			],
+			"anim": "singRIGHTmiss",
+			"fps": 24,
+			"name": "right miss",
+			"indices": []
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/hordy/hordyReal",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "face",
+	"flip_x": true,
+	"healthbar_colors": [
+		161,
+		161,
+		161
+	],
+	"camera_position": [
+		260,
+		-140
+	],
+	"sing_duration": 4,
+	"icon_offset_x": 0,
+	"icon_offset_y": 0,
+	"scale": 1,
+	"_editor_isPlayer": true
+}

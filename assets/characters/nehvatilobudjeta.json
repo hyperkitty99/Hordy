@@ -8,7 +8,7 @@
 			],
 			"anim": "idle",
 			"fps": 24,
-			"name": "Nest idle",
+			"name": "idle",
 			"indices": []
 		},
 		{
@@ -19,7 +19,7 @@
 			],
 			"anim": "singLEFT",
 			"fps": 24,
-			"name": "Nest left",
+			"name": "left",
 			"indices": []
 		},
 		{
@@ -30,7 +30,7 @@
 			],
 			"anim": "singRIGHT",
 			"fps": 24,
-			"name": "Nest right",
+			"name": "right",
 			"indices": []
 		},
 		{
@@ -41,7 +41,7 @@
 			],
 			"anim": "singDOWN",
 			"fps": 24,
-			"name": "Nest down",
+			"name": "down",
 			"indices": []
 		},
 		{
@@ -52,13 +52,13 @@
 			],
 			"anim": "singUP",
 			"fps": 24,
-			"name": "Nest up",
+			"name": "up",
 			"indices": []
 		}
 	],
 	"vocals_file": "",
 	"no_antialiasing": false,
-	"image": "characters/Nest_no_dinam",
+	"image": "characters/nestepasha/nest",
 	"position": [
 		0,
 		0

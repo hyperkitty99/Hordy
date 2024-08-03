@@ -1,64 +1,64 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				-95,
 				-133
 			],
-			"anim": "idle",
+			"loop": false,
 			"fps": 24,
-			"name": "idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				42,
 				-155
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "left",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "left"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-113,
 				-149
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "right",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "right"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-14,
 				-190
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "down",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "down"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-49,
 				-114
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "up",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "up"
 		}
 	],
 	"vocals_file": "",
 	"no_antialiasing": false,
-	"image": "characters/raveme",
+	"image": "characters/hordy/raveme",
 	"position": [
 		140,
 		-160
@@ -75,6 +75,8 @@
 		159
 	],
 	"sing_duration": 4,
+	"icon_offset_x": 0,
+	"icon_offset_y": 20,
 	"scale": 1,
 	"_editor_isPlayer": false
 }

@@ -5,6 +5,7 @@ import backend.Song;
 typedef StageFile = {
 	var defaultZoom:Float;
 	var stageUI:String;
+	var introSoundsSuffix:Null<String>;
 
 	var boyfriend:Array<Dynamic>;
 	var girlfriend:Array<Dynamic>;
@@ -19,6 +20,8 @@ typedef StageFile = {
 	var camera_speed:Null<Float>;
 	var bg_color:Null<String>;
 	var disable_cam_movement:Null<Bool>;
+	var cam_intensity:Null<Float>;
+	var start_camera_pos:Null<Array<Dynamic>>;
 }
 
 class StageData {
@@ -26,6 +29,7 @@ class StageData {
 		return {
 			defaultZoom: 0.9,
 			stageUI: "normal",
+			introSoundsSuffix: "",
 
 			boyfriend: [770, 100],
 			girlfriend: [400, 130],
@@ -39,7 +43,9 @@ class StageData {
 			camera_girlfriend: [0, 0],
 			camera_speed: 1,
 			bg_color: "0x000000",
-			disable_cam_movement: false
+			disable_cam_movement: false,
+			cam_intensity: 10,
+			start_camera_pos: [0, 0]
 		};
 	}
 

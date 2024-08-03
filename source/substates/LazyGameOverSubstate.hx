@@ -45,14 +45,15 @@ class LazyGameOverSubstate extends MusicBeatSubstate {
 		camFollow.setPosition(boyfriend.getGraphicMidpoint().x + boyfriend.cameraPosition[0], boyfriend.getGraphicMidpoint().y + boyfriend.cameraPosition[1]);
 		add(camFollow);
 		FlxG.camera.follow(camFollow, LOCKON, 9999);
-		flixel.addons.transition.FlxTransitionableState.skipNextTransOut = false;
+		flixel.addons.transition.FlxTransitionableState.skipNextTransIn = true;
+		flixel.addons.transition.FlxTransitionableState.skipNextTransOut = true;
 
 		super.create();
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
-		
+
 		if (boyfriend.animation.curAnim != null) if (boyfriend.animation.curAnim.name == 'firstDeath' && boyfriend.animation.curAnim.finished) FlxG.resetState();
 		if (FlxG.sound.music.playing) Conductor.songPosition = FlxG.sound.music.time;
 	}

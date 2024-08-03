@@ -224,6 +224,7 @@ class PlayState extends MusicBeatState
 	var lerpedHealth:Float = 1;
 	public var valuething:Float;
 	public var useGhost:Bool = true;
+	public var cameraIntensity:Float = 0;
 
 	override public function create()
 	{
@@ -270,7 +271,7 @@ class PlayState extends MusicBeatState
 		Conductor.bpm = SONG.bpm;
 
 		GameOverSubstate.resetVariables();
-		substates.LazyGameOverSubstate.resetVariables();
+		if (SONG.song.toLowerCase() == 'vegetables') substates.LazyGameOverSubstate.resetVariables();
 		songName = Paths.formatToSongPath(SONG.song);
 		curStage = SONG.stage;
 
@@ -284,6 +285,9 @@ class PlayState extends MusicBeatState
 		stageUI = "normal";
 		if (stageData.stageUI != null && stageData.stageUI.trim().length > 0)
 			stageUI = stageData.stageUI;
+
+		if (stageData.introSoundsSuffix != null)
+			introSoundsSuffix = stageData.introSoundsSuffix;
 
 		BF_X = stageData.boyfriend[0];
 		BF_Y = stageData.boyfriend[1];
@@ -301,6 +305,9 @@ class PlayState extends MusicBeatState
 		if(stageData.disable_cam_movement != null)
 			useDirectionalCamera = !stageData.disable_cam_movement;
 
+		if(stageData.cam_intensity != null)
+			cameraIntensity = stageData.cam_intensity;
+
 		boyfriendCameraOffset = stageData.camera_boyfriend;
 		if(boyfriendCameraOffset == null) //Fucks sake should have done it since the start :rolling_eyes:
 			boyfriendCameraOffset = [0, 0];
@@ -312,6 +319,9 @@ class PlayState extends MusicBeatState
 		girlfriendCameraOffset = stageData.camera_girlfriend;
 		if(girlfriendCameraOffset == null)
 			girlfriendCameraOffset = [0, 0];
+
+		if (stageData.start_camera_pos == null) 
+			stageData.start_camera_pos = [0, 0];
 
 		boyfriendGroup = new FlxSpriteGroup(BF_X, BF_Y);
 		dadGroup = new FlxSpriteGroup(DAD_X, DAD_Y);
@@ -326,6 +336,7 @@ class PlayState extends MusicBeatState
 			case 'rooftop': new states.stages.Rooftop();
 			case 'burybg': new states.stages.BuryBG();
 			case 'prism': new states.stages.Prism();
+			case 'real': new states.stages.Real();
 		}
 
 		add(gfGroup);
@@ -350,13 +361,6 @@ class PlayState extends MusicBeatState
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		if (stageData.hide_boyfriend) boyfriend.visible = false;
-
-		var camPos:FlxPoint = FlxPoint.get(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
-		if(gf != null)
-		{
-			camPos.x += gf.getGraphicMidpoint().x + gf.cameraPosition[0];
-			camPos.y += gf.getGraphicMidpoint().y + gf.cameraPosition[1];
-		}
 
 		if(dad.curCharacter.startsWith('gf')) {
 			dad.setPosition(GF_X, GF_Y);
@@ -410,8 +414,7 @@ class PlayState extends MusicBeatState
 		noteGroup.add(grpNoteSplashes);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
-		camFollow.setPosition(camPos.x, camPos.y);
-		camPos.put();
+		camFollow.setPosition(stageData.start_camera_pos[0], stageData.start_camera_pos[1]);
 
 		if (prevCamFollow != null)
 		{
@@ -421,6 +424,7 @@ class PlayState extends MusicBeatState
 		add(camFollow);
 
 		camFollowPos = new FlxObject(0, 0, 1, 1);
+		camFollowPos.setPosition(camFollow.x, camFollow.y);
 		if (prevCamFollowPos != null)
 		{
 			camFollowPos = prevCamFollowPos;
@@ -445,10 +449,12 @@ class PlayState extends MusicBeatState
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		uiGroup.add(iconP1);
 		iconP1.setPosition(healthBar.width + iconP1.width * 1.85, healthBar.y - 75);
+		iconP1.offset.set(boyfriend.iconOffsetX, boyfriend.iconOffsetY);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
 		uiGroup.add(iconP2);
 		iconP2.setPosition(healthBar.x - iconP2.width / 2, healthBar.y - 75);
+		iconP2.offset.set(dad.iconOffsetX, dad.iconOffsetY);
 
 		scoreTxt = new FlxText(0, healthBar.y + 40, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1228,17 +1234,16 @@ class PlayState extends MusicBeatState
 
 		if(useDirectionalCamera && !inCutscene && !paused) {
 			if(focusedCharacter != null && !focusedCharacter.isAnimationNull()) {
-				var name:String = focusedCharacter.getAnimationName();
-				if(name.startsWith('sing')) {
-					switch (name.substring(4)) {
+				if(focusedCharacter.getAnimationName().startsWith('sing')) {
+					switch (focusedCharacter.getAnimationName().substring(4)) {
 						case 'UP' | 'UP-alt':
-							targetY -= 10 / cameraSpeed / playbackRate;
+							targetY -= cameraIntensity / cameraSpeed / playbackRate;
 						case 'DOWN' | 'DOWN-alt':
-							targetY += 10 / cameraSpeed / playbackRate;
+							targetY += cameraIntensity / cameraSpeed / playbackRate;
 						case 'LEFT' | 'LEFT-alt':
-							targetX -= 10 / cameraSpeed / playbackRate;
+							targetX -= cameraIntensity / cameraSpeed / playbackRate;
 						case 'RIGHT' | 'RIGHT-alt':
-							targetX += 10 / cameraSpeed / playbackRate;
+							targetX += cameraIntensity / cameraSpeed / playbackRate;
 					}
 				}
 			}
@@ -1718,6 +1723,7 @@ class PlayState extends MusicBeatState
 							boyfriend = boyfriendMap.get(value2);
 							boyfriend.alpha = lastAlpha;
 							iconP1.changeIcon(boyfriend.healthIcon);
+							iconP1.offset.set(boyfriend.iconOffsetX, boyfriend.iconOffsetY);
 						}
 
 					case 1:
@@ -1739,6 +1745,7 @@ class PlayState extends MusicBeatState
 							}
 							dad.alpha = lastAlpha;
 							iconP2.changeIcon(dad.healthIcon);
+							iconP2.offset.set(dad.iconOffsetX, dad.iconOffsetY);
 						}
 
 					case 2:
@@ -1847,6 +1854,9 @@ class PlayState extends MusicBeatState
 
 			if(doDeathCheck()) return false;
 		}
+
+		flixel.addons.transition.FlxTransitionableState.skipNextTransIn = false;
+		flixel.addons.transition.FlxTransitionableState.skipNextTransOut = false;
 
 		// timeBar.visible = false;
 		// timeTxt.visible = false;

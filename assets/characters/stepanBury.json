@@ -4,22 +4,11 @@
 			"loop": false,
 			"offsets": [
 				221,
-				58
-			],
-			"anim": "idle",
-			"fps": 24,
-			"name": "Nestbury idle",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				221,
-				58
+				61
 			],
 			"anim": "singLEFT",
 			"fps": 24,
-			"name": "Nestbury left",
+			"name": "left",
 			"indices": []
 		},
 		{
@@ -30,18 +19,18 @@
 			],
 			"anim": "singRIGHT",
 			"fps": 24,
-			"name": "Nestbury right",
+			"name": "right",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
 				221,
-				12
+				33
 			],
 			"anim": "singDOWN",
 			"fps": 24,
-			"name": "Nestbury down",
+			"name": "down",
 			"indices": []
 		},
 		{
@@ -52,13 +41,37 @@
 			],
 			"anim": "singUP",
 			"fps": 24,
-			"name": "Nestbury up",
+			"name": "up",
 			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				221,
+				58
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "idle",
+			"indices": [
+				0,
+				0,
+				0,
+				1,
+				1,
+				1,
+				2,
+				2,
+				2,
+				3,
+				3,
+				3
+			]
 		}
 	],
 	"vocals_file": "",
 	"no_antialiasing": false,
-	"image": "characters/Nestbury",
+	"image": "characters/nestepasha/nestBury",
 	"position": [
 		0,
 		-110

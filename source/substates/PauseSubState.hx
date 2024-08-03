@@ -170,6 +170,9 @@ class PauseSubState extends MusicBeatSubstate {
 		if(noTrans) {
 			flixel.addons.transition.FlxTransitionableState.skipNextTransIn = true;
 			flixel.addons.transition.FlxTransitionableState.skipNextTransOut = true;
+		} else {
+			flixel.addons.transition.FlxTransitionableState.skipNextTransIn = false;
+			flixel.addons.transition.FlxTransitionableState.skipNextTransOut = false;
 		}
 		MusicBeatState.resetState();
 	}

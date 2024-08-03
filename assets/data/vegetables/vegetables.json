@@ -3076,7 +3076,7 @@
 		"player2": "peppermanreal",
 		"song": "Vegetables",
 		"needsVoices": true,
-		"stage": "void",
+		"stage": "veg",
 		"validScore": true,
 		"bpm": 157.423,
 		"speed": 3

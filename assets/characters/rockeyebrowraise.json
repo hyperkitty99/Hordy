@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				110
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "Lisa idle"
+			"fps": 24,
+			"name": "Lisa idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				107,
 				82
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "Lisa left"
+			"fps": 24,
+			"name": "Lisa left",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-9,
 				108
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "Lisa right"
+			"fps": 24,
+			"name": "Lisa right",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				25,
 				36
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "Lisa down"
+			"fps": 24,
+			"name": "Lisa down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				20,
 				117
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "Lisa up"
+			"fps": 24,
+			"name": "Lisa up",
+			"indices": []
 		}
 	],
 	"vocals_file": "",
@@ -63,7 +63,7 @@
 		0,
 		0
 	],
-	"healthicon": "ready4sex",
+	"healthicon": "magdushfnf",
 	"flip_x": false,
 	"healthbar_colors": [
 		255,
@@ -75,6 +75,8 @@
 		0
 	],
 	"sing_duration": 4,
+	"icon_offset_x": 0,
+	"icon_offset_y": -5,
 	"scale": 1,
 	"_editor_isPlayer": false
 }
