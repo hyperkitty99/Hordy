@@ -36,9 +36,19 @@ class MainMenuState extends MusicBeatState {
 		prevNum = num;
 
 		add(checker = new flixel.addons.display.FlxBackdrop(Paths.image('ui/mainmenu/checker')));
-		add(character = new BGSprite('ui/mainmenu/chars', characterShit[num].x, characterShit[num].y, null, null, [characterShit[num].name], false, null, null, null, null, 0));
+		checker.velocity.set(15, -15);
+
+		add(character = new BGSprite('ui/mainmenu/chars', characterShit[num].x, characterShit[num].y, [characterShit[num].name], false));
+		character.updateHitbox();
+
 		add(barU = new flixel.addons.display.FlxBackdrop(Paths.image('ui/mainmenu/eventThing'), X));
+		barU.velocity.x = -30;
+
 		add(barD = new flixel.addons.display.FlxBackdrop(Paths.image('ui/mainmenu/eventThing'), X));
+		barD.velocity.x = 30;
+		barD.y = 615;
+		barD.flipY = true;
+
 		add(menuItems = new FlxTypedGroup<FlxSprite>());
 
 		for (i in 0...optionShit.length) {
@@ -55,11 +65,6 @@ class MainMenuState extends MusicBeatState {
 		changeItem();
 
 		intendedColor = checker.color = characterShit[num].color;
-		checker.velocity.set(15, -15);
-		barU.velocity.x = -30;
-		barD.velocity.x = 30;
-		barD.y = 615;
-		barD.flipY = true;
 	}
 
 	override function update(elapsed:Float) {

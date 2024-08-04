@@ -48,6 +48,7 @@ class GameOverSubstate extends MusicBeatSubstate {
 		FlxG.sound.play(Paths.sound(deathSoundName));
 		FlxG.camera.scroll.set();
 		FlxG.camera.target = null;
+		FlxG.camera.bgColor = FlxColor.BLACK;
 
 		boyfriend.playAnim('firstDeath');
 

@@ -49,10 +49,12 @@ class FreeplaySubstate extends MusicBeatSubstate
 			for (song in leWeek.songs) addSong(song[0], i, song[1]);
 		}
 
-		if (ClientPrefs.data.completedFearless) addSong('fearless', 3, 'icon-sexmusichordymale');
+		if (ClientPrefs.data.completedFearless) {
+			addSong('fearless', 3, 'icon-sexmusichordymale');
+			addSong('overturn', 3, 'icon-prism');
+		}
 
-		grpSongs = new FlxTypedGroup<Alphabet>();
-		add(grpSongs);
+		add(grpSongs = new FlxTypedGroup<Alphabet>());
 
 		for (i in 0...songs.length)
 		{
@@ -71,10 +73,10 @@ class FreeplaySubstate extends MusicBeatSubstate
 			add(icon);
 
 			for (i in 0...WeekData.weeksList.length) {
-					if(weekIsLocked(WeekData.weeksList[1])) {
-						songText.text = '??????';
-						icon.color = FlxColor.BLACK;
-					}
+				if(weekIsLocked(WeekData.weeksList[1])) {
+					songText.text = '??????';
+					icon.color = FlxColor.BLACK;
+				}
 			}
 		}
 
@@ -112,8 +114,7 @@ class FreeplaySubstate extends MusicBeatSubstate
 		if (FlxG.sound.music.volume < 0.7) FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 			
 		if(songs.length > 1) {
-			if(FlxG.keys.justPressed.HOME || FlxG.keys.justPressed.END)
-			{
+			if(FlxG.keys.justPressed.HOME || FlxG.keys.justPressed.END) {
 				FlxG.keys.justPressed.HOME ? curSelected = 0 : curSelected = songs.length - 1;
 				changeSelection();
 				holdTime = 0;	
@@ -129,8 +130,7 @@ class FreeplaySubstate extends MusicBeatSubstate
 				holdTime += elapsed;
 				var checkNewHold:Int = Math.floor((holdTime - 0.5) * 10);
 
-				if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
-					changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -1 : 1));
+				if(holdTime > 0.5 && checkNewHold - checkLastHold > 0) changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -1 : 1));
 			}
 
 			if(FlxG.mouse.wheel != 0) {
@@ -156,9 +156,7 @@ class FreeplaySubstate extends MusicBeatSubstate
 			persistentUpdate = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			targetYOffset = 500 + (curSelected * 100);
-			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				close();
-			});
+			new FlxTimer().start(0.1, function(tmr:FlxTimer) {close();});
 		}
 
 		if (controls.ACCEPT && (cantUnpause <= 0)) {
