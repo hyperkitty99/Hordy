@@ -224,7 +224,7 @@ class PlayState extends MusicBeatState
 	var lerpedHealth:Float = 1;
 	public var valuething:Float;
 	public var useGhost:Bool = true;
-	public var cameraIntensity:Float = 0;
+	public var cameraIntensity:Float = 10;
 
 	override public function create()
 	{
@@ -449,12 +449,12 @@ class PlayState extends MusicBeatState
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		uiGroup.add(iconP1);
 		iconP1.setPosition(healthBar.width + iconP1.width * 1.85, healthBar.y - 75);
-		iconP1.offset.set(boyfriend.iconOffsetX, boyfriend.iconOffsetY);
+		iconP1.offset.set(boyfriend.iconOffset[0], boyfriend.iconOffset[1]);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
 		uiGroup.add(iconP2);
 		iconP2.setPosition(healthBar.x - iconP2.width / 2, healthBar.y - 75);
-		iconP2.offset.set(dad.iconOffsetX, dad.iconOffsetY);
+		iconP2.offset.set(dad.iconOffset[0], dad.iconOffset[1]);
 
 		scoreTxt = new FlxText(0, healthBar.y + 40, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -518,16 +518,19 @@ class PlayState extends MusicBeatState
 			for (chars in [boyfriendGhost, gfGhost, dadGhost]) if (chars != null) remove(chars);
 
 			addBehindBF(boyfriendGhost = new Character(boyfriend.x, boyfriend.y, boyfriend.curCharacter, true));
+			boyfriendGhost.scrollFactor.set(boyfriend.scrollFactor.x, boyfriend.scrollFactor.y);
 			StageData.getStageFile(curStage).hide_boyfriend ? boyfriendGhost.visible = false : boyfriendGhost.color = FlxColor.fromRGB(boyfriend.healthColorArray[0] + 50, boyfriend.healthColorArray[1] + 50, boyfriend.healthColorArray[2] + 50);
 	
 			if (!StageData.getStageFile(curStage).hide_girlfriend) {
 				addBehindGF(gfGhost = new Character(gf.x, gf.y, gf.curCharacter));
 				gfGhost.color = FlxColor.fromRGB(gf.healthColorArray[0] + 50, gf.healthColorArray[1] + 50, gf.healthColorArray[2] + 50);
+				gfGhost.scrollFactor.set(gf.scrollFactor.x, gf.scrollFactor.y);
 			}
 	
 			if (!StageData.getStageFile(curStage).hide_opponent) {
 				addBehindDad(dadGhost = new Character(dad.x, dad.y, dad.curCharacter));
 				dadGhost.color = FlxColor.fromRGB(dad.healthColorArray[0] + 50, dad.healthColorArray[1] + 50, dad.healthColorArray[2] + 50);
+				dadGhost.scrollFactor.set(dad.scrollFactor.x, dad.scrollFactor.y);
 			}
 	
 			for (charSetups in [boyfriendGhost, gfGhost, dadGhost]) {
@@ -1723,7 +1726,7 @@ class PlayState extends MusicBeatState
 							boyfriend = boyfriendMap.get(value2);
 							boyfriend.alpha = lastAlpha;
 							iconP1.changeIcon(boyfriend.healthIcon);
-							iconP1.offset.set(boyfriend.iconOffsetX, boyfriend.iconOffsetY);
+							iconP1.offset.set(boyfriend.iconOffset[0], boyfriend.iconOffset[1]);
 						}
 
 					case 1:
@@ -1745,7 +1748,7 @@ class PlayState extends MusicBeatState
 							}
 							dad.alpha = lastAlpha;
 							iconP2.changeIcon(dad.healthIcon);
-							iconP2.offset.set(dad.iconOffsetX, dad.iconOffsetY);
+							iconP2.offset.set(dad.iconOffset[0], dad.iconOffset[1]);
 						}
 
 					case 2:

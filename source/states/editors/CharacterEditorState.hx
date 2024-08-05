@@ -124,7 +124,7 @@ class CharacterEditorState extends MusicBeatState
 		healthIcon.y = FlxG.height - 150;
 		add(healthIcon);
 		healthIcon.cameras = [camHUD];
-		healthIcon.offset.set(character.iconOffsetX, character.iconOffsetY);
+		healthIcon.offset.set(character.iconOffset[0], character.iconOffset[1]);
 
 		animsTxtGroup.cameras = [camHUD];
 		add(animsTxtGroup);
@@ -437,9 +437,8 @@ class CharacterEditorState extends MusicBeatState
 				healthbar_colors: [161, 161, 161],
 				camera_position: [0, 0],
 				position: [0, 0],
+				icon_offset: [0, 0],
 				vocals_file: null,
-				icon_offset_x: 0,
-				icon_offset_y: 0
 			};
 
 			character.loadCharacterFile(_template);
@@ -653,8 +652,8 @@ class CharacterEditorState extends MusicBeatState
 		singDurationStepper = new FlxUINumericStepper(15, vocalsInputText.y + 45, 0.1, 4, 0, 999, 1);
 
 		scaleStepper = new FlxUINumericStepper(15, singDurationStepper.y + 40, 0.1, 1, 0.05, 10, 1);
-		iconOffsetXStepper = new FlxUINumericStepper(healthIconInputText.x + 105, imageInputText.y + 35, 5, character.iconOffsetX, -999, 999, 0);
-		iconOffsetYStepper = new FlxUINumericStepper(iconOffsetXStepper.x, iconOffsetXStepper.y + 35, 5, character.iconOffsetY, -999, 999, 0);
+		iconOffsetXStepper = new FlxUINumericStepper(healthIconInputText.x + 105, imageInputText.y + 35, 5, character.iconOffset[0], -999, 999, 0);
+		iconOffsetYStepper = new FlxUINumericStepper(iconOffsetXStepper.x, iconOffsetXStepper.y + 35, 5, character.iconOffset[1], -999, 999, 0);
 
 		flipXCheckBox = new FlxUICheckBox(singDurationStepper.x + 80, singDurationStepper.y, null, null, "Flip X", 50);
 		flipXCheckBox.checked = character.flipX;
@@ -757,11 +756,11 @@ class CharacterEditorState extends MusicBeatState
 			}
 			else if(sender == iconOffsetXStepper)
 			{
-				healthIcon.offset.x = character.iconOffsetX = iconOffsetXStepper.value;
+				healthIcon.offset.x = character.iconOffset[0] = iconOffsetXStepper.value;
 			}
 			else if(sender == iconOffsetYStepper)
 			{
-				healthIcon.offset.y = character.iconOffsetY = iconOffsetYStepper.value;
+				healthIcon.offset.y = character.iconOffset[1] = iconOffsetYStepper.value;
 			}
 			else if(sender == positionXStepper)
 			{
@@ -857,8 +856,8 @@ class CharacterEditorState extends MusicBeatState
 		healthIconInputText.text = character.healthIcon;
 		vocalsInputText.text = character.vocalsFile != null ? character.vocalsFile : '';
 		singDurationStepper.value = character.singDuration;
-		iconOffsetXStepper.value = character.iconOffsetX;
-		iconOffsetYStepper.value = character.iconOffsetY;
+		iconOffsetXStepper.value = character.iconOffset[0];
+		iconOffsetYStepper.value = character.iconOffset[1];
 		scaleStepper.value = character.jsonScale;
 		flipXCheckBox.checked = character.originalFlipX;
 		noAntialiasingCheckBox.checked = character.noAntialiasing;
@@ -1299,14 +1298,13 @@ class CharacterEditorState extends MusicBeatState
 
 			"position":	character.positionArray,
 			"camera_position": character.cameraPosition,
+			"icon_offset": character.iconOffset,
 
 			"flip_x": character.originalFlipX,
 			"no_antialiasing": character.noAntialiasing,
 			"healthbar_colors": character.healthColorArray,
 			"vocals_file": character.vocalsFile,
-			"_editor_isPlayer": character.isPlayer,
-			"icon_offset_x": character.iconOffsetX,
-			"icon_offset_y": character.iconOffsetY
+			"_editor_isPlayer": character.isPlayer
 		};
 
 		var data:String = haxe.Json.stringify(json, "\t");

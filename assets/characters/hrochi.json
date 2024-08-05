@@ -73,6 +73,10 @@
 		-160,
 		-180
 	],
+	"icon_offset": [
+		0,
+		15
+	],
 	"sing_duration": 4,
 	"scale": 1
 }
