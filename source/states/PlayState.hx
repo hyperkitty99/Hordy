@@ -487,8 +487,8 @@ class PlayState extends MusicBeatState
 					startVideo('completed');
 				default:
 					startCallback();
+					seenCutscene = true;
 			}
-			seenCutscene = true;
 		} else startCallback();
 		RecalculateRating();
 
@@ -506,7 +506,6 @@ class PlayState extends MusicBeatState
 		super.create();
 
 		if (FlxG.camera.bgColor == FlxColor.WHITE) Main.fpsVar.tColor = FlxColor.BLACK;
-		Paths.clearUnusedMemory();
 
 		if(eventNotes.length < 1) checkEventNote();
 
@@ -650,6 +649,7 @@ class PlayState extends MusicBeatState
 			video.bitmap.onEndReached.add(Thread.create.bind(() ->
 			{
 				video.destroy();
+				seenCutscene = true;
 				startAndEnd();
 				return;
 			}));
@@ -1270,7 +1270,9 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		for (thing in [boyfriendGhost, gfGhost, dadGhost]) if (thing != null) thing.holdTimer = 0;
+		if (boyfriendGhost != null) boyfriendGhost.holdTimer = 0;
+		if (gfGhost != null) gfGhost.holdTimer = 0;
+		if (dadGhost != null) dadGhost.holdTimer = 0;
 
 		valuething = curDecBeat;
 

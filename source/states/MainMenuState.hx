@@ -5,9 +5,9 @@ typedef CharacterInfo = {var x:Int; var y:Int; var name:String; var color:Int;}
 class MainMenuState extends MusicBeatState {
 	var optionShit:Array<String> = ['story_mode', 'freeplay', 'credits', 'options'];
 	var characterShit:Array<CharacterInfo> = [
-		{x: 35, y: 35, name: 'hodry', color: 0xFF51B867}, {x: 35, y: 65, name: 'melol', color: 0xFF8B5632},
-		{x: -130, y: 5, name: 'nest', color: 0xFF965FA1}, {x: 35, y: 35, name: 'zovtan', color: 0xFF537DCE},
-		{x: -40, y: 35, name: 'notready4sex', color: 0xFF965FA1}, {x: 50, y: 40, name: 'ready4sex', color: 0xFFDBAF5E},
+		{x: 35, y: 35, name: 'hodry', color: 0xFF75D48A}, {x: 35, y: 65, name: 'melol', color: 0xFF8B5632},
+		{x: -130, y: 5, name: 'nest', color: 0xFF965FA1}, {x: 35, y: 35, name: 'zovtan', color: 0xFF688EDA},
+		{x: -70, y: 35, name: 'notready4sex', color: 0xFF965FA1}, {x: 80, y: 40, name: 'ready4sex', color: 0xFFDBAF5E},
 		{x: 120, y: 63, name: 'fearless', color: 0xFFCF5775}, {x: -5, y: 90, name: 'monak', color: 0xFF965FA1}
 	];
 
