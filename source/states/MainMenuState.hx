@@ -3,16 +3,18 @@ package states;
 typedef CharacterInfo = {var x:Int; var y:Int; var name:String; var color:Int;}
 
 class MainMenuState extends MusicBeatState {
-	public static var curSelected:Int = 0;
-	var num:Int = FlxG.random.int(0, 3);
-	var prevNum:Int;
-	var intendedColor:Int;
-
 	var optionShit:Array<String> = ['story_mode', 'freeplay', 'credits', 'options'];
 	var characterShit:Array<CharacterInfo> = [
-		{x: 35,  y: 35, name: 'hodry', color: 0xFF51B867}, {x: 35,  y: 65, name: 'melol', color: 0xFF8B5632},
-		{x: -130,  y: 5, name: 'nest', color: 0xFF7B48DA}, {x: 35,  y: 35, name: 'zovtan', color: 0xFF537DCE}
+		{x: 35, y: 35, name: 'hodry', color: 0xFF51B867}, {x: 35, y: 65, name: 'melol', color: 0xFF8B5632},
+		{x: -130, y: 5, name: 'nest', color: 0xFF965FA1}, {x: 35, y: 35, name: 'zovtan', color: 0xFF537DCE},
+		{x: -40, y: 35, name: 'notready4sex', color: 0xFF965FA1}, {x: 50, y: 40, name: 'ready4sex', color: 0xFFDBAF5E},
+		{x: 120, y: 63, name: 'fearless', color: 0xFFCF5775}, {x: -5, y: 90, name: 'monak', color: 0xFF965FA1}
 	];
+
+	public static var curSelected:Int = 0;
+	var num:Int = FlxG.random.int(0, 7);
+	var prevNum:Int;
+	var intendedColor:Int;
 
 	var barU:flixel.addons.display.FlxBackdrop;
 	public static var barD:flixel.addons.display.FlxBackdrop;
@@ -32,7 +34,7 @@ class MainMenuState extends MusicBeatState {
 
 		persistentUpdate = persistentDraw = true;
 
-		while (num == prevNum) num = FlxG.random.int(0, 3);
+		while (num == prevNum) num = FlxG.random.int(0, 7);
 		prevNum = num;
 
 		add(checker = new flixel.addons.display.FlxBackdrop(Paths.image('ui/mainmenu/checker')));
@@ -118,7 +120,7 @@ class MainMenuState extends MusicBeatState {
 		subStateClosed.add((substateThing) -> if (substateThing is substates.FreeplaySubstate || substateThing is substates.CreditsSubstate || substateThing is options.OptionsSubstate) {
 			selectedSomethin = false;
 
-			while (num == prevNum) num = FlxG.random.int(0, 3);
+			while (num == prevNum) num = FlxG.random.int(0, 7);
 
 			character.animation.addByPrefix('idle', characterShit[num].name, 0, false);
 			character.animation.play('idle');

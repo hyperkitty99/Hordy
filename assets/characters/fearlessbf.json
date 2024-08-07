@@ -1,109 +1,113 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				433,
 				-262
 			],
-			"anim": "idle",
+			"loop": false,
 			"fps": 24,
-			"name": "idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				426,
-				-268
+				-269
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "left0",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "left0"
 		},
 		{
+			"offsets": [
+				394,
+				-263
+			],
 			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "right0"
+		},
+		{
+			"offsets": [
+				405,
+				-287
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "down0"
+		},
+		{
+			"offsets": [
+				395,
+				-225
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "up0"
+		},
+		{
+			"offsets": [
+				426,
+				-269
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFTmiss",
+			"indices": [],
+			"name": "left miss"
+		},
+		{
 			"offsets": [
 				397,
 				-263
 			],
-			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "right0",
-			"indices": []
-		},
-		{
 			"loop": false,
-			"offsets": [
-				404,
-				-288
-			],
-			"anim": "singDOWN",
 			"fps": 24,
-			"name": "down0",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				399,
-				-226
-			],
-			"anim": "singUP",
-			"fps": 24,
-			"name": "up0",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				426,
-				-267
-			],
-			"anim": "singLEFTmiss",
-			"fps": 24,
-			"name": "left miss",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				398,
-				-263
-			],
 			"anim": "singRIGHTmiss",
-			"fps": 24,
-			"name": "right miss",
-			"indices": []
+			"indices": [],
+			"name": "right miss"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				404,
-				-285
+				405,
+				-284
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singDOWNmiss",
-			"fps": 24,
-			"name": "down miss",
-			"indices": []
+			"indices": [],
+			"name": "down miss"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				400,
-				-228
+				396,
+				-225
 			],
-			"anim": "singUPmiss",
+			"loop": false,
 			"fps": 24,
-			"name": "up miss",
-			"indices": []
+			"anim": "singUPmiss",
+			"indices": [],
+			"name": "up miss"
 		}
 	],
 	"vocals_file": "",
 	"no_antialiasing": false,
 	"image": "characters/bf/fearlessbf",
 	"position": [
+		0,
+		0
+	],
+	"icon_offset": [
 		0,
 		0
 	],

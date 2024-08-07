@@ -1,18 +1,16 @@
 package states.stages;
 
-import shaders.SkewShader;
-
 class BuryBG extends BaseStage {
     var buryBG:BGSprite;
     var perspectiveFloor:BGSprite;
     var sword:BGSprite;
 
-    var skew:SkewShader;
+    var skew:shaders.SkewShader;
     override function create() {
         add(buryBG = new BGSprite("bgs/buryBG", -585, -414, 0.725, 0.275));
         buryBG.scale.set(1.8, 1.2);
 
-        skew = new SkewShader();
+        skew = new shaders.SkewShader();
 
         add(perspectiveFloor = new BGSprite("bgs/buryFloor", -520, 980, 1, 1.5));
         perspectiveFloor.scale.set(4.5, 2.4);

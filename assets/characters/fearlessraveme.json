@@ -2,101 +2,101 @@
 	"animations": [
 		{
 			"offsets": [
-				653,
-				-270
+				2,
+				-7
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "idle",
-			"loop": false,
+			"indices": [],
 			"name": "idle"
 		},
 		{
 			"offsets": [
-				766,
-				-294
+				98,
+				-269
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singLEFT",
-			"loop": false,
+			"indices": [],
 			"name": "left0"
 		},
 		{
 			"offsets": [
-				666,
-				-252
+				-21,
+				-240
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singRIGHT",
-			"loop": false,
+			"indices": [],
 			"name": "right0"
 		},
 		{
 			"offsets": [
-				628,
-				-395
+				-24,
+				-385
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singDOWN",
-			"loop": false,
+			"indices": [],
 			"name": "down0"
 		},
 		{
 			"offsets": [
-				687,
-				-205
+				39,
+				-178
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singUP",
-			"loop": false,
+			"indices": [],
 			"name": "up0"
 		},
 		{
 			"offsets": [
-				766,
-				-295
+				98,
+				-269
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singLEFTmiss",
-			"loop": false,
+			"indices": [],
 			"name": "left miss"
 		},
 		{
 			"offsets": [
-				669,
-				-251
+				-17,
+				-239
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singRIGHTmiss",
-			"loop": false,
+			"indices": [],
 			"name": "right miss"
 		},
 		{
 			"offsets": [
-				628,
-				-388
+				-24,
+				-379
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singDOWNmiss",
-			"loop": false,
+			"indices": [],
 			"name": "down miss"
 		},
 		{
 			"offsets": [
-				688,
-				-205
+				41,
+				-178
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singUPmiss",
-			"loop": false,
+			"indices": [],
 			"name": "up miss"
 		}
 	],
@@ -104,6 +104,10 @@
 	"no_antialiasing": false,
 	"image": "characters/hordy/fearlessraveme",
 	"position": [
+		0,
+		0
+	],
+	"icon_offset": [
 		0,
 		0
 	],
