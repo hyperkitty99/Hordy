@@ -37,7 +37,7 @@ class MainMenuState extends MusicBeatState {
 		while (num == prevNum) num = FlxG.random.int(0, 7);
 		prevNum = num;
 
-		add(checker = new flixel.addons.display.FlxBackdrop(Paths.image('ui/mainmenu/checker')));
+		add(checker = new flixel.addons.display.FlxBackdrop(flixel.addons.display.FlxGridOverlay.createGrid(60, 60, 120, 120, true, 0xFFF5F5F5, 0xFF7B7599)));
 		checker.velocity.set(15, -15);
 
 		add(character = new BGSprite('ui/mainmenu/chars', characterShit[num].x, characterShit[num].y, [characterShit[num].name], false));
@@ -47,21 +47,19 @@ class MainMenuState extends MusicBeatState {
 		barU.velocity.x = -30;
 
 		add(barD = new flixel.addons.display.FlxBackdrop(Paths.image('ui/mainmenu/eventThing'), X));
-		barD.velocity.x = 30;
+		barD.velocity.x = -barU.velocity.x;
 		barD.y = 615;
 		barD.flipY = true;
 
-		add(menuItems = new FlxTypedGroup<FlxSprite>());
+		add(menuItems = new FlxTypedGroup());
 
 		for (i in 0...optionShit.length) {
-			var menuItem:FlxSprite = new FlxSprite(600, (i * 150) + 80);
+			final menuItem:FlxSprite = new FlxSprite(600, (i * 150) + 80);
 			menuItem.frames = Paths.getSparrowAtlas('ui/mainmenu/buttons');
-			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
-			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
-			menuItem.animation.play('idle');
+			menuItem.animation.addByPrefix('idle', '${optionShit[i]} basic', 24);
+			menuItem.animation.addByPrefix('selected', '${optionShit[i]} white', 24);
 			menuItem.ID = i;
-			menuItem.updateHitbox();
-			menuItems.add(menuItem);
+			menuItems.add(menuItem).animation.play('idle');
 		}
 
 		changeItem();
@@ -131,11 +129,9 @@ class MainMenuState extends MusicBeatState {
 
 	function changeItem(huh:Int = 0) {
 		menuItems.members[curSelected].animation.play('idle');
-		curSelected += huh;
 
 		if (huh != 0) FlxG.sound.play(Paths.sound('scrollMenu'));
-		if (curSelected >= menuItems.length) curSelected = 0;
-		if (curSelected < 0) curSelected = menuItems.length - 1;
+		curSelected = FlxMath.wrap(curSelected + huh, 0, menuItems.length - 1);
 
 		menuItems.members[curSelected].animation.play('selected');
 	}
@@ -146,8 +142,7 @@ class MainMenuState extends MusicBeatState {
 		for (i in 0...menuItems.members.length) {
 			if (menuItems.members[i].x > 600) {
 				if (barD != null && curSelected != 2 && curSelected != 3) barD.draw();
-				if (barU != null) barU.draw();
-				if (menuItems != null) menuItems.draw();
+				for (thing in [barU, menuItems]) if (thing != null) thing.draw();
 			}
 		}
     }

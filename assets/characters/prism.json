@@ -1,113 +1,102 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "Prismetherus/idle"
+			"fps": 24,
+			"name": "Prismetherus/idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "Prismetherus/left"
+			"fps": 24,
+			"name": "Prismetherus/left",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "Prismetherus/down"
+			"fps": 24,
+			"name": "Prismetherus/down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "Prismetherus/up"
+			"fps": 24,
+			"name": "Prismetherus/up",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "Prismetherus/right"
+			"fps": 24,
+			"name": "Prismetherus/right",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT-alt",
-			"indices": [],
-			"name": "Prismetherus/synth left"
+			"fps": 24,
+			"name": "Prismetherus/synth left",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN-alt",
-			"indices": [],
-			"name": "Prismetherus/synth down"
+			"fps": 24,
+			"name": "Prismetherus/synth down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP-alt",
-			"indices": [],
-			"name": "Prismetherus/synth up"
+			"fps": 24,
+			"name": "Prismetherus/synth up",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT-alt",
-			"indices": [],
-			"name": "Prismetherus/synth right"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"anim": "appear",
 			"fps": 24,
-			"name": "Prismetherus/synth appear",
+			"name": "Prismetherus/synth right",
 			"indices": []
 		},
 		{
@@ -115,16 +104,27 @@
 				0,
 				0
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
-			"anim": "idle-alt",
+			"anim": "appear",
+			"indices": [],
+			"name": "Prismetherus/synth appear"
+		},
+		{
 			"loop": true,
-			"name": "Prismetherus/synth idle"
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle-alt",
+			"fps": 24,
+			"name": "Prismetherus/synth idle",
+			"indices": []
 		}
 	],
 	"vocals_file": "",
 	"no_antialiasing": false,
-	"image": "characters/treygolnik",
+	"image": "characters/prism/treygolnik",
 	"position": [
 		-1200,
 		-120
@@ -136,9 +136,9 @@
 	"healthicon": "prism",
 	"flip_x": false,
 	"healthbar_colors": [
-		139,
-		86,
-		50
+		66,
+		213,
+		101
 	],
 	"camera_position": [
 		1020,

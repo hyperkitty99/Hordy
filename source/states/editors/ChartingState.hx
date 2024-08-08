@@ -83,6 +83,9 @@ class ChartingState extends MusicBeatState
 		['Play Sound', "Value 1: Sound file name\nValue 2: Volume (Default: 1), ranges from 0 to 1"],
 		['Set Camera Zoom Source', "Value 1: Zoom\nValue 2: Duration"],
 		['Alt Sing Animation', "Value 1: Set a custom suffix for alt animations."],
+		['Phase change', "bleh"],
+		['Camera Flash', "Value 1: Duration"],
+		['Change Icon', "Value 1: GF icon, leave blank to undo"],
 	];
 
 	var _file:FileReference;

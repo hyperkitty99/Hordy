@@ -63,6 +63,8 @@ class Main extends Sprite
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end Math.ceil(stage.window.displayMode.refreshRate), Math.ceil(stage.window.displayMode.refreshRate), game.skipSplash, game.startFullscreen));
 
+		hxvlc.util.Handle.initAsync((s) -> s ? FlxG.log.warn("LibVLC initialized successfully!") : FlxG.log.warn("Error on initializing LibVLC!"));
+
 		fpsVar = new FPSCounter(0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
