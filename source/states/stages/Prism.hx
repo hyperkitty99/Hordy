@@ -21,6 +21,8 @@ class Prism extends BaseStage {
 
 	var idiotP:Int;
 	var idiotO:Int;
+	var noteThingy:FlxEmitter;
+	var blackout:FlxSprite;
 
 	override function create() {
 		add(new BGSprite("bgs/prism/sky", -1280, -535, 0, 0));
@@ -112,11 +114,56 @@ class Prism extends BaseStage {
 
 
 		for (i in 0...4) {
-			final idiotP = game.playerStrums.members[i].x;
-			final idiotO = game.opponentStrums.members[i].x;
+			idiotP = game.playerStrums.members[i].x;
+			idiotO = game.opponentStrums.members[i].x;
 			game.strumLineNotes.members[Std.int(i % game.strumLineNotes.length)].x = idiotP;
 			game.strumLineNotes.members[Std.int((i + 4) % game.strumLineNotes.length)].x = idiotO;
 		}
+
+		blackout = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackout.camera = game.camOther;
+		blackout.alpha = 0.00001;
+		add(blackout);
+	}
+
+	var crazyNotes:Bool = false;
+	function createNoteSing()  {
+		var noteSing:FlxSprite = new FlxSprite(FlxG.random.float(dad.x + 656, dad.x + 780), FlxG.random.float(dad.y + 375, dad.y + 588));
+		noteSing.loadGraphic(Paths.image("bgs/prism/notes/note" + FlxG.random.int(1, 4)));
+		noteSing.acceleration.y = 750;
+		noteSing.velocity.y -= FlxG.random.int(130, 175);
+		noteSing.velocity.x -= FlxG.random.int(0, 10);
+		noteSing.updateHitbox();
+		add(noteSing);
+		
+		FlxTween.tween(noteSing, {angle: FlxG.random.bool() ? 15 : -15}, 0.2 + Conductor.crochet * 0.001 * 0.8, {startDelay: Conductor.crochet * 0.002 * 0.25, ease: FlxEase.quartIn});
+		FlxTween.tween(noteSing, {alpha: 0}, 0.1, {startDelay: Conductor.crochet * 0.001, onComplete: function(tween:FlxTween) {noteSing.kill();}});
+	}
+
+	override function opponentNoteHit() if (crazyNotes) createNoteSing();
+
+	override function stepHit() {
+		if (curStep == 1312) {
+			for (i in 0...4) {
+				idiotP = game.opponentStrums.members[i].x;
+				idiotO = game.playerStrums.members[i].x;
+				FlxTween.tween(game.strumLineNotes.members[Std.int(i % game.strumLineNotes.length)], {x: idiotO}, 0.65, {ease: FlxEase.linear});
+				FlxTween.tween(game.strumLineNotes.members[Std.int((i + 4) % game.strumLineNotes.length)], {x: idiotP}, 0.65, {ease: FlxEase.linear});
+			}
+		}
+
+		if (curStep == 1504) {
+			for (i in 0...4) {
+				idiotP = game.playerStrums.members[i].x;
+				idiotO = game.opponentStrums.members[i].x;
+				FlxTween.tween(game.strumLineNotes.members[Std.int(i % game.strumLineNotes.length)], {x: idiotP}, 0.65, {ease: FlxEase.linear});
+				FlxTween.tween(game.strumLineNotes.members[Std.int((i + 4) % game.strumLineNotes.length)], {x: idiotO}, 0.65, {ease: FlxEase.linear});
+			}
+		}
+
+		if (curStep == 2320) crazyNotes = true;
+
+		if (curStep == 2448) FlxTween.tween(blackout, {alpha: 1}, 23, {ease: FlxEase.linear});
 	}
 
     override function update(elapsed:Float):Void {
@@ -174,10 +221,6 @@ class Prism extends BaseStage {
 						bg.destroy();
 						line.destroy();
 				}
-			case "Camera Flash":
-				if(flValue1 == null) flValue1 = 0;
-
-				if (ClientPrefs.data.flashing) game.camOther.flash(FlxColor.WHITE, flValue1, null, true);
 			case "Change Icon":
 				if(flValue1 == 1) {
 					game.iconP1.changeIcon(game.gf.healthIcon);

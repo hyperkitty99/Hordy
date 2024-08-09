@@ -225,6 +225,8 @@ class PlayState extends MusicBeatState
 	public var valuething:Float;
 	public var useGhost:Bool = true;
 	public var cameraIntensity:Float = 10;
+	var camBoomSpeed:Float = 0;
+	var camBoomIntensity:Float = 0;
 
 	override public function create()
 	{
@@ -1089,12 +1091,9 @@ class PlayState extends MusicBeatState
 
 			case 'Cinema bars S':
 				upperBar = new FlxSprite(-110,-350).makeGraphic(1500, 350, FlxColor.BLACK);
-				upperBar.cameras = [camOther];
-				add(upperBar);
-	
 				lowerBar = new FlxSprite(-110, 720).makeGraphic(1500, 350, FlxColor.BLACK);
-				lowerBar.cameras = [camOther];
-				add(lowerBar);
+				upperBar.camera = lowerBar.camera = camHUD;
+				for (bars in [upperBar, lowerBar]) insert(members.indexOf(comboGroup), bars);
 
 			case 'Play Sound':
 				Paths.sound(event.value1); //Precache sound
@@ -1102,12 +1101,9 @@ class PlayState extends MusicBeatState
 		stagesFunc(function(stage:BaseStage) stage.eventPushedUnique(event));
 	}
 
-	function eventEarlyTrigger(event:EventNote):Float {
-		return 0;
-	}
+	inline function eventEarlyTrigger(event:EventNote):Float return 0;
 
-	public static function sortByTime(Obj1:Dynamic, Obj2:Dynamic):Int
-		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
+	public static function sortByTime(Obj1:Dynamic, Obj2:Dynamic):Int return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
 
 	function makeEvent(event:Array<Dynamic>, i:Int)
 	{
@@ -1538,35 +1534,25 @@ class PlayState extends MusicBeatState
 				if (Math.isNaN(duration)) duration = 1;
 
 			FlxTween.num(defaultCamZoom, zoom, duration, {ease:FlxEase.sineInOut, type:ONESHOT}, (v:Float) -> {defaultCamZoom = v;});
+			case 'Set Camera Target':
+				var val1:Null<Int> = Std.parseInt(value1);
+				var val2:Null<Int> = Std.parseInt(value2);
+
+				val1 == 1 ? moveCamera(true) : moveCamera(false);
+				val2 == 1 ? isCameraOnForcedPos = true : isCameraOnForcedPos = false;
 			case 'Set Cam Speed':
 				var speed:Float = Std.parseFloat(value1);
 				var duration:Float = Std.parseFloat(value2);
 				if (Math.isNaN(duration)) duration = 1;
 
-				FlxTween.num(cameraSpeed, speed, duration, {ease: FlxEase.expoOut/*, onComplete: (twn) -> isCameraOnForcedPos = false}*/}, (v:Float) -> {cameraSpeed = v;});
+				FlxTween.num(cameraSpeed, speed, duration, {ease: FlxEase.sineInOut}, (v:Float) -> {cameraSpeed = v;});
 			case 'Cam Boom Speed':
-				var speed:Float = Std.parseFloat(value1);
-				var intensity:Float = Std.parseFloat(value2);
-				
-				if (!endingSong) {
-					if (curBeat % speed == 0) {
-						if(FlxG.camera.zoom < 1.35) {
-							FlxG.camera.zoom += 0.015 * intensity;
-							camHUD.zoom += 0.03 * intensity;
-						}
-	
-						if (camGame.zoom >= 1.35) {
-							camGame.zoom += 0.025 * intensity;
-							camHUD.zoom += 0.03 * intensity;
-						}
-					}
-				}
+				camBoomSpeed = Std.parseFloat(value1);
+				camBoomIntensity = Std.parseFloat(value2);
+			case 'Camera Flash':
+				if(flValue1 == null) flValue1 = 0;
 
-			case 'Flashing Camera':
-				var duration:Float = Std.parseFloat(value1);
-				if (Math.isNaN(duration)) duration = 0.5;
-
-				camHUD.flash(FlxColor.WHITE, duration, true);
+				if (ClientPrefs.data.flashing) camOther.flash(FlxColor.WHITE, flValue1, null, true);
 
 			case 'Cinema bars S':
 				var val:Null<Int> = Std.parseInt(value1);
@@ -1576,19 +1562,9 @@ class PlayState extends MusicBeatState
 					case 1:
 				    	FlxTween.tween(upperBar, {y: upperBar.y + 90}, 1, {ease:FlxEase.quadOut});
 					    FlxTween.tween(lowerBar, {y: lowerBar.y - 90}, 1, {ease:FlxEase.quadOut});
-
-					    for (i in 0...8) {
-					    	FlxTween.tween(strumLineNotes.members[i], {y: 105}, 1, {ease:FlxEase.quadOut});
-					    	if(ClientPrefs.data.downScroll) FlxTween.tween(strumLineNotes.members[i], {y: -5}, 1, {ease:FlxEase.quadOut});
-				    	}
 					default:
 						FlxTween.tween(upperBar, {y: -350}, 0.5, {ease:FlxEase.quadIn});
 						FlxTween.tween(lowerBar, {y: 720}, 0.5, {ease:FlxEase.quadIn});
-
-					    for (i in 0...8) {
-					    	 FlxTween.tween(strumLineNotes.members[i], {y: 50}, 0.5, {ease:FlxEase.quadIn});
-					    	if(ClientPrefs.data.downScroll) FlxTween.tween(strumLineNotes.members[i], {y: FlxG.height - 150}, 0.5, {ease:FlxEase.quadIn});
-					    }
 		    	}
 			case 'Hey!':
 				var value:Int = 2;
@@ -2307,6 +2283,8 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
+
+		stagesFunc(function(stage:BaseStage) stage.opponentNoteHit());
 	}
 
 	var noteLST:Float = 0;
@@ -2474,6 +2452,11 @@ class PlayState extends MusicBeatState
 			notes.sort(FlxSort.byY, ClientPrefs.data.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 
 		characterBopper(curBeat);
+
+		if (curBeat % camBoomSpeed == 0) {
+			FlxG.camera.zoom += 0.015 * camBoomIntensity;
+			camHUD.zoom += 0.03 * camBoomIntensity;
+		}
 
 		super.beatHit();
 		lastBeatHit = curBeat;
