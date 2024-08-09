@@ -339,6 +339,7 @@ class PlayState extends MusicBeatState
 			case 'burybg': new states.stages.BuryBG();
 			case 'prism': new states.stages.Prism();
 			case 'real': new states.stages.Real();
+			case 'hordyAI': new states.stages.HordyAI();
 		}
 
 		add(gfGroup);
@@ -737,11 +738,12 @@ class PlayState extends MusicBeatState
 			var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 			var introImagesArray:Array<String> = switch(stageUI) {
 				case "normal": ["ready", "set" ,"go"];
-				default: ['${stageUI}UI/ready', '${stageUI}UI/set', '${stageUI}UI/go'];
+				default: ['${stageUI}/ready', '${stageUI}/set', '${stageUI}/go'];
 			}
 			introAssets.set(stageUI, introImagesArray);
 
 			var introAlts:Array<String> = introAssets.get(stageUI);
+			trace(introAlts[0]);
 			var antialias:Bool = ClientPrefs.data.antialiasing;
 			var tick:Countdown = THREE;
 

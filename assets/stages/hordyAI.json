@@ -1,0 +1,18 @@
+{
+	"stageUI": "bgs/hordy",
+	"introSoundsSuffix": "grow",
+	"defaultZoom": 0.55,
+	"isPixelStage": false,
+
+	"boyfriend": [1300, 150],
+	"girlfriend": [400, 130],
+	"opponent": [-200, 150],
+	"hide_girlfriend": true,
+
+	"camera_boyfriend": [0, 0],
+	"camera_opponent": [0, 0],
+	"camera_girlfriend": [0, 0],
+	"camera_speed": 700,
+	"bg_color": "0x280828",
+	"disable_cam_movement": true
+}

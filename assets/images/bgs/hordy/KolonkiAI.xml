@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with AI
+-->
+<TextureAtlas imagePath="KolonkiAI.png" width="1097" height="468">
+	<SubTexture name="kolonka0000" x="2" y="2" width="363" height="464" frameX="-0" frameY="-3" frameWidth="367" frameHeight="468"/>
+	<SubTexture name="kolonka0001" x="2" y="2" width="363" height="464" frameX="-0" frameY="-3" frameWidth="367" frameHeight="468"/>
+	<SubTexture name="kolonka0002" x="367" y="2" width="363" height="464" frameX="-2" frameY="-1" frameWidth="367" frameHeight="468"/>
+	<SubTexture name="kolonka0003" x="367" y="2" width="363" height="464" frameX="-2" frameY="-1" frameWidth="367" frameHeight="468"/>
+	<SubTexture name="kolonka0004" x="732" y="2" width="363" height="464" frameX="-3" frameY="-0" frameWidth="367" frameHeight="468"/>
+	<SubTexture name="kolonka0005" x="732" y="2" width="363" height="464" frameX="-3" frameY="-0" frameWidth="367" frameHeight="468"/>
+	<SubTexture name="kolonka0006" x="732" y="2" width="363" height="464" frameX="-3" frameY="-0" frameWidth="367" frameHeight="468"/>
+	<SubTexture name="kolonka0007" x="732" y="2" width="363" height="464" frameX="-3" frameY="-0" frameWidth="367" frameHeight="468"/>
+	<SubTexture name="kolonka0008" x="732" y="2" width="363" height="464" frameX="-3" frameY="-0" frameWidth="367" frameHeight="468"/>
+	<SubTexture name="kolonka0009" x="732" y="2" width="363" height="464" frameX="-3" frameY="-0" frameWidth="367" frameHeight="468"/>
+</TextureAtlas>

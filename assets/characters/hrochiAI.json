@@ -1,0 +1,84 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				110
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "Hordy idle"
+		},
+		{
+			"offsets": [
+				72,
+				131
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Hordy left"
+		},
+		{
+			"offsets": [
+				8,
+				123
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Hordy right"
+		},
+		{
+			"offsets": [
+				8,
+				138
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Hordy down"
+		},
+		{
+			"offsets": [
+				-7,
+				117
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Hordy up"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/hordy/hordyAI",
+	"position": [
+		0,
+		0
+	],
+	"icon_offset": [
+		0,
+		15
+	],
+	"healthicon": "horchiAI",
+	"flip_x": false,
+	"healthbar_colors": [
+		0,
+		141,
+		11
+	],
+	"camera_position": [
+		-160,
+		-180
+	],
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": false
+}
