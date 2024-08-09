@@ -2263,7 +2263,7 @@ class PlayState extends MusicBeatState
 
 	var noteLSTAlt:Float = 0;
 	var notePNAlt = 0;
-	public function opponentNoteHit(note:Note):Void
+	function opponentNoteHit(note:Note):Void
 	{
 		if (songName != 'tutorial')
 			camZooming = true;

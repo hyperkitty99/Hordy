@@ -2067,6 +2067,7 @@ class ChartingState extends MusicBeatState
 		"\n\nStep: " + curStep +
 		"\n\nBeat Snap: " + quantization + "th";
 
+		var playedSound:Array<Bool> = [false, false, false, false]; //Prevents ouchy GF sex sounds
 		curRenderedNotes.forEachAlive(function(note:Note) {
 			note.alpha = 1;
 			if(curSelectedNote != null) {
@@ -2089,6 +2090,20 @@ class ChartingState extends MusicBeatState
 					if(noteDataToCheck > -1 && note.mustPress != _song.notes[curSec].mustHitSection) noteDataToCheck += 4;
 						strumLineNotes.members[noteDataToCheck].playAnim('confirm', true);
 						strumLineNotes.members[noteDataToCheck].resetAnim = ((note.sustainLength / 1000) + 0.15) / playbackSpeed;
+					if(!playedSound[data]) {
+						if((playSoundBf.checked && note.mustPress) || (playSoundDad.checked && !note.mustPress)){
+							var soundToPlay = 'hitsound';
+
+							FlxG.sound.play(Paths.sound(soundToPlay)).pan = note.noteData < 4? -0.3 : 0.3; //would be coolio
+							playedSound[data] = true;
+						}
+
+						data = note.noteData;
+						if(note.mustPress != _song.notes[curSec].mustHitSection)
+						{
+							data += 4;
+						}
+					}
 				}
 			}
 		});
