@@ -23,6 +23,7 @@ class Prism extends BaseStage {
 	var idiotO:Int;
 	var noteThingy:FlxEmitter;
 	var blackout:FlxSprite;
+	var cutscene:PsychVideoSprite;
 
 	override function create() {
 		add(new BGSprite("bgs/prism/sky", -1280, -535, 0, 0));
@@ -98,7 +99,6 @@ class Prism extends BaseStage {
 
 		bg.camera = game.camHUD;
 		line.camera = game.camHUD;
-
 		PlayState.instance.insert(members.indexOf(game.boyfriendGroup) + 1, PlayState.instance.remove(line));
 	}
 
@@ -124,6 +124,13 @@ class Prism extends BaseStage {
 		blackout.camera = game.camOther;
 		blackout.alpha = 0.00001;
 		add(blackout);
+
+		add(cutscene = new PsychVideoSprite());
+		cutscene.load(Paths.video('Overturn do cutscene(1)'), [PsychVideoSprite.muted]);
+		cutscene.scrollFactor.set();
+		cutscene.addCallback('onEnd',()->{cutscene.destroy();});
+		cutscene.camera = game.camOther;
+		cutscene.play();
 	}
 
 	var crazyNotes:Bool = false;
@@ -143,12 +150,13 @@ class Prism extends BaseStage {
 	override function opponentNoteHit() if (crazyNotes) createNoteSing();
 
 	override function stepHit() {
+		if (curStep == 185) cutscene.camera = game.camHUD;
 		if (curStep == 1312) {
 			for (i in 0...4) {
 				idiotP = game.opponentStrums.members[i].x;
 				idiotO = game.playerStrums.members[i].x;
-				FlxTween.tween(game.strumLineNotes.members[Std.int(i % game.strumLineNotes.length)], {x: idiotO}, 0.65, {ease: FlxEase.linear});
-				FlxTween.tween(game.strumLineNotes.members[Std.int((i + 4) % game.strumLineNotes.length)], {x: idiotP}, 0.65, {ease: FlxEase.linear});
+				FlxTween.tween(game.strumLineNotes.members[Std.int(i % game.strumLineNotes.length)], {x: idiotO}, 0.75, {ease: FlxEase.linear});
+				FlxTween.tween(game.strumLineNotes.members[Std.int((i + 4) % game.strumLineNotes.length)], {x: idiotP}, 0.75, {ease: FlxEase.linear});
 			}
 		}
 
@@ -156,8 +164,8 @@ class Prism extends BaseStage {
 			for (i in 0...4) {
 				idiotP = game.playerStrums.members[i].x;
 				idiotO = game.opponentStrums.members[i].x;
-				FlxTween.tween(game.strumLineNotes.members[Std.int(i % game.strumLineNotes.length)], {x: idiotP}, 0.65, {ease: FlxEase.linear});
-				FlxTween.tween(game.strumLineNotes.members[Std.int((i + 4) % game.strumLineNotes.length)], {x: idiotO}, 0.65, {ease: FlxEase.linear});
+				FlxTween.tween(game.strumLineNotes.members[Std.int(i % game.strumLineNotes.length)], {x: idiotP}, 0.75, {ease: FlxEase.linear});
+				FlxTween.tween(game.strumLineNotes.members[Std.int((i + 4) % game.strumLineNotes.length)], {x: idiotO}, 0.75, {ease: FlxEase.linear});
 			}
 		}
 

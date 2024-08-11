@@ -90,6 +90,7 @@ class ChartingState extends MusicBeatState
 		['Phase change', "bleh"],
 		['Camera Flash', "Value 1: Duration"],
 		['Change Icon', "Value 1: GF icon, leave blank to undo"],
+		['Create Text', "Value 1: Type 3 uppercase letters\nExample: G, H, J\n Character limit: QWERTYUIOPASDFGHJKLZXCVBNM"],
 	];
 
 	var _file:FileReference;

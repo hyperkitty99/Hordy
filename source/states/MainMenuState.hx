@@ -1,9 +1,11 @@
 package states;
 
+
 typedef CharacterInfo = {var x:Int; var y:Int; var name:String; var color:Int;}
 
 class MainMenuState extends MusicBeatState {
 	var optionShit:Array<String> = ['story_mode', 'freeplay', 'credits', 'options'];
+
 	var characterShit:Array<CharacterInfo> = [
 		{x: 35, y: 35, name: 'hodry', color: 0xFF75D48A}, {x: 35, y: 65, name: 'melol', color: 0xFF8B5632},
 		{x: -130, y: 5, name: 'nest', color: 0xFF965FA1}, {x: 35, y: 35, name: 'zovtan', color: 0xFF688EDA},
@@ -65,11 +67,6 @@ class MainMenuState extends MusicBeatState {
 		changeItem();
 
 		intendedColor = checker.color = characterShit[num].color;
-	}
-
-	override function update(elapsed:Float) {
-		if (FlxG.sound.music.volume < 0.8) FlxG.sound.music.volume += 0.5 * elapsed;
-		if (num != prevNum) prevNum = num;
 
 		if (PlayState.isFreeplay) {
 			selectedSomethin = true;
@@ -78,8 +75,12 @@ class MainMenuState extends MusicBeatState {
 			character.x = -character.width;
 
 			openSubState(new substates.FreeplaySubstate());
-			onSubstateClosed();
 		}
+	}
+
+	override function update(elapsed:Float) {
+		if (FlxG.sound.music.volume < 0.8) FlxG.sound.music.volume += 0.5 * elapsed;
+		if (num != prevNum) prevNum = num;
 
 		if (!selectedSomethin) {
 			if (controls.UI_UP_P || controls.UI_DOWN_P) changeItem(controls.UI_UP_P ? -1 : 1);
@@ -97,7 +98,6 @@ class MainMenuState extends MusicBeatState {
 					case 'credits': openSubState(new substates.CreditsSubstate());
 					case 'options': openSubState(new options.OptionsSubstate());
 				}
-				onSubstateClosed();
 			}
 
 			for (i in 0...menuItems.members.length) menuItems.members[i].x = FlxMath.lerp(menuItems.members[i].x, 600, 0.1);
@@ -114,8 +114,9 @@ class MainMenuState extends MusicBeatState {
 		super.update(elapsed);
 	}
 
-	function onSubstateClosed() {
-		subStateClosed.add((substateThing) -> if (substateThing is substates.FreeplaySubstate || substateThing is substates.CreditsSubstate || substateThing is options.OptionsSubstate) {
+	override function closeSubState() {
+		super.closeSubState();
+		subStateClosed.add((substateThing) ->  if (!(substateThing is backend.CustomFadeTransition)) {
 			selectedSomethin = false;
 
 			while (num == prevNum) num = FlxG.random.int(0, 7);

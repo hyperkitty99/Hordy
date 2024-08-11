@@ -484,7 +484,7 @@ class PlayState extends MusicBeatState
 			switch (SONG.song.toLowerCase()) {
 				case "ungrowing":
 					startVideo('ungrowing');
-				case "mind-blown":
+				case "mind blown":
 					startVideo('mind-blown');
 				case "completed":
 					startVideo('completed');
@@ -635,7 +635,6 @@ class PlayState extends MusicBeatState
 
 	public function startVideo(name:String)
 	{
-		#if VIDEOS_ALLOWED
 		inCutscene = true;
 
 		var filepath:String = Paths.video(name);
@@ -663,11 +662,6 @@ class PlayState extends MusicBeatState
 			video.cameras = [camOther];
 			add(video);
 		});
-		#else
-		FlxG.log.warn('Platform not supported!');
-		startAndEnd();
-		return;
-		#end
 	}
 
 	function startAndEnd()
@@ -743,7 +737,6 @@ class PlayState extends MusicBeatState
 			introAssets.set(stageUI, introImagesArray);
 
 			var introAlts:Array<String> = introAssets.get(stageUI);
-			trace(introAlts[0]);
 			var antialias:Bool = ClientPrefs.data.antialiasing;
 			var tick:Countdown = THREE;
 
@@ -1191,6 +1184,8 @@ class PlayState extends MusicBeatState
 			{
 				resyncVocals();
 			}
+			PsychVideoSprite.globalResume();
+
 			FlxTimer.globalManager.forEach(function(tmr:FlxTimer) if(!tmr.finished) tmr.active = true);
 			FlxTween.globalManager.forEach(function(twn:FlxTween) if(!twn.finished) twn.active = true);
 
@@ -1442,6 +1437,8 @@ class PlayState extends MusicBeatState
 		persistentDraw = true;
 		paused = true;
 
+		PsychVideoSprite.globalPause();
+
 		if(FlxG.sound.music != null) {
 			FlxG.sound.music.pause();
 			vocals.pause();
@@ -1495,7 +1492,12 @@ class PlayState extends MusicBeatState
 			persistentDraw = false;
 			FlxTimer.globalManager.clear();
 			FlxTween.globalManager.clear();
-			SONG.song.toLowerCase() != 'vegetables' ? openSubState(new GameOverSubstate()) : openSubState(new substates.LazyGameOverSubstate());
+
+			switch (SONG.song.toLowerCase()) {
+				case 'overturn': openSubState(new substates.VideoGameOverSubstate('death', 160));
+				case 'vegetables': openSubState(new substates.LazyGameOverSubstate());
+				default: openSubState(new GameOverSubstate());
+			}
 
 			isDead = true;
 			return true;
@@ -1568,6 +1570,17 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(upperBar, {y: -350}, 0.5, {ease:FlxEase.quadIn});
 						FlxTween.tween(lowerBar, {y: 720}, 0.5, {ease:FlxEase.quadIn});
 		    	}
+			case "Change Icon":
+				switch(value2.toLowerCase().trim()) {
+					case 'bf' | 'boyfriend' | '0':
+						iconP1.changeIcon(flValue1 == 1 ? gf.healthIcon : boyfriend.healthIcon);
+						healthBar.setColors(flValue1 == 1 ? FlxColor.fromRGB(gf.healthColorArray[0], gf.healthColorArray[1], gf.healthColorArray[2]) : FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]), FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
+					case 'dad' | 'opponent' | '1':
+						iconP2.changeIcon(flValue1 == 1 ? gf.healthIcon : dad.healthIcon);
+						healthBar.setColors(FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]), flValue1 == 1 ? FlxColor.fromRGB(gf.healthColorArray[0], gf.healthColorArray[1], gf.healthColorArray[2]) : FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
+				}
+
+				checkIcon();
 			case 'Hey!':
 				var value:Int = 2;
 				switch(value1.toLowerCase().trim()) {
@@ -2276,9 +2289,11 @@ class PlayState extends MusicBeatState
 			if (!note.isSustainNote) {
 				if (noteLSTAlt == note.strumTime) {
 					notePNAlt += 1;
-					dadGhost.alpha = 0.8;
-					dadGhost.playAnim(singAnimations[note.noteData], true);
-					dadGhostTween = FlxTween.tween(dadGhost, {alpha: 0}, 0.75, {ease: FlxEase.linear, onComplete: function(twn:FlxTween) {dadGhostTween = null;}});
+					if (notePNAlt >= 2) {
+						dadGhost.alpha = 0.8;
+						dadGhost.playAnim(singAnimations[note.noteData], true);
+						dadGhostTween = FlxTween.tween(dadGhost, {alpha: 0}, 0.75, {ease: FlxEase.linear, onComplete: function(twn:FlxTween) {dadGhostTween = null;}});
+					}
 				} else {
 					noteLSTAlt = note.strumTime;
 					notePNAlt = 1;
@@ -2372,9 +2387,11 @@ class PlayState extends MusicBeatState
 			if (!note.isSustainNote) {
 				if (noteLST == note.strumTime) {
 					notePN += 1;
-					boyfriendGhost.alpha = 0.8;
-					boyfriendGhost.playAnim(singAnimations[note.noteData], true);
-					boyfriendGhostTween = FlxTween.tween(boyfriendGhost, {alpha: 0}, 0.75, {ease: FlxEase.linear, onComplete: function(twn:FlxTween) {boyfriendGhostTween = null;}});
+					if (notePN >= 2) {
+						boyfriendGhost.alpha = 0.8;
+						boyfriendGhost.playAnim(singAnimations[note.noteData], true);
+						boyfriendGhostTween = FlxTween.tween(boyfriendGhost, {alpha: 0}, 0.75, {ease: FlxEase.linear, onComplete: function(twn:FlxTween) {boyfriendGhostTween = null;}});
+					}
 				} else {
 					noteLST = note.strumTime;
 					notePN = 1;

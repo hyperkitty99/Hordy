@@ -98,7 +98,7 @@ class GameOverSubstate extends MusicBeatSubstate {
 
 				if (boyfriend.animation.curAnim.finished && !playingDeathSound) {
 					startedDeath = true;
-					new FlxTimer().start(0.7, function(tmr:FlxTimer) {
+					new FlxTimer().start(1.3, function(tmr:FlxTimer) {
 						FlxG.sound.playMusic(Paths.music(loopSoundName), 1);
 					});
 				}
@@ -106,7 +106,6 @@ class GameOverSubstate extends MusicBeatSubstate {
 		}
 		
 		if (FlxG.sound.music.playing) Conductor.songPosition = FlxG.sound.music.time;
-
 	}
 
 	override function destroy() {

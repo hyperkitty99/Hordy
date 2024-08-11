@@ -1,6 +1,6 @@
 {
 	"stageUI": "bgs/hordy",
-	"introSoundsSuffix": "grow",
+	"introSoundsSuffix": "ai",
 	"defaultZoom": 0.55,
 	"isPixelStage": false,
 

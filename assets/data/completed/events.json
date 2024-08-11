@@ -27,7 +27,7 @@
 					[
 						"Change Character",
 						"1",
-						"duo-hrochi-STEKLO"
+						"hrochi-STEKLO"
 					]
 				]
 			],
@@ -242,7 +242,7 @@
 					[
 						"Change Character",
 						"1",
-						"duo-hrochi-moshniy"
+						"hrochi"
 					]
 				]
 			],
@@ -343,16 +343,6 @@
 						"Set Camera Zoom Source",
 						"0.55",
 						"1"
-					]
-				]
-			],
-			[
-				73846.1538461538,
-				[
-					[
-						"Change Character",
-						"1",
-						"duo-hrochi"
 					]
 				]
 			],
@@ -537,7 +527,7 @@
 					[
 						"Change Character",
 						"1",
-						"duo-hrochi-STEKLO"
+						"hrochi-STEKLO"
 					]
 				]
 			],

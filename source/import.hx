@@ -17,6 +17,7 @@ import backend.Mods;
 
 import objects.Alphabet;
 import objects.BGSprite;
+import objects.PsychVideoSprite;
 
 #if flxanimate
 import flxanimate.*;

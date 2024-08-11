@@ -54,6 +54,61 @@
 			"anim": "singUP",
 			"indices": [],
 			"name": "Hordy up"
+		},
+		{
+			"offsets": [
+				7,
+				110
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle-alt",
+			"indices": [],
+			"name": "Hordy idle"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				109,
+				142
+			],
+			"anim": "singLEFT-alt",
+			"fps": 24,
+			"name": "Hordy swag left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-10,
+				114
+			],
+			"anim": "singRIGHT-alt",
+			"fps": 24,
+			"name": "Hordy swag right",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				62,
+				140
+			],
+			"anim": "singDOWN-alt",
+			"fps": 24,
+			"name": "Hordy swag down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				110,
+				102
+			],
+			"anim": "singUP-alt",
+			"fps": 24,
+			"name": "Hordy swag up",
+			"indices": []
 		}
 	],
 	"vocals_file": "",

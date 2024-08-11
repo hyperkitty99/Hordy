@@ -7,7 +7,7 @@
 			],
 			"loop": false,
 			"fps": 24,
-			"anim": "idle",
+			"anim": "idle-alt",
 			"indices": [],
 			"name": "Hordy idle"
 		},
@@ -17,7 +17,7 @@
 				109,
 				142
 			],
-			"anim": "singLEFT",
+			"anim": "singLEFT-alt",
 			"fps": 24,
 			"name": "Hordy swag left",
 			"indices": []
@@ -28,7 +28,7 @@
 				-10,
 				114
 			],
-			"anim": "singRIGHT",
+			"anim": "singRIGHT-alt",
 			"fps": 24,
 			"name": "Hordy swag right",
 			"indices": []
@@ -39,7 +39,7 @@
 				62,
 				140
 			],
-			"anim": "singDOWN",
+			"anim": "singDOWN-alt",
 			"fps": 24,
 			"name": "Hordy swag down",
 			"indices": []
@@ -50,7 +50,7 @@
 				110,
 				102
 			],
-			"anim": "singUP",
+			"anim": "singUP-alt",
 			"fps": 24,
 			"name": "Hordy swag up",
 			"indices": []

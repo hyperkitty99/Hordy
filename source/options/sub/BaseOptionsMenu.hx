@@ -22,8 +22,7 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 	private var descBox:FlxSprite;
 	private var descText:FlxText;
 
-	public function new()
-	{
+	public function new() {
 		super();
 		add(grpOptions = new FlxTypedGroup<FlxText>());
 		add(grpTexts = new FlxTypedGroup<AttachedText>());
