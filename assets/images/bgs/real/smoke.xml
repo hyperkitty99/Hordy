@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="smoke.png">
+	<SubTexture name="smoke0000" x="2" y="2" width="123" height="125" frameX="0" frameY="-60" frameWidth="123" frameHeight="185"/>
+	<SubTexture name="smoke0001" x="2" y="2" width="123" height="125" frameX="0" frameY="-60" frameWidth="123" frameHeight="185"/>
+	<SubTexture name="smoke0002" x="127" y="2" width="98" height="132" frameX="-13" frameY="-24" frameWidth="123" frameHeight="185"/>
+	<SubTexture name="smoke0003" x="127" y="2" width="98" height="132" frameX="-13" frameY="-24" frameWidth="123" frameHeight="185"/>
+	<SubTexture name="smoke0004" x="2" y="136" width="82" height="101" frameX="-31" frameY="-8" frameWidth="123" frameHeight="185"/>
+	<SubTexture name="smoke0005" x="2" y="136" width="82" height="101" frameX="-31" frameY="-8" frameWidth="123" frameHeight="185"/>
+	<SubTexture name="smoke0006" x="86" y="136" width="93" height="56" frameX="-25" frameY="0" frameWidth="123" frameHeight="185"/>
+	<SubTexture name="smoke0007" x="86" y="136" width="93" height="56" frameX="-25" frameY="0" frameWidth="123" frameHeight="185"/>
+	<SubTexture name="smoke0008" x="86" y="194" width="93" height="56" frameX="-25" frameY="0" frameWidth="123" frameHeight="185"/>
+</TextureAtlas>

@@ -1,125 +1,125 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
+			"loop": false,
 			"fps": 24,
-			"name": "idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				9,
 				-1
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "left0",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "left0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-16,
 				-37
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "down0",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "down0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-7,
 				19
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "up0",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "up0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-39,
 				-2
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "right0",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "right0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				28,
 				2
 			],
-			"anim": "singLEFT-alt",
+			"loop": false,
 			"fps": 24,
-			"name": "left alt",
-			"indices": []
+			"anim": "singLEFT-alt",
+			"indices": [],
+			"name": "left alt"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				34,
 				-41
 			],
-			"anim": "singDOWN-alt",
+			"loop": false,
 			"fps": 24,
-			"name": "down alt",
-			"indices": []
+			"anim": "singDOWN-alt",
+			"indices": [],
+			"name": "down alt"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				8,
 				48
 			],
-			"anim": "singUP-alt",
+			"loop": false,
 			"fps": 24,
-			"name": "up alt",
-			"indices": []
+			"anim": "singUP-alt",
+			"indices": [],
+			"name": "up alt"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-15,
 				0
 			],
-			"anim": "singRIGHT-alt",
+			"loop": false,
 			"fps": 24,
-			"name": "right alt",
-			"indices": []
+			"anim": "singRIGHT-alt",
+			"indices": [],
+			"name": "right alt"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				28,
 				9
 			],
-			"anim": "hit",
+			"loop": false,
 			"fps": 24,
-			"name": "hit",
-			"indices": []
+			"anim": "hit",
+			"indices": [],
+			"name": "hit"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				41,
 				4
 			],
-			"anim": "drink",
+			"loop": false,
 			"fps": 24,
-			"name": "drink",
-			"indices": []
+			"anim": "drink",
+			"indices": [],
+			"name": "drink"
 		}
 	],
 	"vocals_file": "",
@@ -129,20 +129,22 @@
 		0,
 		0
 	],
-	"healthicon": "face",
+	"icon_offset": [
+		0,
+		0
+	],
+	"healthicon": "nestReal",
 	"flip_x": false,
 	"healthbar_colors": [
-		161,
-		161,
-		161
+		72,
+		79,
+		91
 	],
 	"camera_position": [
 		-30,
 		110
 	],
 	"sing_duration": 4,
-	"icon_offset_x": 0,
-	"icon_offset_y": 0,
 	"scale": 1,
 	"_editor_isPlayer": false
 }

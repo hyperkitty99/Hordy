@@ -147,7 +147,7 @@ class Prism extends BaseStage {
 		FlxTween.tween(noteSing, {alpha: 0}, 0.1, {startDelay: Conductor.crochet * 0.001, onComplete: function(tween:FlxTween) {noteSing.kill();}});
 	}
 
-	override function opponentNoteHit() if (crazyNotes) createNoteSing();
+	override function opponentNoteHit(note:objects.Note) if (crazyNotes) createNoteSing();
 
 	override function stepHit() {
 		if (curStep == 185) cutscene.camera = game.camHUD;

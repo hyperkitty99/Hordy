@@ -1,81 +1,81 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				2
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "idle"
+			"fps": 24,
+			"name": "idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				92,
 				4
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "left0"
+			"fps": 24,
+			"name": "left0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				23,
 				-77
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "down0"
+			"fps": 24,
+			"name": "down0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				18,
 				61
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "up0"
+			"fps": 24,
+			"name": "up0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-27,
 				-40
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "right0"
+			"fps": 24,
+			"name": "right0",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				27,
 				-3
 			],
-			"anim": "attack",
+			"loop": false,
 			"fps": 24,
-			"name": "attack",
-			"indices": []
+			"anim": "attack",
+			"indices": [],
+			"name": "attack"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				163,
 				-1
 			],
-			"anim": "appear",
+			"loop": false,
 			"fps": 24,
-			"name": "appear",
-			"indices": []
+			"anim": "appear",
+			"indices": [],
+			"name": "appear"
 		}
 	],
 	"vocals_file": "",
@@ -85,20 +85,22 @@
 		0,
 		0
 	],
-	"healthicon": "face",
+	"icon_offset": [
+		0,
+		0
+	],
+	"healthicon": "zovtanReal",
 	"flip_x": false,
 	"healthbar_colors": [
-		161,
-		161,
-		161
+		255,
+		219,
+		77
 	],
 	"camera_position": [
 		-90,
 		92
 	],
 	"sing_duration": 4,
-	"icon_offset_x": 0,
-	"icon_offset_y": 0,
 	"scale": 1,
 	"_editor_isPlayer": false
 }

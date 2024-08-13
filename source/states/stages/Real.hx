@@ -1,97 +1,117 @@
-	package states.stages;
+package states.stages;
 
-	import flixel.text.FlxBitmapText;
+class Real extends BaseStage {
+	var sky:BGSprite;
+	var ball:BGSprite;
+	var light:BGSprite;
+	var uselessJunk:BGSprite;
+	var bfStupid:objects.Character = null;
+	var resetKey:Bool = ClientPrefs.data.noReset;
 
-	class Real extends BaseStage {
-		var sky:BGSprite;
-		// var speakerL:BGSprite;
-		var text:FlxBitmapText;
-		var thekeys:Array<String> = [];
-		var ogKeys:Array<String>;
+	override function create() {
+		add(sky = new BGSprite("bgs/real/sky", -25, -12));
+		sky.scrollFactor.set(0.5, 0.5);
+		add(new BGSprite("bgs/real/podiesd", 1165, 145));
+		add(uselessJunk = new BGSprite("bgs/real/ropinReal", 1225, 135, ['ropinReal'], false));
+		add(new BGSprite("bgs/real/realbg", -45, -140));
+		add(light = new BGSprite("bgs/real/light", 105, 115));
+		add(ball = new BGSprite("bgs/real/ball", 675, 280, ['ball'], false));
+		ball.alpha = 0.00001;
 
-		override function create() {
-			add(sky = new BGSprite("bgs/real/sky", -25, -12));
-			sky.scrollFactor.set(0.5, 0.5);
-			// add(speakerL = new BGSprite("bgs/hordy/Kolonki", 1235, 155, ['kolonka'], null, 1.3));
-			add(new BGSprite("bgs/real/realbg", -45, -140));
-			add(new BGSprite("bgs/real/light", 105, 115));
-		}
-
-		override function actualCreatePost() {
-			add(text = new FlxBitmapText('', flixel.graphics.frames.FlxBitmapFont.fromAngelCode(Paths.image('ui/buttons'), Paths.fnt('images/ui/buttons'))));
-			text.camera = game.camHUD;
-			text.alpha = 0.00001;
-		}
-
-		static function retartedString(?amount:Int = 3):Array<String> {
-			var exclude = [
-				ClientPrefs.keyBinds.get('note_left')[0], ClientPrefs.keyBinds.get('note_down')[0], 
-				ClientPrefs.keyBinds.get('note_up')[0], ClientPrefs.keyBinds.get('note_right')[0]
-			];
-
-			var chars = 'QWE${ClientPrefs.data.noReset ? 'R' : ''}TYUIOPASDFGHJKLZXCVBNM'.split('');
-			for (key in exclude) chars.remove(key.toString());
-
-			var result = [];
-
-			while (result.length < amount) {
-				var char = chars[Math.floor(Math.random() * chars.length)];
-				if (result.indexOf(char) == -1) result.push(char);
-			}
-
-			return result;
-		}
-
-		var alphaTween:FlxTween;
-		override function eventCalled(eventName:String, value1:String, value2:String, flValue1:Null<Float>, flValue2:Null<Float>, strumTime:Float) {
-			switch(eventName) {
-				case "Create Text":
-					if(alphaTween != null) alphaTween.cancel();
-					alphaTween = FlxTween.tween(text, {alpha: 1}, 0.5, {ease: FlxEase.cubeOut});
-					thekeys = value1 != '' ? value1.split('') : retartedString();
-					ogKeys = thekeys.copy();
-					updateText();
-
-					FlxTimer.wait(flValue2 == null ? 5 : flValue2, () -> {
-						thekeys = [];
-						FlxTween.tween(text, {alpha: 0.00001}, 0.5, {ease: FlxEase.cubeIn, onComplete: function(twn:FlxTween) {text.text = '';}});
-					});
-			}
-		}
-
-		function updateText() {
-			text.text = Std.string(thekeys).toUpperCase().replace('ALT', '+').replace('FOUR', '4');
-			text.screenCenter();
-		}
-
-		override function update(elapsed:Float) {
-			super.update(elapsed);
-
-			if (thekeys.length > 0) {
-				if (FlxG.keys.firstJustPressed() != flixel.input.keyboard.FlxKey.NONE) {
-					if (FlxG.keys.firstJustPressed() == flixel.input.keyboard.FlxKey.fromString(thekeys[0])) {
-						thekeys.shift();
-						updateText();
-			
-						if (thekeys.length == 0) {
-							game.boyfriend.playAnim('attack', true);
-							game.boyfriend.specialAnim = true;
-			
-							FlxTimer.wait(0.375, () -> {
-								game.dad.playAnim('hit', true);
-								game.dad.specialAnim = true;
-							});
-
-							thekeys = [];
-						}
-					} else {
-						thekeys = ogKeys.copy();
-						updateText();
-						FlxTween.color(text, 0.3, FlxColor.RED, FlxColor.WHITE);
-					}
-				}
-			}
-		}
-
-		// override function beatHit() speakerL.dance();
+		BaseStage.set_customDeath('maniac_death');
 	}
+
+	override function actualCreatePost() {
+		PlayState.instance.insert(members.indexOf(game.boyfriendGroup) + 1, PlayState.instance.remove(ball));
+		PlayState.instance.insert(members.indexOf(game.dadGroup) + 1, PlayState.instance.remove(light));
+
+		gf.alpha = 0.00001;
+
+		for (i in 1...4) Paths.sound('hit/hit$i');
+			
+		ClientPrefs.data.noReset = true;
+
+		game.boyfriendGroup.add(bfStupid = new objects.Character(0, 0, 'hordyReal', true));
+		game.startCharacterPos(bfStupid);
+		bfStupid.alpha = 0.00001;
+	}
+
+	override function destroy() ClientPrefs.data.noReset = resetKey;
+
+	inline function createSmoke() {
+		var smoke = new BGSprite("bgs/real/smoke", 835, 100, ['smoke'], false);
+		smoke.alpha = 0.5;
+		add(smoke);
+		smoke.dance();
+		smoke.animation.finishCallback = function(s:String) {smoke.destroy();}
+		PlayState.instance.insert(members.indexOf(game.dadGroup) + 1, PlayState.instance.remove(smoke));
+	}
+
+	override function opponentNoteHit(note:objects.Note) {
+		if (note.noteType == 'GF Sing' && gf.animation.curAnim.name == 'singUP') createSmoke();
+		if (!game.dad.stunned && game.health > 0.05) game.set_health(game.health - 0.0175);
+	}
+
+	override function eventCalled(eventName:String, value1:String, value2:String, flValue1:Null<Float>, flValue2:Null<Float>, strumTime:Float) {
+		switch(eventName) {
+			case "Create Text":
+				var typeSub = new substates.TextSubstate(value1, Std.parseInt(value2));
+				typeSub.camera = game.camHUD;
+				game.blockControls = true;
+
+				typeSub.kingGG = () -> {
+					game.blockControls = false;
+					game.boyfriend.playAnim('attack', true);
+					game.boyfriend.specialAnim = true;
+					ball.alpha = 1;
+					ball.dance();
+					ball.animation.finishCallback = function(s:String) {ball.alpha = 0.00001;}
+		
+					FlxTimer.wait(0.375, () -> {
+						game.set_health(game.health + 0.5);
+						FlxG.sound.play(Paths.soundRandom('hit/hit', 1, 3));
+						game.dad.playAnim('hit', true);
+						game.dad.specialAnim = true;
+						game.dad.stunned = true;
+						game.dad.animation.finishCallback = function(s:String) {game.dad.stunned = false;}
+					});
+				};
+
+				typeSub.GGgnik = () -> game.blockControls = false;
+
+				FlxG.state.openSubState(typeSub);
+			case "Play Animation":
+				if (gf.animation.curAnim != null && gf.animation.curAnim.name == 'attack') {
+					FlxTimer.wait(0.5, () -> {
+						if (game.health > 0.05) game.set_health(game.health - 0.565);
+						bfStupid.alpha = 1;
+						boyfriend.alpha = 0.00001;
+						bfStupid.playAnim('hit', true);
+						bfStupid.specialAnim = true;
+						bfStupid.animation.finishCallback = function(s:String) {bfStupid.alpha = 0.00001; boyfriend.alpha = 1;}
+					});
+				}
+		}
+	}
+
+	override function stepHit() {
+		super.stepHit();
+
+		if (curStep == 1194) {
+			gf.alpha = 0.5;
+			BaseStage.set_customDeath('maniac_death_zovtan');
+		}
+	}
+
+	// override function update(elapsed:Float) {
+	// 	super.update(elapsed);
+	// }
+
+	override function moveCamera(isDad:Bool) game.defaultCamZoom = (isDad ? 1 : 0.7);
+
+	override function beatHit() {
+		super.beatHit();
+
+		if (curBeat % 2 == 0) uselessJunk.dance();
+	}
+}

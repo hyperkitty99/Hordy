@@ -1,0 +1,84 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				255,
+				-527
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": false,
+			"name": "idle"
+		},
+		{
+			"offsets": [
+				80,
+				-750
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT",
+			"loop": false,
+			"name": "left"
+		},
+		{
+			"offsets": [
+				-452,
+				-1175
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "right"
+		},
+		{
+			"offsets": [
+				28,
+				-679
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singDOWN",
+			"loop": false,
+			"name": "down"
+		},
+		{
+			"offsets": [
+				332,
+				-672
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singUP",
+			"loop": false,
+			"name": "up"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/hordy/hordyLike",
+	"position": [
+		0,
+		0
+	],
+	"icon_offset": [
+		0,
+		15
+	],
+	"healthicon": "horchi",
+	"flip_x": false,
+	"healthbar_colors": [
+		0,
+		141,
+		11
+	],
+	"camera_position": [
+		-160,
+		-180
+	],
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": false
+}

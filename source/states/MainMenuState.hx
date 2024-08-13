@@ -1,6 +1,5 @@
 package states;
 
-
 typedef CharacterInfo = {var x:Int; var y:Int; var name:String; var color:Int;}
 
 class MainMenuState extends MusicBeatState {
@@ -54,7 +53,6 @@ class MainMenuState extends MusicBeatState {
 		barD.flipY = true;
 
 		add(menuItems = new FlxTypedGroup());
-
 		for (i in 0...optionShit.length) {
 			final menuItem:FlxSprite = new FlxSprite(600, (i * 150) + 80);
 			menuItem.frames = Paths.getSparrowAtlas('ui/mainmenu/buttons');

@@ -24,8 +24,9 @@ class OptionsState extends MusicBeatState {
 		add(grpOptions = new FlxTypedGroup<Alphabet>());
 		for (i in 0...options.length) {
 			var optionText:Alphabet = new Alphabet(0, 0, options[i], true);
+			optionText.screenCenter();
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
-			grpOptions.add(optionText).screenCenter();
+			grpOptions.add(optionText);
 		}
 
 		add(selectorLeft = new Alphabet(0, 0, '>', true));
@@ -72,8 +73,9 @@ class OptionsState extends MusicBeatState {
 			if (item.targetY == 0) {
 				item.alpha = 1;
 				selectorLeft.x = item.x - 63;
-				selectorLeft.y = selectorRight.y = item.y;
 				selectorRight.x = item.x + item.width + 15;
+				selectorLeft.y = item.y;
+				selectorRight.y = item.y;
 			}
 		}
 	}

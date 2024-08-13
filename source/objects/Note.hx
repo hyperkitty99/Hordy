@@ -190,6 +190,7 @@ class Note extends FlxSprite
 					noMissAnimation = true;
 				case 'GF Sing':
 					gfNote = true;
+					if (states.PlayState.SONG.song.toLowerCase() == 'poydem viydem') alpha = 0.5;
 				case 'Miss Note':
 					ignoreNote = true;
 				case 'Dynamite Note':

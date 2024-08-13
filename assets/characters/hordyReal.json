@@ -1,125 +1,125 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
+			"loop": false,
 			"fps": 24,
-			"name": "idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				214,
 				-45
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "left0",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "left0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				46,
 				-144
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "down0",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "down0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				46,
 				263
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "up0",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "up0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-75,
 				-16
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "right0",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "right0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				17,
 				-8
 			],
-			"anim": "hit",
+			"loop": false,
 			"fps": 24,
-			"name": "hit",
-			"indices": []
+			"anim": "hit",
+			"indices": [],
+			"name": "hit"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				156,
 				15
 			],
-			"anim": "attack",
+			"loop": false,
 			"fps": 24,
-			"name": "attack",
-			"indices": []
+			"anim": "attack",
+			"indices": [],
+			"name": "attack"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				214,
 				-45
 			],
-			"anim": "singLEFTmiss",
+			"loop": false,
 			"fps": 24,
-			"name": "left miss",
-			"indices": []
+			"anim": "singLEFTmiss",
+			"indices": [],
+			"name": "left miss"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				54,
 				-140
 			],
-			"anim": "singDOWNmiss",
+			"loop": false,
 			"fps": 24,
-			"name": "down miss",
-			"indices": []
+			"anim": "singDOWNmiss",
+			"indices": [],
+			"name": "down miss"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				59,
 				263
 			],
-			"anim": "singUPmiss",
+			"loop": false,
 			"fps": 24,
-			"name": "up miss",
-			"indices": []
+			"anim": "singUPmiss",
+			"indices": [],
+			"name": "up miss"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-73,
 				-36
 			],
-			"anim": "singRIGHTmiss",
+			"loop": false,
 			"fps": 24,
-			"name": "right miss",
-			"indices": []
+			"anim": "singRIGHTmiss",
+			"indices": [],
+			"name": "right miss"
 		}
 	],
 	"vocals_file": "",
@@ -129,20 +129,22 @@
 		0,
 		0
 	],
-	"healthicon": "face",
+	"icon_offset": [
+		0,
+		0
+	],
+	"healthicon": "hordyReal",
 	"flip_x": true,
 	"healthbar_colors": [
-		161,
-		161,
-		161
+		137,
+		86,
+		46
 	],
 	"camera_position": [
 		260,
 		-140
 	],
 	"sing_duration": 4,
-	"icon_offset_x": 0,
-	"icon_offset_y": 0,
 	"scale": 1,
 	"_editor_isPlayer": true
 }

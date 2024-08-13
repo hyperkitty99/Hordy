@@ -30,6 +30,8 @@ class BaseStage extends FlxBasic
 	public var inCutscene(get, set):Bool;
 	public var canPause(get, set):Bool;
 	public var members(get, never):Dynamic;
+	public static var customDeath(get, set):String;
+	public static var deathString:String;
 
 	public var boyfriend(get, never):Character;
 	public var dad(get, never):Character;
@@ -62,7 +64,8 @@ class BaseStage extends FlxBasic
 	public function actualCreatePost() {}
 	//public function update(elapsed:Float) {}
 	public function countdownTick(count:Countdown, num:Int) {}
-	public function opponentNoteHit() {}
+	public function opponentNoteHit(note:objects.Note) {}
+	public function moveCamera(isDad:Bool) {}
 
 	// FNF steps, beats and sections
 	public var curBeat:Int = 0;
@@ -117,9 +120,10 @@ class BaseStage extends FlxBasic
 	function startCountdown() if(onPlayState) return states.PlayState.instance.startCountdown(); else return false;
 	function endSong() if(onPlayState)return states.PlayState.instance.endSong(); else return false;
 	function moveCameraSection() if(onPlayState) moveCameraSection();
-	function moveCamera(isDad:Bool) if(onPlayState) moveCamera(isDad);
 	inline private function get_paused() return game.paused;
 	inline private function get_songName() return game.songName;
+	inline public static function get_customDeath() return deathString;
+	inline public static function set_customDeath(value:String) return deathString = value;
 	inline private function get_isStoryMode() return states.PlayState.isStoryMode;
 	inline private function get_seenCutscene() return states.PlayState.seenCutscene;
 	inline private function get_inCutscene() return game.inCutscene;
