@@ -11,5 +11,5 @@
 	"camera_girlfriend":[130, -80],
 	"camera_speed": 1,
 	"disable_cam_movement": true,
-	"start_camera_pos": [925, 415],
+	"start_camera_pos": [925, 415]
 }

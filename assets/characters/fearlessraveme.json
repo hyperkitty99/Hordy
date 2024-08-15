@@ -1,103 +1,103 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				2,
 				-7
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "idle"
+			"fps": 24,
+			"name": "idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				98,
 				-269
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "left0"
+			"fps": 24,
+			"name": "left0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-21,
 				-240
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "right0"
+			"fps": 24,
+			"name": "right0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-24,
 				-385
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "down0"
+			"fps": 24,
+			"name": "down0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				39,
 				-178
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "up0"
+			"fps": 24,
+			"name": "up0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				98,
 				-269
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFTmiss",
-			"indices": [],
-			"name": "left miss"
+			"fps": 24,
+			"name": "left miss",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-17,
 				-239
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHTmiss",
-			"indices": [],
-			"name": "right miss"
+			"fps": 24,
+			"name": "right miss",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-24,
 				-379
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWNmiss",
-			"indices": [],
-			"name": "down miss"
+			"fps": 24,
+			"name": "down miss",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				41,
 				-178
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUPmiss",
-			"indices": [],
-			"name": "up miss"
+			"fps": 24,
+			"name": "up miss",
+			"indices": []
 		}
 	],
 	"vocals_file": "",
@@ -111,12 +111,12 @@
 		0,
 		0
 	],
-	"healthicon": "sexmusichordymale",
+	"healthicon": "fearlessHordy",
 	"flip_x": false,
 	"healthbar_colors": [
-		232,
-		205,
-		165
+		230,
+		201,
+		177
 	],
 	"camera_position": [
 		290,

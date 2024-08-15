@@ -231,6 +231,9 @@ class PlayState extends MusicBeatState
 	var bgbar:AttachedSprite;
 	var songTxt:FlxText;
 
+	var barrelDistortion = new shaders.BarrelDistortionShader();
+	var canBeat:Bool = false;
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -343,6 +346,8 @@ class PlayState extends MusicBeatState
 			case 'prism': new states.stages.Prism();
 			case 'real': new states.stages.Real();
 			case 'hordyAI': new states.stages.HordyAI();
+			case 'lockin': new states.stages.LockIn();
+			case 'like': new states.stages.Like();
 		}
 
 		add(gfGroup);
@@ -557,7 +562,7 @@ class PlayState extends MusicBeatState
 			for (charSetups in [boyfriendGhost, gfGhost, dadGhost]) {
 				if (charSetups != null) {
 					charSetups.blend = HARDLIGHT;
-					charSetups.alpha = 0.01;
+					charSetups.alpha = 0.00001;
 				}
 			}
 		}
@@ -1339,6 +1344,10 @@ class PlayState extends MusicBeatState
 		{
 			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, Math.exp(-elapsed * 3.125 * camZoomingDecay * playbackRate));
 			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, Math.exp(-elapsed * 3.125 * camZoomingDecay * playbackRate));
+			if (canBeat && ClientPrefs.data.shaders) {
+				barrelDistortion.barrelDistortion1 = FlxMath.lerp(-0.05, barrelDistortion.barrelDistortion1, Math.exp(-elapsed * 3.125 * camZoomingDecay * 	playbackRate));
+				barrelDistortion.barrelDistortion2 = barrelDistortion.barrelDistortion1;
+			}
 		}
 
 		FlxG.watch.addQuick("secShit", curSection);
@@ -1518,6 +1527,7 @@ class PlayState extends MusicBeatState
 				case 'poydem viydem': openSubState(new substates.VideoGameOverSubstate(BaseStage.get_customDeath()));
 				case 'overturn': openSubState(new substates.VideoGameOverSubstate('death', 160));
 				case 'vegetables': openSubState(new substates.LazyGameOverSubstate());
+				case 'vegetables 2': openSubState(new substates.LazyGameOverSubstate());
 				default: openSubState(new GameOverSubstate());
 			}
 
@@ -1554,6 +1564,8 @@ class PlayState extends MusicBeatState
 		if(Math.isNaN(flValue2)) flValue2 = null;
 
 		switch(eventName) {
+			case 'Play Video':
+				playVideo(value1);
 			case 'Set Camera Zoom Source':
 				var zoom:Float = Std.parseFloat(value1);
 				var duration:Float = Std.parseFloat(value2);
@@ -1577,8 +1589,27 @@ class PlayState extends MusicBeatState
 				camBoomIntensity = Std.parseFloat(value2);
 			case 'Camera Flash':
 				if(flValue1 == null) flValue1 = 0;
-
 				if (ClientPrefs.data.flashing) camOther.flash(FlxColor.WHITE, flValue1, null, true);
+
+			case 'Barrel onBeat':
+				var val1:Null<Int> = Std.parseInt(value1);
+				if(val1 == null) val1 = 0;
+
+				switch(Std.parseInt(value1)) {
+					case 1:
+						if (ClientPrefs.data.shaders) {
+							canBeat = true;
+							camGame.setFilters([new ShaderFilter(barrelDistortion)]);
+							camHUD.setFilters([new ShaderFilter(barrelDistortion)]);
+						}
+					default:
+						if (ClientPrefs.data.shaders) {
+							canBeat = false;
+							FlxTween.tween(barrelDistortion, {barrelDistortion1: 0}, 1, {ease: FlxEase.expoOut});
+							camGame.setFilters([new ShaderFilter(barrelDistortion)]);
+							camHUD.setFilters([new ShaderFilter(barrelDistortion)]);
+						}
+				}
 
 			case 'Cinema bars S':
 				var val:Null<Int> = Std.parseInt(value1);
@@ -1954,6 +1985,16 @@ class PlayState extends MusicBeatState
 		return true;
 	}
 
+	public function playVideo(name:String){
+		var video = new PsychVideoSprite();
+		video.load(Paths.video(name), [PsychVideoSprite.muted]);
+		video.scrollFactor.set();
+		video.addCallback('onEnd',()->{video.destroy();});
+		video.camera = camHUD;
+		video.play();
+		insert(members.indexOf(comboGroup), video);
+	}
+
 	public function KillNotes() {
 		while(notes.length > 0) {
 			var daNote:Note = notes.members[0];
@@ -2318,7 +2359,7 @@ class PlayState extends MusicBeatState
 						if (notePNAlt >= 2) {
 							charGhost.alpha = !note.gfNote ? 0.8 : 0.2;
 							charGhost.playAnim(singAnimations[note.noteData], true);
-							dadGhostTween = FlxTween.tween(charGhost, {alpha: 0}, 0.75, {ease: FlxEase.linear, onComplete: function(twn:FlxTween) {dadGhostTween = null;}});
+							dadGhostTween = FlxTween.tween(charGhost, {alpha: 0.00001}, 0.75, {ease: FlxEase.linear, onComplete: function(twn:FlxTween) {dadGhostTween = null;}});
 						}
 					} else {
 						noteLSTAlt = note.strumTime;
@@ -2418,7 +2459,7 @@ class PlayState extends MusicBeatState
 					if (notePN >= 2) {
 						boyfriendGhost.alpha = 0.8;
 						boyfriendGhost.playAnim(singAnimations[note.noteData], true);
-						boyfriendGhostTween = FlxTween.tween(boyfriendGhost, {alpha: 0}, 0.75, {ease: FlxEase.linear, onComplete: function(twn:FlxTween) {boyfriendGhostTween = null;}});
+						boyfriendGhostTween = FlxTween.tween(boyfriendGhost, {alpha: 0.00001}, 0.75, {ease: FlxEase.linear, onComplete: function(twn:FlxTween) {boyfriendGhostTween = null;}});
 					}
 				} else {
 					noteLST = note.strumTime;
@@ -2503,6 +2544,13 @@ class PlayState extends MusicBeatState
 		if (curBeat % camBoomSpeed == 0) {
 			FlxG.camera.zoom += 0.015 * camBoomIntensity;
 			camHUD.zoom += 0.03 * camBoomIntensity;
+		}
+
+		if(canBeat && camZooming && barrelDistortion.barrelDistortion1 < 0.085 && ClientPrefs.data.shaders) {
+			if (curBeat % camBoomSpeed == 0) {
+				barrelDistortion.barrelDistortion1 -= 0.085;
+				barrelDistortion.barrelDistortion2 -= 0.085;
+			}
 		}
 
 		super.beatHit();

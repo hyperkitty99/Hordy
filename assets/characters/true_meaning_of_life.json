@@ -60,10 +60,10 @@
 				31,
 				-109
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "firstDeath",
-			"loop": false,
+			"indices": [],
 			"name": "crazyDeath"
 		}
 	],
@@ -73,6 +73,10 @@
 	"position": [
 		60,
 		190
+	],
+	"icon_offset": [
+		50,
+		10
 	],
 	"healthicon": "real",
 	"flip_x": true,

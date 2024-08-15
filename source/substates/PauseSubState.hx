@@ -107,7 +107,6 @@ class PauseSubState extends MusicBeatSubstate {
 				case "Restart Song":
 					restartSong();
 				case "Leave Charting Mode":
-					restartSong();
 					states.PlayState.chartingMode = false;
 				case 'Skip Time':
 					if(curTime < Conductor.songPosition) {

@@ -1,5 +1,7 @@
 package states.stages;
 
+import objects.HealthIcon;
+
 class Real extends BaseStage {
 	var sky:BGSprite;
 	var ball:BGSprite;
@@ -21,11 +23,11 @@ class Real extends BaseStage {
 		BaseStage.set_customDeath('maniac_death');
 	}
 
+	var gfIcon:HealthIcon;
+
 	override function actualCreatePost() {
 		PlayState.instance.insert(members.indexOf(game.boyfriendGroup) + 1, PlayState.instance.remove(ball));
 		PlayState.instance.insert(members.indexOf(game.dadGroup) + 1, PlayState.instance.remove(light));
-
-		gf.alpha = 0.00001;
 
 		for (i in 1...4) Paths.sound('hit/hit$i');
 			
@@ -33,7 +35,13 @@ class Real extends BaseStage {
 
 		game.boyfriendGroup.add(bfStupid = new objects.Character(0, 0, 'hordyReal', true));
 		game.startCharacterPos(bfStupid);
-		bfStupid.alpha = 0.00001;
+
+		gfIcon = new HealthIcon(game.gf.healthIcon, false);
+		game.uiGroup.add(gfIcon);
+		gfIcon.setPosition(game.healthBar.x - gfIcon.width / 2, game.healthBar.y - 75);
+		gfIcon.offset.set(45, 45);
+
+		for (thing in [gf, bfStupid, gfIcon]) thing.alpha = 0.00001;
 	}
 
 	override function destroy() ClientPrefs.data.noReset = resetKey;
@@ -101,6 +109,8 @@ class Real extends BaseStage {
 			gf.alpha = 0.5;
 			BaseStage.set_customDeath('maniac_death_zovtan');
 		}
+
+		if (curStep == 1205) FlxTween.tween(gfIcon, {alpha: 1}, 0.5, {ease: FlxEase.cubeOut});
 	}
 
 	// override function update(elapsed:Float) {

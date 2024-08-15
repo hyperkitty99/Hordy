@@ -1,84 +1,84 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
-				255,
-				-527
+				-572,
+				-532
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "idle",
-			"loop": false,
-			"name": "idle"
+			"fps": 24,
+			"name": "idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
-				80,
-				-750
+				-1126,
+				-754
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singLEFT",
-			"loop": false,
-			"name": "left"
+			"fps": 24,
+			"name": "left",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
-				-452,
-				-1175
+				-818,
+				-1180
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singRIGHT",
-			"loop": false,
-			"name": "right"
+			"fps": 24,
+			"name": "right",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
-				28,
-				-679
+				-563,
+				-719
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singDOWN",
-			"loop": false,
-			"name": "down"
+			"fps": 24,
+			"name": "down",
+			"indices": []
 		},
 		{
-			"offsets": [
-				332,
-				-672
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singUP",
 			"loop": false,
-			"name": "up"
+			"offsets": [
+				-499,
+				-677
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "up",
+			"indices": []
 		}
 	],
 	"vocals_file": "",
 	"no_antialiasing": false,
 	"image": "characters/hordy/hordyLike",
 	"position": [
-		0,
-		0
+		-440,
+		-40
 	],
 	"icon_offset": [
-		0,
-		15
+		5,
+		10
 	],
-	"healthicon": "horchi",
-	"flip_x": false,
+	"healthicon": "HRD",
+	"flip_x": true,
 	"healthbar_colors": [
-		0,
-		141,
-		11
+		24,
+		138,
+		72
 	],
 	"camera_position": [
-		-160,
-		-180
+		-770,
+		150
 	],
 	"sing_duration": 4,
 	"scale": 1,
-	"_editor_isPlayer": false
+	"_editor_isPlayer": true
 }

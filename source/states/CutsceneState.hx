@@ -11,16 +11,17 @@ class CutsceneState extends MusicBeatState {
             video.setGraphicSize(1280, 720);
             video.updateHitbox();
             video.bitmap.onEndReached.add(Thread.create.bind(() -> {
-                video.destroy();
                 ClientPrefs.data.completedFearless = true;
                 ClientPrefs.saveSettings();
-                states.PlayState.isFreeplay = true;
                 states.PlayState.seenCutscene = false;
 
-                openSubState(new CustomFadeTransition(0.6, false));
-                CustomFadeTransition.finishCallback = function() FlxG.switchState(new states.MainMenuState());
-    
-                FlxG.sound.playMusic(Paths.music('freakyMenu'));
+                flixel.addons.transition.FlxTransitionableState.skipNextTransIn = true;
+                flixel.addons.transition.FlxTransitionableState.skipNextTransOut = true;
+
+                PlayState.SONG = backend.Song.loadFromJson('overturn', 'overturn');
+				FlxG.sound.music.stop();
+
+				MusicBeatState.switchState(new PlayState());
             }));
             video.load(Paths.video('fearless'));
             video.play();

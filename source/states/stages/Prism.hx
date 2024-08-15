@@ -24,6 +24,7 @@ class Prism extends BaseStage {
 	var noteThingy:FlxEmitter;
 	var blackout:FlxSprite;
 	var cutscene:PsychVideoSprite;
+	var stupidAssetInCaseVideoDoesNotLoadInstantly:BGSprite;
 
 	override function create() {
 		add(new BGSprite("bgs/prism/sky", -1280, -535, 0, 0));
@@ -93,9 +94,11 @@ class Prism extends BaseStage {
 		boyfriendGroup.scrollFactor.set(0.7, 0.7);
 		game.useGhost = false;
 
-		ntscShader = new NTSCShader();
-        game.camGame.setFilters([new openfl.filters.ShaderFilter(ntscShader)]);
-		game.camHUD.setFilters([new openfl.filters.ShaderFilter(ntscShader)]);
+		if (ClientPrefs.data.shaders) {
+			ntscShader = new NTSCShader();
+			game.camGame.setFilters([new openfl.filters.ShaderFilter(ntscShader)]);
+			game.camHUD.setFilters([new openfl.filters.ShaderFilter(ntscShader)]);
+		}
 
 		bg.camera = game.camHUD;
 		line.camera = game.camHUD;
@@ -125,8 +128,11 @@ class Prism extends BaseStage {
 		blackout.alpha = 0.00001;
 		add(blackout);
 
+		add(stupidAssetInCaseVideoDoesNotLoadInstantly = new BGSprite("bgs/prism/stupidAssetInCaseVideoDoesNotLoadInstantly"));
+		stupidAssetInCaseVideoDoesNotLoadInstantly.camera = game.camOther;
+
 		add(cutscene = new PsychVideoSprite());
-		cutscene.load(Paths.video('Overturn do cutscene(1)'), [PsychVideoSprite.muted]);
+		cutscene.load(Paths.video('overturn'), [PsychVideoSprite.muted]);
 		cutscene.scrollFactor.set();
 		cutscene.addCallback('onEnd',()->{cutscene.destroy();});
 		cutscene.camera = game.camOther;
@@ -150,6 +156,7 @@ class Prism extends BaseStage {
 	override function opponentNoteHit(note:objects.Note) if (crazyNotes) createNoteSing();
 
 	override function stepHit() {
+		if (curStep == 16) stupidAssetInCaseVideoDoesNotLoadInstantly.destroy();
 		if (curStep == 185) cutscene.camera = game.camHUD;
 		if (curStep == 1312) {
 			for (i in 0...4) {
@@ -177,8 +184,10 @@ class Prism extends BaseStage {
     override function update(elapsed:Float):Void {
         super.update(elapsed);
 
-        frameCount++;
-        ntscShader.uFrame.value = [frameCount];
+		if (ClientPrefs.data.shaders) {
+			frameCount++;
+			ntscShader.uFrame.value = [frameCount];
+		}
 
         skew.shit.value = [(FlxG.camera.scroll.x / 1280) / 14];
 		perspectiveFloor.scale.y = (-(FlxG.camera.scroll.y / 720) * 0.85) + 2.5;
