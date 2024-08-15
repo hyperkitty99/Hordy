@@ -88,7 +88,10 @@ class MainMenuState extends MusicBeatState {
 		if (FlxG.sound.music.volume < 0.8) FlxG.sound.music.volume += 0.5 * elapsed;
 		if (num != prevNum) prevNum = num;
 
-		if (FlxG.keys.justPressed.Z) FlxG.switchState(new PostCreditsState());
+		if(FlxG.keys.justPressed.P) {
+			states.PlayState.practiceMode = !states.PlayState.practiceMode;
+			states.PlayState.practiceMode ? FlxG.sound.play(Paths.sound("zovActive")) : FlxG.sound.play(Paths.sound("zovDeavtiv"));
+		}
 
 		if (!selectedSomethin) {
 			if (controls.UI_UP_P || controls.UI_DOWN_P) changeItem(controls.UI_UP_P ? -1 : 1);

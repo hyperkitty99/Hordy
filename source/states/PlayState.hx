@@ -234,6 +234,7 @@ class PlayState extends MusicBeatState
 
 	public var video:VideoSprite;
 	public var playingVideo(get, never):Bool;
+	public static var practiceMode:Bool = false;
 
 	override public function create()
 	{
@@ -1499,7 +1500,7 @@ class PlayState extends MusicBeatState
 
 	public var isDead:Bool = false; //Don't mess with this on Lua!!!
 	function doDeathCheck(?skipHealthCheck:Bool = false) {
-		if (health <= 0 && !isDead) {
+		if (health <= 0 && !isDead && !practiceMode) {
 			FlxG.animationTimeScale = 1;
 			boyfriend.stunned = true;
 			deathCounter++;
