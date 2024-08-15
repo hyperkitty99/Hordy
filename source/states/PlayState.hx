@@ -81,12 +81,9 @@ class PlayState extends MusicBeatState
 	public var gfMap:Map<String, Character> = new Map<String, Character>();
 	public var variables:Map<String, Dynamic> = new Map<String, Dynamic>();
 
-	public var BF_X:Float = 770;
-	public var BF_Y:Float = 100;
-	public var DAD_X:Float = 100;
-	public var DAD_Y:Float = 100;
-	public var GF_X:Float = 400;
-	public var GF_Y:Float = 130;
+	public var BF_POS  = FlxPoint.get(770.0, 100.0);
+	public var DAD_POS = FlxPoint.get(100.0, 100.0);
+	public var GF_POS  = FlxPoint.get(400.0, 130.0);
 
 	public var songSpeedTween:FlxTween;
 	public var songSpeed(default, set):Float = 1;
@@ -120,7 +117,7 @@ class PlayState extends MusicBeatState
 	//ghost
 	public var dadGhost:Character;
 	public var gfGhost:Character;
-	public var boyfriendGhost:Character;
+	public static var boyfriendGhost:Character;
 
 	public var dadGhostTween:FlxTween;
 	public var boyfriendGhostTween:FlxTween;
@@ -234,6 +231,9 @@ class PlayState extends MusicBeatState
 	var barrelDistortion = new shaders.BarrelDistortionShader();
 	var canBeat:Bool = false;
 
+	public var video:VideoSprite;
+	public var playingVideo(get, never):Bool;
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -279,7 +279,6 @@ class PlayState extends MusicBeatState
 		Conductor.bpm = SONG.bpm;
 
 		GameOverSubstate.resetVariables();
-		if (SONG.song.toLowerCase() == 'vegetables') substates.LazyGameOverSubstate.resetVariables();
 		songName = Paths.formatToSongPath(SONG.song);
 		curStage = SONG.stage;
 
@@ -297,12 +296,9 @@ class PlayState extends MusicBeatState
 		if (stageData.introSoundsSuffix != null)
 			introSoundsSuffix = stageData.introSoundsSuffix;
 
-		BF_X = stageData.boyfriend[0];
-		BF_Y = stageData.boyfriend[1];
-		GF_X = stageData.girlfriend[0];
-		GF_Y = stageData.girlfriend[1];
-		DAD_X = stageData.opponent[0];
-		DAD_Y = stageData.opponent[1];
+		BF_POS.set(stageData.boyfriend[0],  stageData.boyfriend[1]);
+		GF_POS.set(stageData.girlfriend[0], stageData.girlfriend[1]);
+		DAD_POS.set(stageData.opponent[0],  stageData.opponent[1]);
 
 		if(stageData.camera_speed != null)
 			cameraSpeed = stageData.camera_speed;
@@ -331,9 +327,9 @@ class PlayState extends MusicBeatState
 		if (stageData.start_camera_pos == null) 
 			stageData.start_camera_pos = [0, 0];
 
-		boyfriendGroup = new FlxSpriteGroup(BF_X, BF_Y);
-		dadGroup = new FlxSpriteGroup(DAD_X, DAD_Y);
-		gfGroup = new FlxSpriteGroup(GF_X, GF_Y);
+		boyfriendGroup = new FlxSpriteGroup(BF_POS.x, BF_POS.y);
+		dadGroup = new FlxSpriteGroup(DAD_POS.x, DAD_POS.y);
+		gfGroup = new FlxSpriteGroup(GF_POS.x, GF_POS.y);
 
 		switch (curStage)
 		{
@@ -374,7 +370,7 @@ class PlayState extends MusicBeatState
 		if (stageData.hide_boyfriend) boyfriend.visible = false;
 
 		if(dad.curCharacter.startsWith('gf')) {
-			dad.setPosition(GF_X, GF_Y);
+			dad.setPosition(GF_POS.x, GF_POS.y);
 			if(gf != null) gf.visible = false;
 		}
 		stagesFunc(function(stage:BaseStage) stage.createPost());
@@ -488,19 +484,23 @@ class PlayState extends MusicBeatState
 			eventNotes.sort(sortByTime);
 		}
 
-		if (isStoryMode && !seenCutscene) {
+		add(video = new VideoSprite());
+		video.camera = camOther;
+
+		if (!seenCutscene && isStoryMode) {
 			switch (SONG.song.toLowerCase()) {
-				case "ungrowing":
-					startVideo('ungrowing');
-				case "mind blown":
-					startVideo('mind-blown');
-				case "completed":
-					startVideo('completed');
-				default:
+				case "ungrowing": startVideo('ungrowing');
+				case "mind blown": startVideo('mind-blown');
+				case "completed": startVideo('completed');
+				default: 
 					startCallback();
-					seenCutscene = true;
+					endVideo();
 			}
-		} else startCallback();
+		} else if (!seenCutscene && !isStoryMode && SONG.song.toLowerCase() == 'lock in and explode')
+			startVideo('sigma');
+		else 
+			startCallback();
+
 		RecalculateRating();
 
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
@@ -647,7 +647,7 @@ class PlayState extends MusicBeatState
 
 	public function startCharacterPos(char:Character, ?gfCheck:Bool = false) {
 		if(gfCheck && char.curCharacter.startsWith('gf')) { //IF DAD IS GIRLFRIEND, HE GOES TO HER POSITION
-			char.setPosition(GF_X, GF_Y);
+			char.setPosition(GF_POS.x, GF_POS.y);
 			char.scrollFactor.set(0.95, 0.95);
 			char.danceEveryNumBeats = 2;
 		}
@@ -655,44 +655,32 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	public function startVideo(name:String)
-	{
+	@:noCompletion function endVideo() {
+		startAndEnd();
+		seenCutscene = true;
+
+		if (video != null) remove(video);
+		video = flixel.util.FlxDestroyUtil.destroy(video);
+	}
+
+	public function startVideo(name:String) {
 		inCutscene = true;
 
-		var filepath:String = Paths.video(name);
-		if(!OpenFlAssets.exists(filepath))
-		{
-			FlxG.log.warn('Couldnt find video file: ' + name);
-			startAndEnd();
-			return;
+		if (!FileSystem.exists(Paths.video(name))) {
+			FlxG.log.warn('Couldnt find video file: $name');
+			endVideo();
+			return false;
 		}
 
-		var video:VideoSprite;
-		Thread.create(()->
-		{
-			video = new VideoSprite();
-			video.autoScale = false;
-			video.bitmap.onEndReached.add(Thread.create.bind(() ->
-			{
-				video.destroy();
-				seenCutscene = true;
-				startAndEnd();
-				return;
-			}));
-			video.load(filepath);
-			video.play();
-			video.cameras = [camOther];
-			add(video);
-		});
+		video.autoScale = false;
+		video.bitmap.onEndReached.add(endVideo, true);
+		video.load(Paths.video(name));
+		video.play();
+		video.camera = camOther;
+		return true;
 	}
 
-	function startAndEnd()
-	{
-		if(endingSong)
-			endSong();
-		else
-			startCountdown();
-	}
+	inline function startAndEnd() endingSong ? endSong() : startCountdown();
 
 	var startTimer:FlxTimer;
 	var finishTimer:FlxTimer = null;
@@ -1304,6 +1292,8 @@ class PlayState extends MusicBeatState
 			openPauseMenu();
 		}
 
+		if ((controls.PAUSE || controls.ACCEPT) && playingVideo && (startingSong || endingSong)) endVideo();
+
 		if(!endingSong && !inCutscene && allowDebugKeys && !blockControls)
 		{
 			if (controls.justPressed('debug_1'))
@@ -1565,7 +1555,7 @@ class PlayState extends MusicBeatState
 
 		switch(eventName) {
 			case 'Play Video':
-				playVideo(value1);
+				playTVideo(value1);
 			case 'Set Camera Zoom Source':
 				var zoom:Float = Std.parseFloat(value1);
 				var duration:Float = Std.parseFloat(value2);
@@ -1972,7 +1962,7 @@ class PlayState extends MusicBeatState
 
 			if (SONG.song.toLowerCase() == 'fearless' && !seenCutscene) {
 				seenCutscene = true;
-				FlxG.switchState(new states.CutsceneState());
+				FlxG.switchState(new states.CutsceneState('fearless'));
 			} else {
 				isFreeplay = true;
 
@@ -1985,7 +1975,7 @@ class PlayState extends MusicBeatState
 		return true;
 	}
 
-	public function playVideo(name:String){
+	public function playTVideo(name:String) {
 		var video = new PsychVideoSprite();
 		video.load(Paths.video(name), [PsychVideoSprite.muted]);
 		video.scrollFactor.set();
@@ -2498,11 +2488,62 @@ class PlayState extends MusicBeatState
 		backend.NoteTypesConfig.clearNoteTypesData();
 		if (FlxG.camera.bgColor == FlxColor.WHITE) Main.fpsVar.tColor = FlxColor.WHITE;
 		FlxG.camera.bgColor = 0xFF000000;
-		instance = null;
 
 		Paths.clearUnusedMemory();
 		
 		super.destroy();
+
+		BF_POS = flixel.util.FlxDestroyUtil.put(BF_POS);
+		GF_POS = flixel.util.FlxDestroyUtil.put(GF_POS);
+		DAD_POS = flixel.util.FlxDestroyUtil.put(DAD_POS);
+
+		boyfriendMap = CoolUtil.clear(boyfriendMap);
+		dadMap = CoolUtil.clear(dadMap);
+		gfMap = CoolUtil.clear(gfMap);
+		variables = CoolUtil.clear(variables);
+
+		var dynamicArray:Array<Dynamic> = [instance, inst, boyfriendGroup, dadGroup, gfGroup, dad, gf, boyfriend, notes, camFollow, camFollowPos, strumLineNotes, 
+			opponentStrums, playerStrums, grpNoteSplashes, comboGroup, uiGroup, healthBar, timeBar, iconP1, iconP2, camHUD, camGame, camOther, scoreTxt, timeTxt, 
+			startCallback, endCallback, video];
+
+		for (bullshits in dynamicArray) bullshits = null; //kill me
+
+		inline function __stop(s:FlxSound):FlxSound {
+			if (s != null) s.stop();
+			return null;
+		}
+
+		inline function __clearArray<T>(a:Array<T>):Array<T> {
+			if (a != null) while (a.length != 0) a.pop();
+			return null;
+		}
+
+		inline function __cancelTween(t:FlxTween):FlxTween {
+			if (t != null) t.cancel();
+			return null;
+		}
+
+		inline function __cancelTimer(t:FlxTimer):FlxTimer {
+			if (t != null) t.cancel();
+			return null;
+		}
+
+		if (SONG.needsVoices) {
+			vocals = __stop(vocals);
+			opponentVocals = __stop(opponentVocals);
+		}
+
+		songSpeedTween = __cancelTween(songSpeedTween);
+		unspawnNotes = __clearArray(unspawnNotes);
+		eventNotes = __clearArray(eventNotes);
+		ratingsData = __clearArray(ratingsData);
+		scoreTxtTween = __cancelTween(scoreTxtTween);
+		keysPressed = __clearArray(keysPressed);
+		startTimer = __cancelTimer(startTimer);
+		finishTimer = __cancelTimer(finishTimer);
+		noteTypes = __clearArray(noteTypes);
+		eventsPushed = __clearArray(eventsPushed);
+		strumsBlocked = __clearArray(strumsBlocked);
 	}
 
 	var lastStepHit:Int = -1;
@@ -2628,4 +2669,6 @@ class PlayState extends MusicBeatState
 			}
 		updateScore(badHit); // score will only update after rating is calculated, if it's a badHit, it shouldn't bounce
 	}
+
+	@:noCompletion inline function get_playingVideo():Bool return video?.bitmap.isPlaying ?? false;
 }

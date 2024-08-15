@@ -67,11 +67,16 @@
 			"name": "explode nahui"
 		}
 	],
+	"vocals_file": "",
 	"no_antialiasing": false,
 	"image": "characters/nestepasha/nestBurn",
 	"position": [
 		0,
 		0
+	],
+	"icon_offset": [
+		0,
+		15
 	],
 	"healthicon": "bombguy",
 	"flip_x": false,
@@ -85,5 +90,6 @@
 		-160
 	],
 	"sing_duration": 4,
-	"scale": 1
+	"scale": 1,
+	"_editor_isPlayer": false
 }

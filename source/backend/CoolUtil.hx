@@ -99,6 +99,12 @@ class CoolUtil {
 		return '${company}/${flixel.util.FlxSave.validate(FlxG.stage.application.meta.get('file'))}';
 	}
 
+	inline public static function clear<K:Any, V:Any>(map:Map<K, V>):Map<K, V> {
+		if (map != null) map.clear();
+	
+		return null;
+	}
+
 	public static function setTextBorderFromString(text:FlxText, border:String) {
 		switch(border.toLowerCase().trim()) {
 			case 'shadow':

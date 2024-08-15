@@ -85,8 +85,10 @@ class Prism extends BaseStage {
 	}
 
 	override function destroy() {
-		game.camGame.filters = null;
-		game.camHUD.filters = null;
+		if (ClientPrefs.data.shaders) for (leFilters in [game.camGame.filters, game.camHUD.filters]) leFilters = null;
+
+		if (cutscene != null) remove(cutscene);
+		cutscene = flixel.util.FlxDestroyUtil.destroy(cutscene);
 	}
 
 	override function createPost() {

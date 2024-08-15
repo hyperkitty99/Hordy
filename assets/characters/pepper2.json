@@ -105,7 +105,7 @@
 				23,
 				64
 			],
-			"anim": "explode",
+			"anim": "firstDeath",
 			"fps": 24,
 			"name": "explode",
 			"indices": []

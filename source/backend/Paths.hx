@@ -13,7 +13,7 @@ import lime.utils.Assets;
 import flash.media.Sound;
 
 class Paths {
-	public static var dumpExclusions:Array<String> = ['assets/music/freakyMenu.ogg'];
+	public static var dumpExclusions:Array<String> = ['assets/music/freakyMenu.ogg', 'assets/images/alphabet.png'];
 	public static function clearUnusedMemory() {
 		for (key in currentTrackedAssets.keys()) {
 			if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key)) {
