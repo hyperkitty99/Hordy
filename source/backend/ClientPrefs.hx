@@ -43,6 +43,7 @@ import states.TitleState;
 	// public var safeFrames:Float = 5;
 	public var guitarHeroSustains:Bool = false;
 	public var completedFearless:Bool = false;
+	public var completedManiac:Bool = false;
 }
 
 class ClientPrefs {

@@ -1,15 +1,24 @@
 package shaders;
 
-class BarrelDistortionShader extends flixel.system.FlxAssets.FlxShader {
+class BarrelEffect {
+	public var shader:BarrelDistortionEffect = new BarrelDistortionEffect();
+
 	@:isVar public var barrelDistortion1(get, set):Float = 0;
 	@:isVar public var barrelDistortion2(get, set):Float = 0;
 
-	function get_barrelDistortion1() return dis1.value[0];
-	function get_barrelDistortion2() return dis2.value[0];
+	function get_barrelDistortion1() return shader.dis1.value[0];
+	function set_barrelDistortion1(val:Float) return shader.dis1.value[0] = val;
 
-	function set_barrelDistortion1(val:Float) return dis1.value[0] = val;
-	function set_barrelDistortion2(val:Float) return dis2.value[0] = val;
+	function get_barrelDistortion2() return shader.dis2.value[0];
+	function set_barrelDistortion2(val:Float) return shader.dis2.value[0] = val;
+    
+	public function new() {
+		shader.dis1.value[0]  = 0;
+		shader.dis2.value[0] = 0;
+	}
+}
 
+class BarrelDistortionEffect extends flixel.system.FlxAssets.FlxShader {
     @:glFragmentSource('
     #pragma header
     uniform float dis1;

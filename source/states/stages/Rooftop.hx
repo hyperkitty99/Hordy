@@ -53,7 +53,7 @@ class Rooftop extends BaseStage {
 		speaker.scale.set(1.3, 1.3);
 		speaker.flipX = true;
 
-		add(crowdDush = new BGSprite("bgs/hordy/croud_dush", -800, 1150, ['croud dush']));
+		add(crowdDush = new BGSprite("bgs/hordy/croud_dush", -500, 1150, ['croud dush']));
 		crowdDush.scale.set(1.5, 1.5);
 
 		for (sprite in [stage, speaker2, speaker, crowdDush]) sprite.visible = false;

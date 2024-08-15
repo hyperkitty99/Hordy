@@ -66,6 +66,7 @@ class BaseStage extends FlxBasic
 	public function countdownTick(count:Countdown, num:Int) {}
 	public function opponentNoteHit(note:objects.Note) {}
 	public function moveCamera(isDad:Bool) {}
+	public function songEnd() {}
 
 	// FNF steps, beats and sections
 	public var curBeat:Int = 0;
@@ -118,7 +119,7 @@ class BaseStage extends FlxBasic
 
 	// overrides
 	function startCountdown() if(onPlayState) return states.PlayState.instance.startCountdown(); else return false;
-	function endSong() if(onPlayState)return states.PlayState.instance.endSong(); else return false;
+	function endSong() if(onPlayState) return states.PlayState.instance.endSong(); else return false;
 	function moveCameraSection() if(onPlayState) moveCameraSection();
 	inline private function get_paused() return game.paused;
 	inline private function get_songName() return game.songName;

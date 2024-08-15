@@ -92,7 +92,8 @@ class ChartingState extends MusicBeatState
 		['Change Icon', "Value 1: GF icon, leave blank to undo"],
 		['Create Text', "Value 1: Type 3 uppercase letters\nExample: G, H, J\n Character limit: QWERTYUIOPASDFGHJKLZXCVBNM"],
 		['Play Video', "Value 1: video name"],
-		['Barrel onBeat', "Value 1: 1 tru leav blank for false"]
+		['Barrel onBeat', "Value 1: 1 tru leav blank for false"],
+		['Boom', ""]
 	];
 
 	var _file:FileReference;

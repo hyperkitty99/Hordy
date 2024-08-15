@@ -9,117 +9,62 @@
 			"fps": 24,
 			"anim": "idle",
 			"loop": false,
-			"name": "idlenota"
+			"name": "idle"
 		},
 		{
 			"offsets": [
-				-44,
-				-207
+				-47,
+				-209
 			],
 			"indices": [],
 			"fps": 24,
 			"anim": "singUP",
 			"loop": false,
-			"name": "upnota"
+			"name": "up"
 		},
 		{
 			"offsets": [
 				-24,
-				-284
+				-286
 			],
 			"indices": [],
 			"fps": 24,
 			"anim": "singDOWN",
 			"loop": false,
-			"name": "downnota"
+			"name": "down"
 		},
 		{
 			"offsets": [
-				-30,
+				-36,
 				-257
 			],
 			"indices": [],
 			"fps": 24,
 			"anim": "singLEFT",
 			"loop": false,
-			"name": "leftnota"
+			"name": "left"
 		},
 		{
 			"offsets": [
 				-37,
-				-266
+				-267
 			],
 			"indices": [],
 			"fps": 24,
 			"anim": "singRIGHT",
 			"loop": false,
-			"name": "rightnota"
-		},
-		{
-			"offsets": [
-				-30,
-				-148
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "idle-alt",
-			"loop": false,
-			"name": "idlezov"
-		},
-		{
-			"offsets": [
-				-44,
-				-104
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singUP-alt",
-			"loop": false,
-			"name": "upzov"
+			"name": "right"
 		},
 		{
 			"offsets": [
 				-24,
-				-178
+				-250
 			],
 			"indices": [],
 			"fps": 24,
-			"anim": "singDOWN-alt",
+			"anim": "phrase",
 			"loop": false,
-			"name": "downzov"
-		},
-		{
-			"offsets": [
-				-11,
-				-123
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singLEFT-alt",
-			"loop": false,
-			"name": "leftzov"
-		},
-		{
-			"offsets": [
-				-37,
-				-140
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singRIGHT-alt",
-			"loop": false,
-			"name": "rightzov"
-		},
-		{
-			"offsets": [
-				-31,
-				-133
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "transformation",
-			"loop": false,
-			"name": "transformation"
+			"name": "phrase"
 		}
 	],
 	"vocals_file": "",
@@ -128,6 +73,10 @@
 	"position": [
 		140,
 		-160
+	],
+	"icon_offset": [
+		0,
+		0
 	],
 	"healthicon": "guyonthebg",
 	"flip_x": false,

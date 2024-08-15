@@ -3384,6 +3384,7 @@
 		],
 		"player2": "hrochiAI",
 		"player3": null,
+		"arrowSkin": "noteSkins/AI_assets",
 		"song": "Ungrowing AI",
 		"stage": "hordyAI",
 		"validScore": true,

@@ -1,5 +1,6 @@
 package states;
 
+import shaders.BarrelDistortionEffect.BarrelEffect;
 import backend.Highscore;
 import backend.StageData;
 import backend.WeekData;
@@ -228,7 +229,7 @@ class PlayState extends MusicBeatState
 	var bgbar:AttachedSprite;
 	var songTxt:FlxText;
 
-	var barrelDistortion = new shaders.BarrelDistortionShader();
+	var barrelDistortion = new shaders.BarrelDistortionEffect.BarrelEffect();
 	var canBeat:Bool = false;
 
 	public var video:VideoSprite;
@@ -344,6 +345,7 @@ class PlayState extends MusicBeatState
 			case 'hordyAI': new states.stages.HordyAI();
 			case 'lockin': new states.stages.LockIn();
 			case 'like': new states.stages.Like();
+			case 'fearless': new states.stages.Fearless();
 		}
 
 		add(gfGroup);
@@ -1547,6 +1549,8 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	inline public function cameraTransform(fun:FlxCamera->Void) for (cam in [camGame, camHUD]) fun(cam);
+
 	public function triggerEvent(eventName:String, value1:String, value2:String, strumTime:Float) {
 		var flValue1:Null<Float> = Std.parseFloat(value1);
 		var flValue2:Null<Float> = Std.parseFloat(value2);
@@ -1586,18 +1590,18 @@ class PlayState extends MusicBeatState
 				if(val1 == null) val1 = 0;
 
 				switch(Std.parseInt(value1)) {
-					case 1:
-						if (ClientPrefs.data.shaders) {
-							canBeat = true;
-							camGame.setFilters([new ShaderFilter(barrelDistortion)]);
-							camHUD.setFilters([new ShaderFilter(barrelDistortion)]);
-						}
+					case 1: 
+						if (ClientPrefs.data.shaders) canBeat = true;
+
+						cameraTransform(cam -> {
+							if (cam.filters == null) cam.filters = [];
+							cam.filters.push(new ShaderFilter(barrelDistortion.shader));
+						});
+						
 					default:
 						if (ClientPrefs.data.shaders) {
 							canBeat = false;
 							FlxTween.tween(barrelDistortion, {barrelDistortion1: 0}, 1, {ease: FlxEase.expoOut});
-							camGame.setFilters([new ShaderFilter(barrelDistortion)]);
-							camHUD.setFilters([new ShaderFilter(barrelDistortion)]);
 						}
 				}
 
@@ -1902,6 +1906,8 @@ class PlayState extends MusicBeatState
 			if(doDeathCheck()) return false;
 		}
 
+		stagesFunc(function(stage:BaseStage) stage.songEnd());
+
 		flixel.addons.transition.FlxTransitionableState.skipNextTransIn = false;
 		flixel.addons.transition.FlxTransitionableState.skipNextTransOut = false;
 
@@ -1960,9 +1966,13 @@ class PlayState extends MusicBeatState
 		} else {
 			trace('WENT BACK TO FREEPLAY??');
 
+
 			if (SONG.song.toLowerCase() == 'fearless' && !seenCutscene) {
 				seenCutscene = true;
-				FlxG.switchState(new states.CutsceneState('fearless'));
+				FlxG.switchState(new CutsceneState('fearless'));
+			} else if (SONG.song.toLowerCase() == 'overturn' && !seenCutscene && !ClientPrefs.data.completedFearless) {
+				seenCutscene = true;
+				FlxG.switchState(new PostCreditsState());
 			} else {
 				isFreeplay = true;
 

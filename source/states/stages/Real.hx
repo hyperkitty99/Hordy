@@ -24,7 +24,6 @@ class Real extends BaseStage {
 	}
 
 	var gfIcon:HealthIcon;
-
 	override function actualCreatePost() {
 		PlayState.instance.insert(members.indexOf(game.boyfriendGroup) + 1, PlayState.instance.remove(ball));
 		PlayState.instance.insert(members.indexOf(game.dadGroup) + 1, PlayState.instance.remove(light));
@@ -42,6 +41,14 @@ class Real extends BaseStage {
 		gfIcon.offset.set(45, 45);
 
 		for (thing in [gf, bfStupid, gfIcon]) thing.alpha = 0.00001;
+	}
+
+	override function songEnd() {
+		if (!ClientPrefs.data.completedManiac) {
+			ClientPrefs.data.completedManiac = true;
+			ClientPrefs.saveSettings();
+			ClientPrefs.loadPrefs();
+		}
 	}
 
 	override function destroy() ClientPrefs.data.noReset = resetKey;

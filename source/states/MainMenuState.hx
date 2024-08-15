@@ -1,19 +1,20 @@
 package states;
 
+import flixel.util.FlxGradient;
+
 typedef CharacterInfo = {var x:Int; var y:Int; var name:String; var color:Int;}
 
 class MainMenuState extends MusicBeatState {
 	var optionShit:Array<String> = ['story_mode', 'freeplay', 'credits', 'options'];
 
 	var characterShit:Array<CharacterInfo> = [
-		{x: 35, y: 35, name: 'hodry', color: 0xFF75D48A}, {x: 35, y: 65, name: 'melol', color: 0xFF8B5632},
-		{x: -130, y: 5, name: 'nest', color: 0xFF965FA1}, {x: 35, y: 35, name: 'zovtan', color: 0xFF688EDA},
-		{x: -70, y: 35, name: 'notready4sex', color: 0xFF965FA1}, {x: 80, y: 40, name: 'ready4sex', color: 0xFFDBAF5E},
-		{x: 120, y: 63, name: 'fearless', color: 0xFFCF5775}, {x: -5, y: 90, name: 'monak', color: 0xFF965FA1}
+		{x: 65, y: 35, name: 'hodry', color: 0xFF75D48A}, {x: 35, y: 65, name: 'melol', color: 0xFF8B5632},
+		{x: 65, y: 5, name: 'nest', color: 0xFF965FA1}, {x: 35, y: 35, name: 'zovtan', color: 0xFF688EDA},
+		{x: 70, y: 40, name: 'ready4sex', color: 0xFFDBAF5E}
 	];
 
 	public static var curSelected:Int = 0;
-	var num:Int = FlxG.random.int(0, 7);
+	var num:Int;
 	var prevNum:Int;
 	var intendedColor:Int;
 
@@ -30,12 +31,19 @@ class MainMenuState extends MusicBeatState {
 	override function create() {
 		super.create();
 
+		if (ClientPrefs.data.completedFearless) {
+			characterShit.push({x: -70, y: 35, name: 'notready4sex', color: 0xFF965FA1});
+			characterShit.push({x: 120, y: 63, name: 'fearless', color: 0xFFCF5775});
+		}
+
+		if (ClientPrefs.data.completedManiac) characterShit.push({x: -5, y: 90, name: 'monak', color: 0xFF965FA1});
+
 		transIn = flixel.addons.transition.FlxTransitionableState.defaultTransIn;
 		transOut = flixel.addons.transition.FlxTransitionableState.defaultTransOut;
 
 		persistentUpdate = persistentDraw = true;
 
-		while (num == prevNum) num = FlxG.random.int(0, 7);
+		while (num == prevNum) num = FlxG.random.int(0, characterShit.length - 1);
 		prevNum = num;
 
 		add(checker = new flixel.addons.display.FlxBackdrop(flixel.addons.display.FlxGridOverlay.createGrid(60, 60, 120, 120, true, 0xFFF5F5F5, 0xFF7B7599)));
@@ -80,6 +88,8 @@ class MainMenuState extends MusicBeatState {
 		if (FlxG.sound.music.volume < 0.8) FlxG.sound.music.volume += 0.5 * elapsed;
 		if (num != prevNum) prevNum = num;
 
+		if (FlxG.keys.justPressed.Z) FlxG.switchState(new PostCreditsState());
+
 		if (!selectedSomethin) {
 			if (controls.UI_UP_P || controls.UI_DOWN_P) changeItem(controls.UI_UP_P ? -1 : 1);
 
@@ -117,7 +127,7 @@ class MainMenuState extends MusicBeatState {
 		subStateClosed.add((substateThing) ->  if (!(substateThing is backend.CustomFadeTransition)) {
 			selectedSomethin = false;
 
-			while (num == prevNum) num = FlxG.random.int(0, 7);
+			while (num == prevNum) num = FlxG.random.int(0, characterShit.length - 1);
 
 			character.animation.addByPrefix('idle', characterShit[num].name, 0, false);
 			character.animation.play('idle');

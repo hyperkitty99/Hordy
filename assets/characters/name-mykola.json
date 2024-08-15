@@ -1,59 +1,70 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				-95,
 				-133
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "idle"
+			"fps": 24,
+			"name": "idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				42,
 				-155
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "left"
+			"fps": 24,
+			"name": "left",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-113,
 				-149
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "right"
+			"fps": 24,
+			"name": "right",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-14,
 				-190
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "down"
+			"fps": 24,
+			"name": "down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-49,
 				-114
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
+			"fps": 24,
+			"name": "up",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-23,
+				-127
+			],
 			"indices": [],
-			"name": "up"
+			"fps": 24,
+			"anim": "say",
+			"loop": false,
+			"name": "say"
 		}
 	],
 	"vocals_file": "",
@@ -62,6 +73,10 @@
 	"position": [
 		140,
 		-160
+	],
+	"icon_offset": [
+		0,
+		0
 	],
 	"healthicon": "sexmusichordymale",
 	"flip_x": false,
@@ -75,8 +90,6 @@
 		159
 	],
 	"sing_duration": 4,
-	"icon_offset_x": 0,
-	"icon_offset_y": 20,
 	"scale": 1,
 	"_editor_isPlayer": false
 }

@@ -425,11 +425,6 @@
 				57121.7032967033,
 				[
 					[
-						"Play Animation",
-						"transformation",
-						"dad"
-					],
-					[
 						"Set Camera Zoom Source",
 						"0.75",
 						"9"
@@ -437,12 +432,32 @@
 				]
 			],
 			[
-				57725.2747252747,
+				63296.7032967033,
+				[
+					[
+						"Play Animation",
+						"phrase",
+						"dad"
+					]
+				]
+			],
+			[
+				64325.2747252747,
 				[
 					[
 						"Change Character",
-						"1",
+						"dad",
 						"name-mykola"
+					],
+					[
+						"Play Animation",
+						"say",
+						"dad"
+					],
+					[
+						"Boom",
+						"",
+						""
 					]
 				]
 			],

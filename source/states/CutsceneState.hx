@@ -7,8 +7,6 @@ class CutsceneState extends flixel.addons.ui.FlxUIState {
 
         video = new backend.VideoSprite();
         video.bitmap.onEndReached.add(() -> {
-            ClientPrefs.data.completedFearless = true;
-            ClientPrefs.saveSettings();
             states.PlayState.seenCutscene = false;
 
             flixel.addons.transition.FlxTransitionableState.skipNextTransIn = true;
